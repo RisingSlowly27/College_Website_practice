@@ -5,7 +5,7 @@ export default function Index() {
   return (
     <Layout>
       {/* Top Section: Hero Banner containing Left Menu (Sidebar) */}
-      <div className="mx-auto max-w-[1720px] px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+      <div className="mx-auto max-w-[1720px] py-6 lg:py-8 px-0">
         <div className="relative overflow-hidden rounded-[36px] bg-cream shadow-sm">
           <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] lg:aspect-[231/130] max-h-[620px]">
             <img
@@ -40,7 +40,7 @@ export default function Index() {
       </div>
 
       {/* Main Content Area (Full Width below top section) */}
-      <div className="mx-auto max-w-[1720px] px-4 py-8 sm:px-6 lg:px-10 lg:py-12">
+      <div className="mx-auto max-w-[1720px] py-8 lg:py-12 px-0">
         <section id="about" className="grid gap-10 lg:grid-cols-[554px_1fr] lg:items-start lg:gap-16">
           <div>
             <h2 className="text-3xl font-bold text-brand sm:text-[40px]">
@@ -85,7 +85,7 @@ export default function Index() {
         </div>
       </div>
 
-      <section className="px-4 pb-16 sm:px-6 lg:px-10">
+      <section className="pb-16 px-0">
         <div className="relative mx-auto max-w-[1720px] overflow-hidden rounded-[47px] bg-brand-darkest px-6 py-10 sm:px-10 sm:py-14 lg:px-16">
           <img
             src="https://api.builder.io/api/v1/image/assets/TEMP/caad237527a2fd7380152983535da16cd66d15af?width=3446"

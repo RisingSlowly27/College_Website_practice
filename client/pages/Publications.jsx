@@ -288,8 +288,8 @@ export default function Publications() {
 
   return (
     <Layout>
-      {/* Top Section: Left Sidebar nested inside the main Hero Banner (same as Home page) */}
-      <div className="mx-auto max-w-[1720px] px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+      {/* Top Section: Left Sidebar nested inside the main Hero Banner (same as Home page) - NO px padding */}
+      <div className="mx-auto max-w-[1720px] py-6 lg:py-8 px-0">
         <div className="relative overflow-hidden rounded-[36px] bg-cream shadow-sm">
           <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] lg:aspect-[231/130] max-h-[620px]">
             <img
@@ -349,7 +349,7 @@ export default function Publications() {
 
                     <button
                       type="submit"
-                      className="w-full mt-1.5 rounded-xl bg-brand py-2 text-xs font-bold text-white transition hover:bg-brand-dark shadow-sm"
+                      className="w-full mt-2 rounded-xl bg-brand py-2 text-xs font-bold text-white transition hover:bg-brand-dark shadow-sm"
                     >
                       Explore Publications
                     </button>
@@ -363,7 +363,7 @@ export default function Publications() {
                     <h1 className="text-3xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] sm:text-4xl lg:text-[42px] lg:leading-[52px]">
                       {scopeDept === "all" ? COLLEGE_DETAILS.title : scopeProf === "all" ? scopeDept : ALL_PROFESSORS.find(p => p.id.toString() === scopeProf.toString())?.name}
                     </h1>
-                    <p className="text-xs text-white/85 mt-1.5">
+                    <p className="text-xs text-white/85 mt-1.5 font-medium">
                       {scopeDept === "all" ? COLLEGE_DETAILS.subtitle : scopeProf === "all" ? `Showing all research publications from the Department of ${scopeDept}.` : `Showing publications for faculty researcher from Department of ${scopeDept}.`}
                     </p>
                   </div>
@@ -380,9 +380,9 @@ export default function Publications() {
         </div>
       </div>
 
-      {/* Main Explorer Grid: Full Width below top section */}
+      {/* Main Explorer Grid: Full Width below top section - NO px padding */}
       {!showSelector && (
-        <div className="mx-auto max-w-[1720px] px-4 py-8 sm:px-6 lg:px-10 lg:py-12 animate-fadeIn">
+        <div className="mx-auto max-w-[1720px] py-8 lg:py-12 px-0 animate-fadeIn">
           <div className="grid grid-cols-1 xl:grid-cols-4 gap-8 items-start">
             
             {/* 2.1 Left Pane (Profile/Dept/College Card) */}
@@ -486,7 +486,7 @@ export default function Publications() {
             <div className="xl:col-span-2 flex flex-col gap-6">
               {/* Search bar & Counts badge */}
               <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center bg-white border border-cream-dark/40 rounded-2xl px-6 py-4 shadow-sm gap-4">
-                <h3 className="text-base font-bold text-brand leading-none">
+                <h3 className="text-lg font-bold text-brand leading-none">
                   Publications List (<span className="text-brand-gold font-extrabold">{sortedPubs.length}</span>)
                 </h3>
                 <div className="relative flex-1 max-w-xs">
@@ -495,7 +495,7 @@ export default function Publications() {
                     placeholder="Search publications..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full rounded-lg border border-brand/20 bg-white pl-9 pr-4 py-2 text-xs text-black outline-none focus:border-brand"
+                    className="w-full rounded-lg border border-brand/20 bg-white pl-9 pr-4 py-2.5 text-sm text-black outline-none focus:border-brand"
                   />
                   <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -509,48 +509,56 @@ export default function Publications() {
                   {sortedPubs.map((pub) => (
                     <div
                       key={pub.id}
-                      className="bg-white border border-cream-dark/30 rounded-2xl p-5 shadow-sm transition hover:shadow-md"
+                      className="bg-white border border-cream-dark/30 rounded-3xl p-6 shadow-sm transition hover:shadow-md border-t-4 border-t-brand"
                     >
                       <div className="flex items-start justify-between gap-4">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className={`inline-block rounded-full px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider ${
+                        <div className="flex flex-wrap items-center gap-3">
+                          {/* Rich styled, visually appealing color elements for publication types */}
+                          <span className={`inline-block rounded-full px-4 py-1 text-xs font-bold uppercase tracking-wider ${
                             pub.type === "Journal Paper"
-                              ? "bg-brand/10 text-brand"
+                              ? "bg-blue-600/10 text-blue-700 border border-blue-600/20"
                               : pub.type === "Conference Paper"
-                              ? "bg-brand-gold/10 text-brand-gold"
-                              : "bg-black/10 text-black/60"
+                              ? "bg-amber-600/10 text-amber-700 border border-amber-600/20"
+                              : pub.type === "Book Chapter"
+                              ? "bg-purple-600/10 text-purple-700 border border-purple-600/20"
+                              : "bg-teal-600/10 text-teal-700 border border-teal-600/20"
                           }`}>
                             {pub.type}
                           </span>
                           {pub.year > 0 && (
-                            <span className="text-[10px] font-bold text-black/40">Year: {pub.year}</span>
+                            <span className="bg-brand text-white border border-brand/20 px-3 py-0.5 text-xs font-bold rounded-md shadow-sm">
+                              {pub.year}
+                            </span>
                           )}
                         </div>
                       </div>
 
-                      <h4 className="text-base font-bold text-brand mt-3 leading-snug">
+                      {/* Bigger, more appealing publication title text */}
+                      <h4 className="text-xl font-extrabold text-brand-dark mt-4 leading-snug hover:text-brand transition-colors">
                         {pub.title}
                       </h4>
 
-                      <p className="text-xs text-black/75 font-medium mt-2">
-                        <span className="font-bold text-black/90">Authors: </span>
+                      {/* Styled authors segment */}
+                      <p className="text-sm font-medium text-black/80 mt-3.5 leading-relaxed">
+                        <span className="text-brand font-bold mr-1.5">Authors:</span>
                         {pub.authors}
                       </p>
 
-                      <p className="text-xs text-black/50 italic mt-1 leading-normal">
-                        <span className="font-semibold text-black/65">Published in: </span>
+                      {/* Styled published venue segment */}
+                      <p className="text-sm text-black/70 mt-1.5 leading-relaxed italic">
+                        <span className="text-brand font-bold mr-1.5 not-italic">Published in:</span>
                         {pub.journal}
                       </p>
 
                       {/* Accordion details toggle */}
-                      <div className="flex items-center justify-between mt-4 pt-3 border-t border-cream-dark/20 gap-3">
+                      <div className="flex items-center justify-between mt-5 pt-4 border-t border-cream-dark/20 gap-3">
                         <button
                           onClick={() => toggleDetails(pub.id)}
-                          className={`inline-flex items-center gap-1 text-[11px] font-bold ${
+                          className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold ${
                             expandedPubIds[pub.id] ? "text-brand-gold" : "text-brand"
-                          } hover:underline`}
+                          } hover:underline transition-colors`}
                         >
-                          <svg className={`h-3.5 w-3.5 transition-transform ${expandedPubIds[pub.id] ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <svg className={`h-4 w-4 transition-transform ${expandedPubIds[pub.id] ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                           </svg>
                           {expandedPubIds[pub.id] ? "Hide Details" : "Show Details"}
@@ -561,10 +569,10 @@ export default function Publications() {
                             href={pub.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3 py-1.5 text-xs font-bold text-white transition hover:bg-brand-dark"
+                            className="inline-flex items-center gap-2 rounded-xl bg-brand px-4 py-2 text-xs sm:text-sm font-bold text-white transition hover:bg-brand-dark shadow-md"
                           >
                             View Paper
-                            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                           </a>
@@ -573,28 +581,30 @@ export default function Publications() {
 
                       {/* Accordion Detailed Metadata Block */}
                       {expandedPubIds[pub.id] && (
-                        <div className="bg-cream/20 border border-brand/10 rounded-xl p-4 mt-4 text-xs text-black/75 animate-slideDown">
-                          <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                        <div className="bg-cream/10 border border-brand/20 rounded-2xl p-5 mt-4 text-sm text-black/85 animate-slideDown shadow-inner">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3.5">
                             <div className="flex flex-col">
-                              <span className="font-bold text-brand">DOI Link</span>
-                              <span className="text-[11px] truncate" title={pub.url}>{pub.url || "N/A"}</span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">DOI Link</span>
+                              <a href={pub.url} target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-blue-600 hover:underline truncate" title={pub.url}>
+                                {pub.url || "N/A"}
+                              </a>
                             </div>
                             <div className="flex flex-col">
-                              <span className="font-bold text-brand">Publication Type</span>
-                              <span>{pub.type}</span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Publication Type</span>
+                              <span className="font-semibold text-black">{pub.type}</span>
                             </div>
                             <div className="flex flex-col">
-                              <span className="font-bold text-brand">Volume / Issue</span>
-                              <span>12 / 4 (Default)</span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Volume / Issue</span>
+                              <span className="font-semibold text-black">12 / 4 (Default)</span>
                             </div>
                             <div className="flex flex-col">
-                              <span className="font-bold text-brand">SCI/Scopus Indexed</span>
-                              <span>Yes</span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">SCI/Scopus Indexed</span>
+                              <span className="font-semibold text-black">Yes</span>
                             </div>
-                            <div className="flex flex-col col-span-2">
-                              <span className="font-bold text-brand">Full Citation</span>
-                              <span className="text-[11px] text-justify leading-relaxed mt-0.5">
-                                {pub.authors} ({pub.year}). "{pub.title}". <i>{pub.journal}</i>.
+                            <div className="flex flex-col col-span-1 md:col-span-2 pt-2.5 border-t border-cream-dark/10">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-1">Full Citation</span>
+                              <span className="text-xs sm:text-sm text-justify leading-relaxed text-black/90">
+                                {pub.authors} ({pub.year}). "{pub.title}". <span className="font-semibold italic text-brand-dark">{pub.journal}</span>.
                               </span>
                             </div>
                           </div>
@@ -624,7 +634,7 @@ export default function Publications() {
                 <select
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value)}
-                  className="w-full rounded-lg border border-brand/20 bg-white px-3 py-2 text-xs font-semibold text-brand outline-none focus:border-brand cursor-pointer"
+                  className="w-full rounded-lg border border-brand/20 bg-white px-3 py-2 text-sm font-semibold text-brand outline-none focus:border-brand cursor-pointer"
                 >
                   <option value="year-desc">Year (Newest)</option>
                   <option value="year-asc">Year (Oldest)</option>
@@ -646,14 +656,14 @@ export default function Publications() {
                     <button
                       key={item.type}
                       onClick={() => setSelectedType(item.type)}
-                      className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold transition-all text-left ${
+                      className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-bold transition-all text-left ${
                         selectedType === item.type
                           ? "bg-brand/10 border-l-4 border-brand-gold text-brand"
                           : "text-black hover:bg-cream/15"
                       }`}
                     >
                       <span>{item.label}</span>
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                      <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full ${
                         selectedType === item.type
                           ? "bg-brand text-white"
                           : "bg-cream-dark text-black/60"

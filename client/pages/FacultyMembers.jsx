@@ -112,7 +112,7 @@ export default function FacultyMembers() {
   return (
     <Layout>
       {/* Top Section: Sidebar nested INSIDE the main Hero Banner (same as Home page) */}
-      <div className="mx-auto max-w-[1720px] px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+      <div className="mx-auto max-w-[1720px] py-6 lg:py-8 px-0">
         <div className="relative overflow-hidden rounded-[36px] bg-cream shadow-sm">
           <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] lg:aspect-[231/130] max-h-[620px]">
             <img
@@ -171,7 +171,7 @@ export default function FacultyMembers() {
       </div>
 
       {/* Main Grid: Full Width below top section */}
-      <div className="mx-auto max-w-[1720px] px-4 py-8 sm:px-6 lg:px-10 lg:py-12">
+      <div className="mx-auto max-w-[1720px] py-8 lg:py-12 px-0">
         {filteredFaculty.length > 0 ? (
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {filteredFaculty.map((faculty) => (
