@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Layout from "@/components/site/Layout";
 import Sidebar from "@/components/site/Sidebar";
 import publicationsData from "@/lib/publications-data.json";
@@ -57,7 +58,8 @@ const PROFESSORS_DATA = {
       phone: "0332668-576",
       research: "Software Engineering, Digital Geometry, Data Structures, Algorithms",
       color: "hsl(346, 70%, 30%)",
-      initials: "AS"
+      initials: "AS",
+      image: "/assets/faculty/faculty_4.jpg"
     },
     {
       id: 36,
@@ -67,7 +69,8 @@ const PROFESSORS_DATA = {
       phone: "+91 - 33 - 2668 4561 Ext. 575",
       research: "Formal Circuit Verification, Digital Geometry, Compiler Design",
       color: "hsl(39, 70%, 30%)",
-      initials: "MH"
+      initials: "MH",
+      image: "/assets/faculty/faculty_3.jpg"
     },
     {
       id: 38,
@@ -77,7 +80,8 @@ const PROFESSORS_DATA = {
       phone: "000000-000",
       research: "Fake News Detection, Chemical Equation Segmentation, Cyber Security",
       color: "hsl(200, 70%, 30%)",
-      initials: "AL"
+      initials: "AL",
+      image: "/assets/faculty/faculty_1.jpg"
     }
   ],
   "Information Technology": [
@@ -89,7 +93,8 @@ const PROFESSORS_DATA = {
       phone: "+91-33-2668-4561",
       research: "Wireless Sensor Networks, Energy Efficient Routing, IoT Security",
       color: "hsl(120, 50%, 30%)",
-      initials: "IB"
+      initials: "IB",
+      image: "/assets/faculty/faculty_1.jpg"
     },
     {
       id: 42,
@@ -99,7 +104,8 @@ const PROFESSORS_DATA = {
       phone: "+91-33-2668-4561",
       research: "Medical Image Registration, Authorship Attribution, Bengali NLP",
       color: "hsl(280, 50%, 30%)",
-      initials: "AB"
+      initials: "AB",
+      image: "/assets/faculty/faculty_3.jpg"
     },
     {
       id: 44,
@@ -109,7 +115,8 @@ const PROFESSORS_DATA = {
       phone: "+91-33-2668-4561",
       research: "Network-on-Chip (NoC) Design, Image Watermarking, Hardware Security",
       color: "hsl(340, 60%, 30%)",
-      initials: "PG"
+      initials: "PG",
+      image: "/assets/faculty/faculty_2.jpg"
     }
   ],
   "Electrical Engineering": [
@@ -121,7 +128,8 @@ const PROFESSORS_DATA = {
       phone: "+91-33-2668-4561",
       research: "Smart Hybrid Microgrids, Solar PV Voltage Stability, Ramp-Rate Control",
       color: "hsl(10, 70%, 35%)",
-      initials: "KD"
+      initials: "KD",
+      image: "/assets/faculty/faculty_2.jpg"
     },
     {
       id: 48,
@@ -131,7 +139,8 @@ const PROFESSORS_DATA = {
       phone: "+91-33-2668-4561",
       research: "Power System Dynamics, Smart Grid Optimization, Grid Security State Predictor",
       color: "hsl(210, 60%, 35%)",
-      initials: "AD"
+      initials: "AD",
+      image: "/assets/faculty/faculty_1.jpg"
     },
     {
       id: 50,
@@ -141,7 +150,8 @@ const PROFESSORS_DATA = {
       phone: "+91-33-2668-4561",
       research: "Induction Motor Design Optimization, Power Flow Capacity Estimation",
       color: "hsl(160, 50%, 30%)",
-      initials: "AM"
+      initials: "AM",
+      image: "/assets/faculty/faculty_3.jpg"
     }
   ]
 };
@@ -150,14 +160,16 @@ const PROFESSORS_DATA = {
 const ALL_PROFESSORS = Object.values(PROFESSORS_DATA).flat();
 
 export default function Publications() {
+  const [searchParams] = useSearchParams();
+
   // Navigation Stage: FALSE = already opened by default on Stage 2 Explorer Grid
   const [showSelector, setShowSelector] = useState(false);
 
-  // Selection form filter states (All by default)
+  // Selection form filter states
   const [selectedDept, setSelectedDept] = useState("all");
   const [selectedProf, setSelectedProf] = useState("all");
 
-  // Active explorer states (All by default)
+  // Active explorer states
   const [scopeDept, setScopeDept] = useState("all");
   const [scopeProf, setScopeProf] = useState("all");
 
@@ -169,12 +181,34 @@ export default function Publications() {
   // Accordion details visibility mapping
   const [expandedPubIds, setExpandedPubIds] = useState({});
 
+  // Sync state with URL search params when they change
+  useEffect(() => {
+    const dept = searchParams.get("dept") || "all";
+    const prof = searchParams.get("prof") || "all";
+    setSelectedDept(dept);
+    setSelectedProf(prof);
+    setScopeDept(dept);
+    setScopeProf(prof);
+    setSearchQuery("");
+    setSelectedType("all");
+    setExpandedPubIds({});
+    setShowSelector(false);
+  }, [searchParams]);
+
   // 1. Dynamic dropdown professor filter
   const selectDeptProfessors = selectedDept === "all" ? [] : PROFESSORS_DATA[selectedDept] || [];
 
-  // Reset selected professor if department switches
+  // Reset selected professor if department switches and the selected professor does not belong to the selected department
   useEffect(() => {
-    setSelectedProf("all");
+    if (selectedDept === "all") {
+      setSelectedProf("all");
+    } else {
+      const profs = PROFESSORS_DATA[selectedDept] || [];
+      const belongs = profs.some(p => p.id.toString() === selectedProf.toString());
+      if (!belongs && selectedProf !== "all") {
+        setSelectedProf("all");
+      }
+    }
   }, [selectedDept]);
 
   // Form submit handler
@@ -448,36 +482,56 @@ export default function Publications() {
                 )}
 
                 {scopeProfile.type === "professor" && (
-                  <>
-                    <div
-                      className="h-20 w-20 rounded-full flex items-center justify-center mx-auto mb-5 text-white text-2xl font-bold shadow-md"
-                      style={{ backgroundColor: scopeProfile.details.color }}
-                    >
-                      {scopeProfile.details.initials}
+                  <div className="group text-left">
+                    {/* Photo Container with Figma Leaf shape & Offset Maroon Box */}
+                    <div className="relative mx-auto w-full aspect-square max-w-[200px] mb-8">
+                      {/* Background frame */}
+                      <div className="absolute inset-0 translate-x-[-8px] translate-y-[8px] rounded-[90px_0_90px_90px] bg-brand transition-transform duration-300 group-hover:translate-x-[-12px] group-hover:translate-y-[12px]" />
+                      {/* Image border/container */}
+                      <div className="absolute inset-0 overflow-hidden rounded-[90px_0_90px_90px] border-4 border-white bg-cream-light shadow-inner">
+                        <img
+                          src={scopeProfile.details.image || "/placeholder.svg"}
+                          alt={scopeProfile.details.name}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-108"
+                          onError={(e) => {
+                            e.target.src = "/placeholder.svg";
+                          }}
+                        />
+                      </div>
                     </div>
-                    <h3 className="text-lg font-extrabold text-brand-dark leading-snug">{scopeProfile.details.name}</h3>
-                    <p className="text-xs font-semibold text-brand-gold uppercase tracking-wide mt-1">{scopeProfile.details.designation}</p>
-                    <hr className="my-5 border-cream-dark/30" />
-                    <div className="text-left mb-5">
-                      <div className="text-[10px] font-bold text-black/40 uppercase tracking-wide mb-1">Research Specialization</div>
-                      <p className="text-xs text-black/70 leading-relaxed text-justify">{scopeProfile.details.research}</p>
+
+                    {/* Card Content */}
+                    <div className="flex flex-col">
+                      <h3 className="text-xl font-bold text-brand leading-snug group-hover:underline">
+                        {scopeProfile.details.name}
+                      </h3>
+                      <p className="mt-1 text-sm font-semibold text-brand/85">
+                        {scopeProfile.details.designation}
+                      </p>
+                      <p className="mt-2 text-xs text-black/50 leading-normal">
+                        {scopeDept}
+                      </p>
+
+                      <div className="mt-4 pt-4 border-t border-cream-dark/30 space-y-2 text-xs text-black/75">
+                        <p className="flex items-center gap-1.5 truncate">
+                          <span className="font-semibold text-brand">Mail:</span>
+                          <a href={`mailto:${scopeProfile.details.email}`} className="hover:underline hover:text-brand truncate">
+                            {scopeProfile.details.email}
+                          </a>
+                        </p>
+                        <p className="flex items-center gap-1.5">
+                          <span className="font-semibold text-brand">Phone:</span>
+                          <span>{scopeProfile.details.phone}</span>
+                        </p>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-cream-dark/20">
+                        <p className="text-[11px] text-black/60 italic" title={scopeProfile.details.research}>
+                          {scopeProfile.details.research}
+                        </p>
+                      </div>
                     </div>
-                    <hr className="my-5 border-cream-dark/30" />
-                    <div className="space-y-2.5 text-left text-xs text-black/85">
-                      <p className="flex items-center gap-2">
-                        <span className="font-bold text-brand">Email:</span>
-                        <a href={`mailto:${scopeProfile.details.email}`} className="hover:underline hover:text-brand truncate">{scopeProfile.details.email}</a>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <span className="font-bold text-brand">Phone:</span>
-                        <span>{scopeProfile.details.phone}</span>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <span className="font-bold text-brand">Dept:</span>
-                        <span>{scopeDept}</span>
-                      </p>
-                    </div>
-                  </>
+                  </div>
                 )}
               </div>
             </div>

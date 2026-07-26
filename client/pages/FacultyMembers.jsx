@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "@/components/site/Layout";
 import Sidebar from "@/components/site/Sidebar";
 
@@ -95,7 +96,21 @@ const facultyList = [
   }
 ];
 
+const FACULTY_ID_MAP = {
+  "Apurba Sarkar": 34,
+  "Ashish Kumar Layek": 38,
+};
+
+const getPublicationUrl = (faculty) => {
+  const mappedId = FACULTY_ID_MAP[faculty.name];
+  if (mappedId) {
+    return `/publication?dept=${encodeURIComponent(faculty.department)}&prof=${mappedId}`;
+  }
+  return `/publication?dept=${encodeURIComponent(faculty.department)}&prof=all`;
+};
+
 export default function FacultyMembers() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [designationFilter, setDesignationFilter] = useState("All");
 
@@ -177,7 +192,8 @@ export default function FacultyMembers() {
             {filteredFaculty.map((faculty) => (
               <div
                 key={faculty.name}
-                className="group flex flex-col rounded-3xl bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-cream/40 transition hover:shadow-[0_15px_40px_rgba(90,11,29,0.06)]"
+                onClick={() => navigate(getPublicationUrl(faculty))}
+                className="group flex flex-col rounded-3xl bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-cream/40 transition hover:shadow-[0_15px_40px_rgba(90,11,29,0.06)] cursor-pointer"
               >
                 {/* Photo Container with Figma Leaf shape & Offset Maroon Box */}
                 <div className="relative mx-auto w-full aspect-square max-w-[200px] mb-8">
@@ -211,7 +227,11 @@ export default function FacultyMembers() {
                   <div className="mt-4 pt-4 border-t border-cream-dark/30 space-y-2 text-xs text-black/75">
                     <p className="flex items-center gap-1.5 truncate">
                       <span className="font-semibold text-brand">Mail:</span>
-                      <a href={`mailto:${faculty.email}`} className="hover:underline hover:text-brand">
+                      <a 
+                        href={`mailto:${faculty.email}`} 
+                        onClick={(e) => e.stopPropagation()} 
+                        className="hover:underline hover:text-brand"
+                      >
                         {faculty.email}
                       </a>
                     </p>
