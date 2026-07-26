@@ -483,9 +483,9 @@ export default function Publications() {
             </div>
 
             {/* 2.2 Center Pane (Publications list) */}
-            <div className="xl:col-span-2 flex flex-col gap-6">
-              {/* Search bar & Counts badge */}
-              <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center bg-white border border-cream-dark/40 rounded-2xl px-6 py-4 shadow-sm gap-4">
+            <div className="xl:col-span-2 relative flex flex-col h-[750px] bg-white border border-cream-dark/40 rounded-[32px] shadow-sm overflow-hidden">
+              {/* Search bar & Counts badge - Absolute positioning at top */}
+              <div className="absolute top-0 left-0 right-0 z-10 flex flex-col sm:flex-row justify-between items-stretch sm:items-center bg-white border-b border-cream-dark/20 px-6 py-5 gap-4">
                 <h3 className="text-lg font-bold text-brand leading-none">
                   Publications List (<span className="text-brand-gold font-extrabold">{sortedPubs.length}</span>)
                 </h3>
@@ -503,10 +503,10 @@ export default function Publications() {
                 </div>
               </div>
 
-              {/* Publications Card List */}
-              {sortedPubs.length > 0 ? (
-                <div className="flex flex-col gap-5">
-                  {sortedPubs.map((pub) => (
+              {/* Scrollable Publications Card List - Offset by header height */}
+              <div className="flex-1 overflow-y-auto mt-[120px] sm:mt-[80px] px-6 pb-6 pt-2 flex flex-col gap-5 scrollbar-thin">
+                {sortedPubs.length > 0 ? (
+                  sortedPubs.map((pub) => (
                     <div
                       key={pub.id}
                       className="bg-white border border-cream-dark/30 rounded-3xl p-6 shadow-sm transition hover:shadow-md border-t-4 border-t-brand"
@@ -611,19 +611,19 @@ export default function Publications() {
                         </div>
                       )}
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="py-16 text-center rounded-2xl border border-dashed border-brand/20 bg-cream/10">
-                  <p className="text-sm font-medium text-black/55">No publications found matching your active criteria.</p>
-                  <button
-                    onClick={() => { setSearchQuery(""); setSelectedType("all"); }}
-                    className="mt-3 px-4 py-2 rounded-lg bg-brand text-white font-bold text-xs hover:bg-brand-dark transition"
-                  >
-                    Reset Search Filters
-                  </button>
-                </div>
-              )}
+                  ))
+                ) : (
+                  <div className="py-16 text-center rounded-2xl border border-dashed border-brand/20 bg-cream/10">
+                    <p className="text-sm font-medium text-black/55">No publications found matching your active criteria.</p>
+                    <button
+                      onClick={() => { setSearchQuery(""); setSelectedType("all"); }}
+                      className="mt-3 px-4 py-2 rounded-lg bg-brand text-white font-bold text-xs hover:bg-brand-dark transition"
+                    >
+                      Reset Search Filters
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* 2.3 Right Pane (Sort & Category Tabs) */}
