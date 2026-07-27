@@ -5,51 +5,6 @@ import Sidebar from "@/components/site/Sidebar";
 
 const facultyList = [
   {
-    name: "Sekhar Mandal",
-    designation: "Professor & Head of Department",
-    department: "Computer Science and Technology",
-    email: "sekhar@cs.iiests.ac.in",
-    ext: "+91 - 33 - 2668 4561 Ext. 576",
-    specialization: "Document Image Analysis, Computer Vision, Pattern Recognition",
-    image: "/assets/faculty/faculty_3.jpg"
-  },
-  {
-    name: "Jaya Sil",
-    designation: "Professor",
-    department: "Computer Science and Technology",
-    email: "jaya@cs.iiests.ac.in",
-    ext: "+91 - 33 - 2668 4561 Ext. 560",
-    specialization: "Image Processing, Soft Computing, Bioinformatics",
-    image: "/assets/faculty/faculty_2.jpg"
-  },
-  {
-    name: "Asit Kumar Das",
-    designation: "Professor",
-    department: "Computer Science and Technology",
-    email: "asit@cs.iiests.ac.in",
-    ext: "+91 - 33 - 2668 4561 Ext. 582",
-    specialization: "Data Mining, Machine Learning, Bioinformatics",
-    image: "/assets/faculty/faculty_1.jpg"
-  },
-  {
-    name: "Biplab Kumar Sikdar",
-    designation: "Professor",
-    department: "Computer Science and Technology",
-    email: "biplab@cs.iiests.ac.in",
-    ext: "+91 - 33 - 2668 4561 Ext. 565",
-    specialization: "VLSI Design, Testing and Verification",
-    image: "/assets/faculty/faculty_3.jpg"
-  },
-  {
-    name: "Abhik Mukherjee",
-    designation: "Associate Professor",
-    department: "Computer Science and Technology",
-    email: "abhik@cs.iiests.ac.in",
-    ext: "+91 - 33 - 2684561/62/63",
-    specialization: "Computer Networks, Cloud Computing, Distributed Systems",
-    image: "/assets/faculty/faculty_1.jpg"
-  },
-  {
     name: "Apurba Sarkar",
     designation: "Associate Professor",
     department: "Computer Science and Technology",
@@ -77,40 +32,13 @@ const facultyList = [
     image: "/assets/faculty/surajeetSir.webp"
   },
   {
-    name: "Malay Kule",
-    designation: "Associate Professor",
-    department: "Computer Science and Technology",
-    email: "malay@cs.iiests.ac.in",
-    ext: "+91 - 33 - 2668 4561 Ext. 570",
-    specialization: "Reconfigurable Computing, VLSI Design",
-    image: "/assets/faculty/faculty_1.jpg"
-  },
-  {
-    name: "Amit Kumar Das",
-    designation: "Associate Professor",
-    department: "Computer Science and Technology",
-    email: "amit@cs.iiests.ac.in",
-    ext: "+91 - 33 - 2668 4561 Ext. 572",
-    specialization: "Cloud Computing, Wireless Networks",
-    image: "/assets/faculty/faculty_3.jpg"
-  },
-  {
-    name: "Amit Biswas",
-    designation: "Assistant Professor",
-    department: "Computer Science and Technology",
-    email: "amitbiswas.cs@faculty.iiests.ac.in",
-    ext: "+00 - 00 - 00000/00/00",
-    specialization: "Machine Learning, Computer Vision, Speech Processing",
-    image: "/assets/faculty/faculty_4.jpg"
-  },
-  {
     name: "Ashish Kumar Layek",
     designation: "Assistant Professor",
     department: "Computer Science and Technology",
     email: "ashish@cs.iiests.ac.in",
     ext: "000000-000",
     specialization: "Cyber Security, Cryptography, Blockchain",
-    image: "/assets/faculty/faculty_1.jpg"
+    image: "/assets/faculty/ashishlayek_cst.webp"
   }
 ];
 

@@ -59,7 +59,7 @@ const PROFESSORS_DATA = {
       research: "Software Engineering, Digital Geometry, Data Structures, Algorithms",
       color: "hsl(346, 70%, 30%)",
       initials: "AS",
-      image: "/assets/faculty/faculty_4.jpg"
+      image: "/assets/faculty/ApurbaSir.webp"
     },
     {
       id: 36,
@@ -70,7 +70,7 @@ const PROFESSORS_DATA = {
       research: "Formal Circuit Verification, Digital Geometry, Compiler Design",
       color: "hsl(39, 70%, 30%)",
       initials: "MH",
-      image: "/assets/faculty/faculty_3.jpg"
+      image: "/assets/faculty/ManasSir.webp"
     },
     {
       id: 38,
@@ -81,7 +81,7 @@ const PROFESSORS_DATA = {
       research: "Fake News Detection, Chemical Equation Segmentation, Cyber Security",
       color: "hsl(200, 70%, 30%)",
       initials: "AL",
-      image: "/assets/faculty/faculty_1.jpg"
+      image: "/assets/faculty/ashishlayek_cst.webp"
     }
   ],
   "Information Technology": [
