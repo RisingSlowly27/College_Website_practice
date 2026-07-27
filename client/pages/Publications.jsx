@@ -482,54 +482,53 @@ export default function Publications() {
                 )}
 
                 {scopeProfile.type === "professor" && (
-                  <div className="group text-left">
+                  <div className="group text-center">
                     {/* Photo Container with Figma Leaf shape & Offset Maroon Box */}
-                    <div className="relative mx-auto w-full aspect-square max-w-[200px] mb-8">
+                    <div className="relative mx-auto aspect-square w-[87%] pt-[8%] mb-4">
                       {/* Background frame */}
-                      <div className="absolute inset-0 translate-x-[-8px] translate-y-[8px] rounded-[90px_0_90px_90px] bg-brand transition-transform duration-300 group-hover:translate-x-[-12px] group-hover:translate-y-[12px]" />
-                      {/* Image border/container */}
-                      <div className="absolute inset-0 overflow-hidden rounded-[90px_0_90px_90px] border-4 border-white bg-cream-light shadow-inner">
-                        <img
-                          src={scopeProfile.details.image || "/placeholder.svg"}
-                          alt={scopeProfile.details.name}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-108"
-                          onError={(e) => {
-                            e.target.src = "/placeholder.svg";
-                          }}
-                        />
-                      </div>
+                      <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-tl-[48%] rounded-br-[62%] bg-gradient-to-b from-brand to-neutral-900 shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] transition duration-300 group-hover:translate-x-3 group-hover:translate-y-3" />
+                      {/* Image */}
+                      <img
+                        src={scopeProfile.details.image || "/placeholder.svg"}
+                        alt={scopeProfile.details.name}
+                        className="absolute inset-0 h-full w-full rounded-tl-[48%] rounded-br-[62%] object-cover shadow-[0_2px_4px_0_rgba(0,0,0,0.15)] transition duration-500 group-hover:scale-105"
+                        onError={(e) => {
+                          e.target.src = "/placeholder.svg";
+                        }}
+                      />
                     </div>
 
                     {/* Card Content */}
-                    <div className="flex flex-col">
-                      <h3 className="text-xl font-bold text-brand leading-snug group-hover:underline">
+                    <div className="px-8 pb-8 pt-6 text-center flex flex-col">
+                      <h3 className="text-2xl font-bold text-brand leading-snug group-hover:underline">
                         {scopeProfile.details.name}
                       </h3>
-                      <p className="mt-1 text-sm font-semibold text-brand/85">
+                      <p className="mt-1 text-sm font-medium text-brand sm:text-base">
                         {scopeProfile.details.designation}
                       </p>
-                      <p className="mt-2 text-xs text-black/50 leading-normal">
-                        {scopeDept}
-                      </p>
-
-                      <div className="mt-4 pt-4 border-t border-cream-dark/30 space-y-2 text-xs text-black/75">
-                        <p className="flex items-center gap-1.5 truncate">
-                          <span className="font-semibold text-brand">Mail:</span>
-                          <a href={`mailto:${scopeProfile.details.email}`} className="hover:underline hover:text-brand truncate">
-                            {scopeProfile.details.email}
-                          </a>
-                        </p>
-                        <p className="flex items-center gap-1.5">
-                          <span className="font-semibold text-brand">Phone:</span>
-                          <span>{scopeProfile.details.phone}</span>
-                        </p>
+                      <div className="mt-4 text-sm font-light leading-relaxed text-black">
+                        <p>{scopeDept}</p>
+                        <div className="mt-4 pt-4 border-t border-cream-dark/20 space-y-1 text-left">
+                          <p className="truncate">
+                            <span className="font-semibold text-brand">Mail: </span>
+                            <a href={`mailto:${scopeProfile.details.email}`} className="hover:underline hover:text-brand truncate">
+                              {scopeProfile.details.email}
+                            </a>
+                          </p>
+                          <p>
+                            <span className="font-semibold text-brand">Phone: </span>
+                            {scopeProfile.details.phone}
+                          </p>
+                        </div>
                       </div>
 
-                      <div className="mt-4 pt-3 border-t border-cream-dark/20">
-                        <p className="text-[11px] text-black/60 italic" title={scopeProfile.details.research}>
-                          {scopeProfile.details.research}
-                        </p>
-                      </div>
+                      {scopeProfile.details.research && (
+                        <div className="mt-4 pt-3 border-t border-cream-dark/20 text-center">
+                          <p className="text-[11px] text-black/60 italic" title={scopeProfile.details.research}>
+                            {scopeProfile.details.research}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

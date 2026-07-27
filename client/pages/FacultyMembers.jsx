@@ -56,7 +56,25 @@ const facultyList = [
     email: "apurba@cs.iiests.ac.in",
     ext: "0332668-576",
     specialization: "Software Engineering, Data Structures, Algorithms",
-    image: "/assets/faculty/faculty_4.jpg"
+    image: "/assets/faculty/ApurbaSir.webp"
+  },
+  {
+    name: "Manas Hira",
+    designation: "Associate Professor",
+    department: "Computer Science and Technology",
+    email: "manas@cs.iiests.ac.in",
+    ext: "+91 - 33 - 2668 4561 Ext. 575",
+    specialization: "Theoretical Computer Science, Circuit Verification using Temporal Logic, Image Generation and Recognition",
+    image: "/assets/faculty/ManasSir.webp"
+  },
+  {
+    name: "Surajeet Ghosh",
+    designation: "Associate Professor",
+    department: "Computer Science and Technology",
+    email: "surajeet@cs.iiests.ac.in",
+    ext: "+91 - 33 - 2668 4561 Ext. 576",
+    specialization: "Computer Architecture, Computational Architecture for NGS, FPGA-Based Embedded Systems Design",
+    image: "/assets/faculty/surajeetSir.webp"
   },
   {
     name: "Malay Kule",
@@ -98,6 +116,7 @@ const facultyList = [
 
 const FACULTY_ID_MAP = {
   "Apurba Sarkar": 34,
+  "Manas Hira": 36,
   "Ashish Kumar Layek": 38,
 };
 
@@ -193,61 +212,62 @@ export default function FacultyMembers() {
               <div
                 key={faculty.name}
                 onClick={() => navigate(getPublicationUrl(faculty))}
-                className="group flex flex-col rounded-3xl bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-cream/40 transition hover:shadow-[0_15px_40px_rgba(90,11,29,0.06)] cursor-pointer"
+                className="relative w-full max-w-[369px] mx-auto rounded-tl-[46%] bg-white shadow-[0_4px_23px_0_rgba(0,0,0,0.16)] transition-all duration-300 hover:shadow-[0_15px_45px_rgba(90,11,29,0.12)] cursor-pointer group flex flex-col"
               >
                 {/* Photo Container with Figma Leaf shape & Offset Maroon Box */}
-                <div className="relative mx-auto w-full aspect-square max-w-[200px] mb-8">
+                <div className="relative mx-auto aspect-square w-[87%] pt-[8%] mb-4">
                   {/* Background frame */}
-                  <div className="absolute inset-0 translate-x-[-8px] translate-y-[8px] rounded-[90px_0_90px_90px] bg-brand transition-transform duration-300 group-hover:translate-x-[-12px] group-hover:translate-y-[12px]" />
-                  {/* Image border/container */}
-                  <div className="absolute inset-0 overflow-hidden rounded-[90px_0_90px_90px] border-4 border-white bg-cream-light shadow-inner">
-                    <img
-                      src={faculty.image}
-                      alt={faculty.name}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-108"
-                      onError={(e) => {
-                        e.target.src = "/placeholder.svg";
-                      }}
-                    />
-                  </div>
+                  <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-tl-[48%] rounded-br-[62%] bg-gradient-to-b from-brand to-neutral-900 shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] transition duration-300 group-hover:translate-x-3 group-hover:translate-y-3" />
+                  {/* Image */}
+                  <img
+                    src={faculty.image}
+                    alt={faculty.name}
+                    className="absolute inset-0 h-full w-full rounded-tl-[48%] rounded-br-[62%] object-cover shadow-[0_2px_4px_0_rgba(0,0,0,0.15)] transition duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      e.target.src = "/placeholder.svg";
+                    }}
+                  />
                 </div>
 
                 {/* Card Content */}
-                <div className="mt-auto flex flex-col flex-1">
-                  <h3 className="text-xl font-bold text-brand leading-snug group-hover:underline">
+                <div className="px-8 pb-8 pt-6 text-center flex flex-col flex-1">
+                  <h3 className="text-2xl font-bold text-brand leading-snug group-hover:underline">
                     {faculty.name}
                   </h3>
-                  <p className="mt-1 text-sm font-semibold text-brand/85">
+                  <p className="mt-1 text-sm font-medium text-brand sm:text-base">
                     {faculty.designation}
                   </p>
-                  <p className="mt-2 text-xs text-black/50 leading-normal">
-                    {faculty.department}
-                  </p>
-
-                  <div className="mt-4 pt-4 border-t border-cream-dark/30 space-y-2 text-xs text-black/75">
-                    <p className="flex items-center gap-1.5 truncate">
-                      <span className="font-semibold text-brand">Mail:</span>
-                      <a 
-                        href={`mailto:${faculty.email}`} 
-                        onClick={(e) => e.stopPropagation()} 
-                        className="hover:underline hover:text-brand"
-                      >
-                        {faculty.email}
-                      </a>
-                    </p>
-                    {faculty.ext && (
-                      <p className="flex items-center gap-1.5">
-                        <span className="font-semibold text-brand">Ext:</span>
-                        <span>{faculty.ext}</span>
+                  <div className="mt-4 text-sm font-light leading-relaxed text-black flex-1 flex flex-col justify-between">
+                    <div>
+                      <p>{faculty.department}</p>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-cream-dark/20 space-y-1">
+                      <p className="truncate">
+                        <span className="font-semibold text-brand">Mail: </span>
+                        <a 
+                          href={`mailto:${faculty.email}`} 
+                          onClick={(e) => e.stopPropagation()} 
+                          className="hover:underline hover:text-brand"
+                        >
+                          {faculty.email}
+                        </a>
                       </p>
-                    )}
+                      {faculty.ext && (
+                        <p>
+                          <span className="font-semibold text-brand">Ext: </span>
+                          {faculty.ext}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-cream-dark/20">
-                    <p className="text-[11px] text-black/60 italic line-clamp-2" title={faculty.specialization}>
-                      {faculty.specialization}
-                    </p>
-                  </div>
+                  {faculty.specialization && (
+                    <div className="mt-4 pt-3 border-t border-cream-dark/20 text-center">
+                      <p className="text-[11px] text-black/60 italic line-clamp-2" title={faculty.specialization}>
+                        {faculty.specialization}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
