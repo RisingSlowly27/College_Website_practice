@@ -10,6 +10,8 @@ import Index from "./pages/Index";
 import FacultyMembers from "./pages/FacultyMembers";
 import Publications from "./pages/Publications";
 import Placeholder from "./pages/Placeholder";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import { primaryNav, departmentNav } from "@/lib/nav-data";
 
@@ -20,7 +22,9 @@ const placeholderRoutes = new Map();
   if (
     item.href !== "/" &&
     item.href !== "/faculty-members" &&
-    item.href !== "/publication"
+    item.href !== "/publication" &&
+    item.href !== "/login" &&
+    item.href !== "/dashboard"
   ) {
     placeholderRoutes.set(item.href, item.label);
   }
@@ -36,6 +40,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/faculty-members" element={<FacultyMembers />} />
           <Route path="/publication" element={<Publications />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           {Array.from(placeholderRoutes.entries()).map(([href, label]) => (
             <Route
               key={href}

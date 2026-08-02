@@ -1,0 +1,61 @@
+[
+  {
+    "email": "admin@iiests.ac.in",
+    "password": "admin",
+    "name": "Portal Administrator",
+    "role": "admin",
+    "designation": "System Administrator",
+    "department": "Computer Science and Technology",
+    "phone": "+91 (033) 2668 4561",
+    "research": "System Administration and Portal Governance",
+    "image": "/placeholder.svg"
+  },
+  {
+    "email": "apurba@cs.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Apurba Sarkar",
+    "role": "faculty",
+    "id": 34,
+    "designation": "Associate Professor",
+    "department": "Computer Science and Technology",
+    "phone": "0332668-576",
+    "research": "Software Engineering, Digital Geometry, Data Structures, Algorithms",
+    "image": "/assets/faculty/ApurbaSir.webp"
+  },
+  {
+    "email": "manashira@cs.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Manas Hira",
+    "role": "faculty",
+    "id": 36,
+    "designation": "Professor",
+    "department": "Computer Science and Technology",
+    "phone": "+91 - 33 - 2668 4561 Ext. 575",
+    "research": "Formal Circuit Verification, Digital Geometry, Compiler Design",
+    "image": "/assets/faculty/ManasSir.webp"
+  },
+  {
+    "email": "surajeet@cs.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Surajeet Ghosh",
+    "role": "faculty",
+    "id": 99,
+    "designation": "Associate Professor",
+    "department": "Computer Science and Technology",
+    "phone": "+91 - 33 - 2668 4561 Ext. 576",
+    "research": "Computer Architecture, Computational Architecture for NGS, FPGA-Based Embedded Systems Design",
+    "image": "/assets/faculty/surajeetSir.webp"
+  },
+  {
+    "email": "ashish@cs.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Ashish Kumar Layek",
+    "role": "faculty",
+    "id": 38,
+    "designation": "Assistant Professor",
+    "department": "Computer Science and Technology",
+    "phone": "000000-000",
+    "research": "Fake News Detection, Chemical Equation Segmentation, Cyber Security",
+    "image": "/assets/faculty/ashishlayek_cst.webp"
+  }
+]

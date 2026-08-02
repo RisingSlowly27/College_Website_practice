@@ -55,6 +55,15 @@ export default function Header() {
               <button className="rounded-[5px] border border-brand px-4 py-2 text-xs font-medium text-brand transition hover:bg-brand hover:text-white">
                 Alumni Portal
               </button>
+              {localStorage.getItem("token") ? (
+                <Link to="/dashboard" className="rounded-[5px] bg-brand-gold px-4 py-2 text-xs font-bold text-white transition hover:bg-brand-dark">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link to="/login" className="rounded-[5px] bg-brand px-4 py-2 text-xs font-medium text-white transition hover:bg-brand-dark">
+                  Logon
+                </Link>
+              )}
             </div>
 
             <div className="flex items-center gap-1.5">

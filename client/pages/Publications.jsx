@@ -181,6 +181,25 @@ export default function Publications() {
   // Accordion details visibility mapping
   const [expandedPubIds, setExpandedPubIds] = useState({});
 
+  // Dynamic Publications State
+  const [publications, setPublications] = useState(publicationsData);
+
+  // Fetch fresh publications list from API
+  useEffect(() => {
+    const fetchPubs = async () => {
+      try {
+        const res = await fetch("/api/publications");
+        if (res.ok) {
+          const data = await res.json();
+          setPublications(data);
+        }
+      } catch (err) {
+        console.error("Error fetching dynamic publications:", err);
+      }
+    };
+    fetchPubs();
+  }, []);
+
   // Sync state with URL search params when they change
   useEffect(() => {
     const dept = searchParams.get("dept") || "all";
@@ -252,7 +271,7 @@ export default function Publications() {
   };
 
   // Filter Publications based on active scope + search + categories
-  const filteredPubs = publicationsData.filter((pub) => {
+  const filteredPubs = publications.filter((pub) => {
     // 1. Department Scope
     const cardDept = getAuthorDept(pub.author_id);
     const matchesDept = scopeDept === "all" || cardDept === scopeDept;
@@ -285,7 +304,7 @@ export default function Publications() {
   });
 
   // Calculate dynamic type tab counts within CURRENT active scope
-  const scopePubs = publicationsData.filter((pub) => {
+  const scopePubs = publications.filter((pub) => {
     const cardDept = getAuthorDept(pub.author_id);
     const matchesDept = scopeDept === "all" || cardDept === scopeDept;
     const matchesProf = scopeProf === "all" || pub.author_id.toString() === scopeProf.toString();
