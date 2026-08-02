@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Layout from "@/components/site/Layout";
 import Sidebar from "@/components/site/Sidebar";
-import { Mail, Phone, MapPin, ExternalLink, Calendar, Award, BookOpen, Layers, Users, Server, Briefcase, FileText, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, ExternalLink, Calendar, Award, BookOpen, Layers, Users, Server, Briefcase, FileText, CheckCircle2, Trophy, Landmark } from "lucide-react";
 
 // Page metadata mapping (Title -> Description) fetched from the official iiests.ac.in/en site
 const PAGE_METADATA = {
@@ -40,110 +40,211 @@ export default function Placeholder({ title }) {
     }, 3000);
   };
 
-  // Render official copy of content from iiests.ac.in
+  // Determine if this is a primary top nav bar page to hide the left sidebar completely
+  const hideSidebar = ["Academic", "Admission", "Student", "Innovation", "Facilities", "Placement", "Notification"].includes(title);
+
+  // Render official copy of content & designs from iiests.ac.in
   const renderPageContent = () => {
     switch (title) {
       case "Academic":
       case "Academic Programs":
         return (
-          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Undergraduate Program (B.Tech in CST)</h3>
-              <p className="mb-4">
-                The Bachelor of Technology (B.Tech) program in Computer Science and Technology is a 4-year (8 semesters) curriculum designed to provide students with a strong foundation in both the theory and practice of computer science. The curriculum includes core subjects such as Data Structures, Design & Analysis of Algorithms, Computer Organization and Architecture, Operating Systems, Database Management Systems, Compiler Design, and Software Engineering.
-              </p>
-              <p className="mb-4">
-                In addition, students select from specialized electives covering Artificial Intelligence, Machine Learning, Computer Vision, Digital Geometry, Reconfigurable Computing, Network Security, and Cryptography.
-              </p>
-              <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/25 font-semibold text-brand flex justify-between items-center text-xs">
-                <span>Accreditation: NBA Grade 'A' accredited</span>
-                <span>Seat Intake: 93 Seats</span>
+          <div className="space-y-10 text-sm text-black/80 leading-relaxed">
+            {/* Header / Intro */}
+            <div className="border-b border-cream-dark/30 pb-5">
+              <h2 className="text-3xl font-extrabold text-brand tracking-tight">Academic Curricula & Degrees</h2>
+              <p className="text-black/50 mt-1.5 font-medium text-xs">Governed by the academic ordinances of the IIEST Shibpur Senate.</p>
+            </div>
+
+            {/* Premium Comparative Programs Table */}
+            <div className="rounded-[32px] bg-white border border-cream-dark/30 shadow-sm overflow-hidden">
+              <div className="p-6 border-b border-cream-dark/20 bg-cream/10">
+                <h3 className="text-lg font-bold text-brand flex items-center gap-2">
+                  <BookOpen size={18} /> Offered Academic Degrees
+                </h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-brand/5 border-b border-cream-dark/30 text-xs font-bold text-brand uppercase tracking-wider">
+                      <th className="py-4 px-6">Program / Degree</th>
+                      <th className="py-4 px-6">Duration</th>
+                      <th className="py-4 px-6">Seat Intake</th>
+                      <th className="py-4 px-6">Admission Channel</th>
+                      <th className="py-4 px-6">Core Specialization Focus</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-cream-dark/20 hover:bg-cream-light/5 transition">
+                      <td className="py-4 px-6 font-bold text-brand">B.Tech in CST</td>
+                      <td className="py-4 px-6">4 Years (8 Semesters)</td>
+                      <td className="py-4 px-6">93 Seats</td>
+                      <td className="py-4 px-6">JEE Main (JoSAA/CSAB)</td>
+                      <td className="py-4 px-6">Algorithms, Architecture, OS, DBMS, VLSI, Networks</td>
+                    </tr>
+                    <tr className="border-b border-cream-dark/20 hover:bg-cream-light/5 transition">
+                      <td className="py-4 px-6 font-bold text-brand">M.Tech in CST</td>
+                      <td className="py-4 px-6">2 Years (4 Semesters)</td>
+                      <td className="py-4 px-6">36 Seats</td>
+                      <td className="py-4 px-6">GATE CS/IT (CCMT)</td>
+                      <td className="py-4 px-6">Advanced Algorithms, VLSI Design, Bio-computing, AI/ML</td>
+                    </tr>
+                    <tr className="hover:bg-cream-light/5 transition">
+                      <td className="py-4 px-6 font-bold text-brand">Ph.D. (Doctoral)</td>
+                      <td className="py-4 px-6">3 - 5 Years</td>
+                      <td className="py-4 px-6">Dynamic (Per Supervisor)</td>
+                      <td className="py-4 px-6">Written Exam + DRC Interview</td>
+                      <td className="py-4 px-6">Computer Vision, Pattern Recognition, IoT Security, Optical Networks</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Postgraduate Program (M.Tech in CST)</h3>
-              <p className="mb-4">
-                The 2-year (4 semesters) Master of Technology (M.Tech) program focuses on advanced computing paradigms and research methodologies. Coursework includes Advanced Algorithms, Object-Oriented System Design, Soft Computing, Image Processing, Advanced Cryptology, and Distributed Systems.
-              </p>
-              <p className="mb-4">
-                Students dedicate their second year to high-impact dissertation work supervised by faculty mentors. Many dissertations are tied to funded projects or collaborations with national laboratories.
-              </p>
-              <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/25 font-semibold text-brand flex justify-between items-center text-xs">
-                <span>Specialization: Computer Science & Technology</span>
-                <span>Seat Intake: 36 Seats</span>
+            {/* Quality & Accreditations Cards */}
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                  <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4">
+                    <Award size={20} />
+                  </div>
+                  <h4 className="text-base font-bold text-brand">NBA & ISO Certifications</h4>
+                  <p className="mt-2 text-xs text-black/70 leading-relaxed text-justify">
+                    The department is proudly accredited by the **National Board of Accreditation (NBA)** as an 'A' grade department and holds ISO 9000 certification for academic excellence, infrastructure management, and research compliance.
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Doctoral Program (Ph.D.)</h3>
-              <p>
-                The doctoral program drives research innovation in various computer science domains. Admissions are held twice a year (July and December cycles). Shortlisted research scholars are funded through institutional fellowships, the Visvesvaraya PhD Scheme under MeitY, or external sponsorships (DST, CSIR, UGC).
-              </p>
+              
+              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                  <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4">
+                    <Landmark size={20} />
+                  </div>
+                  <h4 className="text-base font-bold text-brand">DST-FIST Sponsored Department</h4>
+                  <p className="mt-2 text-xs text-black/70 leading-relaxed text-justify">
+                    Recognized under the FIST scheme by the Department of Science and Technology (DST) since 2004, enabling the department to procure cutting-edge laboratories, GPU clusters, and high-performance server grids.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         );
 
       case "Admission":
         return (
-          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">UG Admissions (B.Tech)</h3>
-              <p className="mb-4">
-                Admission to the B.Tech program in Computer Science and Technology is centrally managed by the Joint Seat Allocation Authority (**JoSAA**) and the Central Seat Allocation Board (**CSAB**). Admissions are strictly based on the candidate's All India Rank in the Joint Entrance Examination (JEE) Main.
-              </p>
-              <p className="mb-4">
-                During the registration process, candidates are required to upload and verify all academic credentials, reservation category certificates, and seat allocation letters to the Academic Section of IIEST Shibpur.
-              </p>
-              <a href="https://josaa.nic.in" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold text-brand hover:underline">
-                Visit JoSAA Web Portal <ExternalLink size={12} />
-              </a>
+          <div className="space-y-10 text-sm text-black/80 leading-relaxed">
+            {/* Header */}
+            <div className="border-b border-cream-dark/30 pb-5">
+              <h2 className="text-3xl font-extrabold text-brand tracking-tight">Admissions Roadmap</h2>
+              <p className="text-black/50 mt-1.5 font-medium text-xs">Official intake rules, examination rankings, and centralized counseling procedures.</p>
             </div>
 
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">PG Admissions (M.Tech)</h3>
-              <p className="mb-4">
-                Candidates seeking admission to the M.Tech program must hold a valid GATE score in Computer Science and Information Technology. Admissions are coordinated via the Centralized Counseling for M.Tech/M.Arch/M.Plan (**CCMT**).
-              </p>
-              <p className="mb-4">
-                Provisional seat allocation, documentation verification, and balance institute fee payments are completed online through the CCMT registry.
-              </p>
-              <a href="https://ccmt.admissions.nic.in" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold text-brand hover:underline">
-                Visit CCMT Web Portal <ExternalLink size={12} />
-              </a>
+            {/* Admissions Roadmap Grid */}
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
+                <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4 font-bold">1</div>
+                <h4 className="text-base font-bold text-brand">National Entrance</h4>
+                <p className="mt-2 text-xs text-black/70 leading-relaxed">
+                  Admission to B.Tech requires a valid JEE Main rank. M.Tech applicants must qualify GATE in CS/IT. PhD applicants require UGC/CSIR-NET or GATE.
+                </p>
+              </div>
+
+              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
+                <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4 font-bold">2</div>
+                <h4 className="text-base font-bold text-brand">Central Counseling</h4>
+                <p className="mt-2 text-xs text-black/70 leading-relaxed">
+                  Seat allocations are managed via JoSAA/CSAB (for B.Tech entries) and CCMT (for M.Tech entries) based strictly on exam ranking indices.
+                </p>
+              </div>
+
+              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
+                <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4 font-bold">3</div>
+                <h4 className="text-base font-bold text-brand">Physical Verification</h4>
+                <p className="mt-2 text-xs text-black/70 leading-relaxed">
+                  Selected candidates complete online registration, submit fee payment balances, and report physically for academic document verification.
+                </p>
+              </div>
             </div>
 
+            {/* Quick Links & Resources */}
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Ph.D. Admissions</h3>
-              <p>
-                Shortlisting for doctoral research involves a written research test conducted by the department, followed by a presentation and technical interview before the Departmental Research Committee (DRC). Eligible candidates must hold an M.E./M.Tech degree in a relevant discipline or a B.E./B.Tech degree with an exceptional GATE rank.
-              </p>
+              <h3 className="text-lg font-bold text-brand mb-4">Central Portals Quick Links</h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <a href="https://josaa.nic.in" target="_blank" rel="noopener noreferrer" className="p-4 rounded-2xl bg-cream-light/35 border border-cream-dark/25 hover:border-brand/20 transition flex items-center justify-between group">
+                  <div>
+                    <h5 className="font-bold text-brand text-xs">JoSAA Web Registry</h5>
+                    <p className="text-[10px] text-black/50 mt-0.5">B.Tech counseling entries portal</p>
+                  </div>
+                  <ExternalLink size={16} className="text-brand group-hover:translate-x-0.5 transition-transform" />
+                </a>
+                <a href="https://ccmt.admissions.nic.in" target="_blank" rel="noopener noreferrer" className="p-4 rounded-2xl bg-cream-light/35 border border-cream-dark/25 hover:border-brand/20 transition flex items-center justify-between group">
+                  <div>
+                    <h5 className="font-bold text-brand text-xs">CCMT Web Registry</h5>
+                    <p className="text-[10px] text-black/50 mt-0.5">M.Tech counseling entries portal</p>
+                  </div>
+                  <ExternalLink size={16} className="text-brand group-hover:translate-x-0.5 transition-transform" />
+                </a>
+              </div>
             </div>
           </div>
         );
 
       case "Student":
         return (
-          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">CodeClub IIEST</h3>
-              <p>
-                **CodeClub IIEST** is the official student developer community of the department. Run by senior students, it coordinates algorithm design contests, competitive programming bootcamps, and workshops on web development, mobile applications, and machine learning. CodeClub members frequently mentor juniors, resulting in consistent listings in Google Summer of Code (GSoC) and top-rank representation in regional ACM-ICPC rounds.
-              </p>
+          <div className="space-y-10 text-sm text-black/80 leading-relaxed">
+            {/* Header */}
+            <div className="border-b border-cream-dark/30 pb-5">
+              <h2 className="text-3xl font-extrabold text-brand tracking-tight">Student Communities & Fests</h2>
+              <p className="text-black/50 mt-1.5 font-medium text-xs">Clubs, professional chapters, and India's oldest technical reunion.</p>
             </div>
 
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">IEEE Computer Society & ACM Chapters</h3>
-              <p>
-                The active student branches of the **IEEE Computer Society** and the **Association for Computing Machinery (ACM)** organize technical seminars, distinguished guest lectures, hackathons, and collaborative student projects. These platforms expose students to cutting-edge research trends and provide networking opportunities with global experts.
-              </p>
+            {/* Communities Grid */}
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
+                <h3 className="text-lg font-bold text-brand flex items-center gap-2 mb-3">
+                  <Users size={18} /> CodeClub IIEST
+                </h3>
+                <p className="text-xs text-black/70 leading-relaxed text-justify mb-4">
+                  The primary competitive programming and software development society. Organizes weekly algorithms contests, mock interviews, and guides juniors for Google Summer of Code (GSoC) entries and ACM-ICPC regional representation.
+                </p>
+                <div className="flex gap-2">
+                  <span className="bg-brand/10 border border-brand/25 text-brand px-2.5 py-0.5 rounded text-[10px] font-bold">GSoC</span>
+                  <span className="bg-brand/10 border border-brand/25 text-brand px-2.5 py-0.5 rounded text-[10px] font-bold">ACM-ICPC</span>
+                  <span className="bg-brand/10 border border-brand/25 text-brand px-2.5 py-0.5 rounded text-[10px] font-bold">Hackathons</span>
+                </div>
+              </div>
+
+              <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
+                <h3 className="text-lg font-bold text-brand flex items-center gap-2 mb-3">
+                  <Layers size={18} /> IEEE & ACM Chapters
+                </h3>
+                <p className="text-xs text-black/70 leading-relaxed text-justify mb-4">
+                  Professional student branches hosting distinguished expert lectures, global technical webinars, research conferences, and hands-on developer workshops in AI/ML and cyber security systems.
+                </p>
+                <div className="flex gap-2">
+                  <span className="bg-brand/10 border border-brand/25 text-brand px-2.5 py-0.5 rounded text-[10px] font-bold">Seminars</span>
+                  <span className="bg-brand/10 border border-brand/25 text-brand px-2.5 py-0.5 rounded text-[10px] font-bold">IEEE Xplore</span>
+                  <span className="bg-brand/10 border border-brand/25 text-brand px-2.5 py-0.5 rounded text-[10px] font-bold">Research</span>
+                </div>
+              </div>
             </div>
 
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4 font-bold">REBECA Tech Reunion</h3>
-              <p className="mb-4">
-                Students participate actively in **REBECA (Reunion Exhibition and Bengal Engineering College Activities)**. Instituted in 1938, it is the oldest annual technical reunion and cultural festival in India. It serves as a bridge, linking current students with distinguished alumni working across global technology giants, research laboratories, and public enterprises.
-              </p>
+            {/* REBECA Highlight Showcase Card */}
+            <div className="rounded-[36px] bg-gradient-to-r from-brand to-neutral-900 border border-brand-gold/30 p-8 sm:p-10 text-white relative overflow-hidden shadow-lg">
+              {/* Background watermark icon */}
+              <div className="absolute right-6 bottom-0 text-white/5 opacity-10 pointer-events-none transform translate-y-6">
+                <Landmark size={220} />
+              </div>
+
+              <div className="relative z-10 max-w-2xl">
+                <span className="bg-brand-gold text-brand text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-widest shadow-inner">
+                  Heritage Fest
+                </span>
+                <h3 className="text-2xl font-bold text-white mt-4 tracking-tight">REBECA Tech Reunion (Estd. 1938)</h3>
+                <p className="mt-3 text-xs text-white/80 leading-relaxed text-justify">
+                  REBECA (Reunion Exhibition and Bengal Engineering College Activities) is India's oldest annual technical and cultural reunion festival. Held over four days, it serves as a massive platform for current students to network with distinguished global alumni, present tech innovations, and attend lectures.
+                </p>
+              </div>
             </div>
           </div>
         );
@@ -151,38 +252,47 @@ export default function Placeholder({ title }) {
       case "Innovation":
       case "Projects":
         return (
-          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-6">Sponsored Research Projects</h3>
-              <div className="space-y-6">
-                <div className="p-5 rounded-2xl bg-cream/10 border border-cream-dark/25">
-                  <div className="flex justify-between items-start flex-wrap gap-2 mb-2">
-                    <span className="bg-brand/15 text-brand text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">DST Sponsored</span>
-                    <span className="text-xs text-black/50 font-bold">Grant: INR 48.5 Lakhs</span>
+          <div className="space-y-10 text-sm text-black/80 leading-relaxed">
+            {/* Header */}
+            <div className="border-b border-cream-dark/30 pb-5">
+              <h2 className="text-3xl font-extrabold text-brand tracking-tight">Sponsored Research & Grants</h2>
+              <p className="text-black/50 mt-1.5 font-medium text-xs">Active research investigations funded by primary national organizations.</p>
+            </div>
+
+            {/* Projects cards layout */}
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm flex flex-col justify-between hover:border-brand/20 transition duration-300">
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="bg-brand/10 border border-brand/25 text-brand text-[9px] font-extrabold px-2 py-0.5 rounded-full tracking-wider uppercase">DST Funded</span>
+                    <span className="text-brand-gold font-bold text-xs">INR 48.5 L</span>
                   </div>
-                  <h4 className="text-sm font-bold text-black/85">Development of Intelligent Control Schemes for Smart Hybrid PV Microgrids</h4>
-                  <p className="text-xs text-black/60 mt-1.5 leading-relaxed">
-                    Developing and deploying machine learning-based optimization algorithms to ensure load sharing, voltage stability, and seamless power transfer in local hybrid microgrid infrastructures.
+                  <h4 className="text-base font-bold text-brand leading-snug">Intelligent Control Schemes for Smart Hybrid PV Microgrids</h4>
+                  <p className="text-xs text-black/60 mt-2 text-justify leading-relaxed">
+                    Developing and deploying machine learning-based control algorithms to optimize power sharing and voltage stability in hybrid microgrid installations.
                   </p>
                 </div>
+              </div>
 
-                <div className="p-5 rounded-2xl bg-cream/10 border border-cream-dark/25">
-                  <div className="flex justify-between items-start flex-wrap gap-2 mb-2">
-                    <span className="bg-brand/15 text-brand text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">MeitY Sponsored</span>
-                    <span className="text-xs text-black/50 font-bold">Grant: INR 35.8 Lakhs</span>
+              <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm flex flex-col justify-between hover:border-brand/20 transition duration-300">
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="bg-brand/10 border border-brand/25 text-brand text-[9px] font-extrabold px-2 py-0.5 rounded-full tracking-wider uppercase">MeitY Funded</span>
+                    <span className="text-brand-gold font-bold text-xs">INR 35.8 L</span>
                   </div>
-                  <h4 className="text-sm font-bold text-black/85">Hardware Acceleration Frameworks for Next-Generation DNA Sequencing (NGS)</h4>
-                  <p className="text-xs text-black/60 mt-1.5 leading-relaxed">
-                    Designing specialized FPGA-based hardware accelerators to accelerate genomic sequence alignment and variant identification pipelines.
+                  <h4 className="text-base font-bold text-brand leading-snug">Hardware Accelerator Frameworks for DNA Sequencing</h4>
+                  <p className="text-xs text-black/60 mt-2 text-justify leading-relaxed">
+                    Designing customized, high-throughput FPGA-based hardware accelerators to optimize genome alignment and genomic mapping pipelines.
                   </p>
                 </div>
               </div>
             </div>
 
+            {/* Patents Summary */}
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Patents & Industry Consultancies</h3>
-              <p>
-                The faculty members have filed and published patents in Reconfigurable Architectures, Document Layout Segmentation, and Cryptographic Systems. The department regularly provides technical consultancy and software auditing services for local municipal corporations, public banks, and state ministries.
+              <h3 className="text-lg font-bold text-brand mb-4">Patents & Consultancy Audits</h3>
+              <p className="text-xs text-black/70 leading-relaxed text-justify">
+                Faculty members have authored and registered multiple patents in reconfigurable architectures, image segmentation, and network security. The department regularly collaborates with municipal agencies, state offices, and banking organizations to perform software compliance and security auditing consultancies.
               </p>
             </div>
           </div>
@@ -191,82 +301,101 @@ export default function Placeholder({ title }) {
       case "Facilities":
       case "Laboratory":
         return (
-          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
+          <div className="space-y-10 text-sm text-black/80 leading-relaxed">
+            {/* Header */}
+            <div className="border-b border-cream-dark/30 pb-5">
+              <h2 className="text-3xl font-extrabold text-brand tracking-tight">Research & Teaching Facilities</h2>
+              <p className="text-black/50 mt-1.5 font-medium text-xs">State-of-the-art computer networks, design tools, and GPU nodes.</p>
+            </div>
+
+            {/* Facilities Cards Grid */}
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
+              <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm hover:border-brand/20 transition duration-300">
                 <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4">
                   <Server size={20} />
                 </div>
-                <h3 className="text-lg font-bold text-brand">Central Computing Lab (CCL)</h3>
-                <p className="mt-2 text-xs text-black/70 leading-relaxed">
-                  Equipped with 120 high-performance computer terminals connected through a 10Gbps optical campus backbone network. Serves core lab courses and examinations.
+                <h4 className="text-lg font-bold text-brand">Central Computing Lab (CCL)</h4>
+                <p className="mt-2 text-xs text-black/70 leading-relaxed text-justify">
+                  Provides 120 high-performance client nodes running Linux and Windows, connected via a dedicated 10Gbps optical campus backbone network. Hosts lab coursework, academic coding hackathons, and exams.
                 </p>
               </div>
 
-              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
+              <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm hover:border-brand/20 transition duration-300">
                 <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4">
                   <Layers size={20} />
                 </div>
-                <h3 className="text-lg font-bold text-brand">VLSI & Reconfigurable Lab</h3>
-                <p className="mt-2 text-xs text-black/70 leading-relaxed">
-                  Equipped with professional CAD tools (Cadence Virtuoso, Synopsys Design Compiler) and Xilinx FPGA hardware boards to support research in hardware systems.
+                <h4 className="text-lg font-bold text-brand">VLSI & Reconfigurable Lab</h4>
+                <p className="mt-2 text-xs text-black/70 leading-relaxed text-justify">
+                  Equipped with professional CAD workbench platforms (Cadence Virtuoso, Synopsys Design Compiler) and Xilinx target FPGAs, facilitating design, synthesis, and verification of digital circuits.
                 </p>
               </div>
-            </div>
 
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">AI, Machine Learning, and Computer Vision Lab</h3>
-              <p className="mb-4">
-                This specialized lab features GPU-accelerated computing nodes (NVIDIA RTX series) to support research in Deep Learning, Image Processing, Pattern Recognition, and Optical Character Recognition (OCR).
-              </p>
-              <p className="font-semibold text-brand text-xs">
-                Other notable facilities include the Computer Center (centralized computing cluster) and digital database licenses (IEEE Xplore, ACM Digital Library) served by the Central Library.
-              </p>
+              <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm hover:border-brand/20 transition duration-300">
+                <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4">
+                  <BookOpen size={20} />
+                </div>
+                <h4 className="text-lg font-bold text-brand">AI, ML & Computer Vision Lab</h4>
+                <p className="mt-2 text-xs text-black/70 leading-relaxed text-justify">
+                  Equipped with dedicated NVIDIA RTX GPU servers for machine learning models, image analysis networks, document layout analysis, and optical character recognition pipelines.
+                </p>
+              </div>
+
+              <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm hover:border-brand/20 transition duration-300">
+                <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4">
+                  <MapPin size={20} />
+                </div>
+                <h4 className="text-lg font-bold text-brand">Computer Center & Library</h4>
+                <p className="mt-2 text-xs text-black/70 leading-relaxed text-justify">
+                  Direct digital access to premium databases including IEEE Xplore, ACM Digital Library, and Elsevier publications served through the institutional Central Library network.
+                </p>
+              </div>
             </div>
           </div>
         );
 
       case "Placement":
         return (
-          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">CST Placement Highlights</h3>
-              <p className="mb-6">
-                Placements are centrally managed by the Training and Placement Cell of IIEST Shibpur. The CST department records a highly competitive placement rate annually, reflecting strong recruiter interest.
-              </p>
-              <div className="grid gap-6 grid-cols-2 md:grid-cols-4 text-center">
-                <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
-                  <p className="text-[10px] text-black/50 uppercase font-bold">B.Tech Placement Rate</p>
-                  <p className="text-2xl font-extrabold text-brand mt-1">96.5%</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
-                  <p className="text-[10px] text-black/50 uppercase font-bold">Average CTC (CST)</p>
-                  <p className="text-2xl font-extrabold text-brand mt-1">13.5 LPA</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
-                  <p className="text-[10px] text-black/50 uppercase font-bold">Highest CTC Package</p>
-                  <p className="text-2xl font-extrabold text-brand mt-1">56.0 LPA</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
-                  <p className="text-[10px] text-black/50 uppercase font-bold">Median Package</p>
-                  <p className="text-2xl font-extrabold text-brand mt-1">8.5 LPA</p>
-                </div>
+          <div className="space-y-10 text-sm text-black/80 leading-relaxed">
+            {/* Header */}
+            <div className="border-b border-cream-dark/30 pb-5">
+              <h2 className="text-3xl font-extrabold text-brand tracking-tight">Placement Statistics & Records</h2>
+              <p className="text-black/50 mt-1.5 font-medium text-xs">Centrally managed recruitment indices for technology, core, and consulting firms.</p>
+            </div>
+
+            {/* Visual Callouts */}
+            <div className="grid gap-6 grid-cols-2 md:grid-cols-4 text-center">
+              <div className="p-6 rounded-[24px] bg-cream/10 border border-cream-dark/35">
+                <p className="text-[10px] text-black/50 uppercase font-bold tracking-wider">Placement Rate</p>
+                <p className="text-4xl font-extrabold text-brand mt-1.5">96.5%</p>
+              </div>
+              <div className="p-6 rounded-[24px] bg-cream/10 border border-cream-dark/35">
+                <p className="text-[10px] text-black/50 uppercase font-bold tracking-wider">CST Average Package</p>
+                <p className="text-4xl font-extrabold text-brand mt-1.5">13.5 LPA</p>
+              </div>
+              <div className="p-6 rounded-[24px] bg-cream/10 border border-cream-dark/35">
+                <p className="text-[10px] text-black/50 uppercase font-bold tracking-wider">Highest Package</p>
+                <p className="text-4xl font-extrabold text-brand mt-1.5">56.0 LPA</p>
+              </div>
+              <div className="p-6 rounded-[24px] bg-cream/10 border border-cream-dark/35">
+                <p className="text-[10px] text-black/50 uppercase font-bold tracking-wider">Median CTC Package</p>
+                <p className="text-4xl font-extrabold text-brand mt-1.5">8.5 LPA</p>
               </div>
             </div>
 
+            {/* Recruiting Partner Logos Grid */}
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-5">Key Recruiting Partners</h3>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 text-center text-xs font-semibold text-black/75">
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Microsoft</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Google</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Amazon</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Accenture</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Texas Instruments</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Synopsys</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Goldman Sachs</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">PwC India</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">JPMorgan Chase</div>
-                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Tata Steel</div>
+              <h3 className="text-lg font-bold text-brand mb-5">Primary Recruiting Partners</h3>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 text-center text-xs font-bold text-black/75">
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">Microsoft</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">Google</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">Amazon</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">Accenture</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">Texas Instruments</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">Synopsys</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">Goldman Sachs</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">PwC India</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">JPMorgan Chase</div>
+                <div className="p-4 bg-cream-light/35 rounded-xl border border-cream-dark/25">Tata Steel</div>
               </div>
             </div>
           </div>
@@ -274,36 +403,34 @@ export default function Placeholder({ title }) {
 
       case "Notification":
         return (
-          <div className="space-y-4 text-xs">
-            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-5 flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
-                </span>
-                Official Announcements
-              </h3>
-              <div className="space-y-4">
-                {[
-                  { date: "Aug 01, 2026", title: "UG Admissions (B.Tech) - Institutional reporting guidelines, documentation details, and hostel registrations.", tag: "Academic" },
-                  { date: "Jul 28, 2026", title: "GATE M.Tech Admissions (CCMT 2026) - Selected candidates list and provisional admission schedules.", tag: "Admission" },
-                  { date: "Jul 15, 2026", title: "Ph.D. Coursework (July 2026 Cycle) - Examination timetables and classroom seating arrangements.", tag: "Exams" },
-                  { date: "Jun 10, 2026", title: "Class suspension notice during REBECA 2026 reunion events.", tag: "Notice" }
-                ].map((item, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-cream/10 border border-cream-dark/20 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
-                    <div>
-                      <span className="inline-block rounded-md bg-brand/10 border border-brand/20 px-2 py-0.5 text-[9px] font-bold text-brand uppercase tracking-wider mr-2">
-                        {item.tag}
-                      </span>
-                      <span className="font-semibold text-black/85 text-xs">{item.title}</span>
-                    </div>
-                    <span className="text-[10px] text-black/50 font-medium shrink-0 flex items-center gap-1">
-                      <Calendar size={12} />
-                      {item.date}
+          <div className="space-y-6 text-xs">
+            {/* Header */}
+            <div className="border-b border-cream-dark/30 pb-5">
+              <h2 className="text-3xl font-extrabold text-brand tracking-tight">Announcements Feed</h2>
+              <p className="text-black/50 mt-1.5 font-medium text-xs">Official senate notifications and registrations announcements.</p>
+            </div>
+
+            {/* List */}
+            <div className="space-y-4">
+              {[
+                { date: "Aug 01, 2026", title: "UG Admissions (B.Tech) - Institutional reporting guidelines, documentation details, and hostel registrations.", tag: "Academic" },
+                { date: "Jul 28, 2026", title: "GATE M.Tech Admissions (CCMT 2026) - Selected candidates list and provisional admission schedules.", tag: "Admission" },
+                { date: "Jul 15, 2026", title: "Ph.D. Coursework (July 2026 Cycle) - Examination timetables and classroom seating arrangements.", tag: "Exams" },
+                { date: "Jun 10, 2026", title: "Class suspension notice during REBECA 2026 reunion events.", tag: "Notice" }
+              ].map((item, idx) => (
+                <div key={idx} className="p-5 rounded-2xl bg-white border border-cream-dark/30 flex flex-col sm:flex-row justify-between sm:items-center gap-3 shadow-sm hover:border-brand/20 transition">
+                  <div>
+                    <span className="inline-block rounded-md bg-brand/10 border border-brand/20 px-2 py-0.5 text-[9px] font-bold text-brand uppercase tracking-wider mr-2.5">
+                      {item.tag}
                     </span>
+                    <span className="font-bold text-black/85 text-sm">{item.title}</span>
                   </div>
-                ))}
-              </div>
+                  <span className="text-xs text-black/50 font-medium shrink-0 flex items-center gap-1">
+                    <Calendar size={14} />
+                    {item.date}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -531,7 +658,7 @@ export default function Placeholder({ title }) {
 
   return (
     <Layout>
-      {/* Top Banner section containing Left Sidebar Menu - NO px padding */}
+      {/* Top Banner section - NO px padding */}
       <div className="mx-auto max-w-[1720px] py-6 lg:py-8 px-0">
         <div className="relative overflow-hidden rounded-[36px] bg-cream shadow-sm">
           <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] lg:aspect-[231/130] max-h-[620px]">
@@ -544,13 +671,15 @@ export default function Placeholder({ title }) {
             <div className="absolute inset-0 bg-black/15" />
 
             <div className="absolute inset-0 flex flex-col lg:flex-row items-center justify-between p-6 lg:p-12 gap-8 z-10">
-              {/* Left Side: Sidebar Menu inside the banner */}
-              <div className="shrink-0">
-                <Sidebar />
-              </div>
+              {/* Conditionally Render Left Sidebar inside banner only for departmentNav pages */}
+              {!hideSidebar && (
+                <div className="shrink-0">
+                  <Sidebar />
+                </div>
+              )}
 
               {/* Right Side: Page Title and Description */}
-              <div className="flex-1 flex flex-col justify-center lg:pl-12 text-white text-left">
+              <div className={`flex-1 flex flex-col justify-center text-white text-left ${hideSidebar ? "max-w-4xl mx-auto w-full" : "lg:pl-12"}`}>
                 <h1 className="text-3xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] sm:text-5xl lg:text-[60px] lg:leading-[70px]">
                   {title}
                 </h1>
@@ -563,19 +692,24 @@ export default function Placeholder({ title }) {
         </div>
       </div>
 
-      {/* Page Grid Layout containing Left Menu and Right Rich Content Pane */}
+      {/* Main content grid - conditionally hide sidebar based on page title */}
       <div className="mx-auto max-w-[1720px] py-8 lg:py-12 px-0">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[280px_1fr] items-start">
-          {/* Left Navigation Column */}
-          <div className="lg:block hidden sticky top-8">
-            <Sidebar />
-          </div>
-
-          {/* Right Rich Content Column */}
-          <div className="flex-1">
+        {hideSidebar ? (
+          // Sidebarless full-width centered layout for top nav bar items (Academic, Admission, Student, Innovation, Facilities, Placement, Notification)
+          <div className="max-w-6xl mx-auto w-full px-4 lg:px-0">
             {renderPageContent()}
           </div>
-        </div>
+        ) : (
+          // Standard layout with left sidebar column for sub-nav department items
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[280px_1fr] items-start">
+            <div className="lg:block hidden sticky top-8">
+              <Sidebar />
+            </div>
+            <div className="flex-1">
+              {renderPageContent()}
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );
