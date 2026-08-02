@@ -41,7 +41,7 @@ export default function Placeholder({ title }) {
   };
 
   // Determine if this is a primary top nav bar page to hide the left sidebar completely
-  const hideSidebar = ["Academic", "Admission", "Student", "Innovation", "Facilities", "Placement", "Notification"].includes(title);
+  const hideSidebar = false;
 
   // Render official copy of content & designs from iiests.ac.in
   const renderPageContent = () => {
