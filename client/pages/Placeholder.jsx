@@ -1,31 +1,30 @@
 import { useState } from "react";
 import Layout from "@/components/site/Layout";
 import Sidebar from "@/components/site/Sidebar";
-import { Mail, Phone, MapPin, ExternalLink, Calendar, Award, BookOpen, Layers, Users, Server, Briefcase } from "lucide-react";
+import { Mail, Phone, MapPin, ExternalLink, Calendar, Award, BookOpen, Layers, Users, Server, Briefcase, FileText, CheckCircle2 } from "lucide-react";
 
-// Page metadata mapping (Title -> Description)
+// Page metadata mapping (Title -> Description) fetched from the official iiests.ac.in/en site
 const PAGE_METADATA = {
-  "Academic": "Explore our comprehensive B.Tech, M.Tech, and Ph.D. curricula tailored to industry demands.",
-  "Academic Programs": "Explore our comprehensive B.Tech, M.Tech, and Ph.D. curricula tailored to industry demands.",
-  "Admission": "Admissions criteria, cutoffs, and seat intake schedules for CST programs.",
-  "Student": "Our vibrant campus life, technical clubs, chapters, and student activities.",
-  "Innovation": "Sponsored research initiatives, consultancy projects, and active development groups.",
-  "Projects": "Sponsored research initiatives, consultancy projects, and active development groups.",
-  "Facilities": "Advanced computing infrastructures, servers, and dedicated research laboratories.",
-  "Laboratory": "Advanced computing infrastructures, servers, and dedicated research laboratories.",
-  "Placement": "Placements history, recruiting partners, and internship statistic highlights.",
-  "Notification": "Official circulars, exam schedules, and academic announcements.",
-  "Staff Members": "Our dedicated technical assistants, laboratory personnel, and support team.",
-  "Research Scholars": "Active Ph.D. scholars, supervisors, and research focus areas.",
-  "Research Areas": "Active Ph.D. scholars, supervisors, and research focus areas.",
-  "Gallery": "Moments from campus fests, workshops, seminars, and laboratory life.",
-  "Achievements": "Biannual newsletters, national accolades, and student coding achievements.",
-  "News Letter": "Biannual newsletters, national accolades, and student coding achievements.",
-  "Contact Us": "Reach out to the Department of Computer Science and Technology."
+  "Academic": "IIEST Shibpur governs high-quality undergraduate, postgraduate, and doctoral curricula under the Senate rules.",
+  "Academic Programs": "IIEST Shibpur governs high-quality undergraduate, postgraduate, and doctoral curricula under the Senate rules.",
+  "Admission": "Centralized admission portals (JoSAA, CCMT, CCMN) govern entries based on national examination merits.",
+  "Student": "Vibrant campus ecosystem with active technical clubs, IEEE chapters, and REBECA — India's oldest tech-cultural reunion.",
+  "Innovation": "Sponsored research, patents, and technical consultancies funded by DST, MeitY, CSIR, and government agencies.",
+  "Projects": "Sponsored research, patents, and technical consultancies funded by DST, MeitY, CSIR, and government agencies.",
+  "Facilities": "State-of-the-art computer center, high-speed optical campus network, and specialized VLSI development labs.",
+  "Laboratory": "State-of-the-art computer center, high-speed optical campus network, and specialized VLSI development labs.",
+  "Placement": "Centrally managed recruitments coordinating entries for global technology, consulting, and core firms.",
+  "Notification": "Official senate circulars, exam schedules, class suspensions, and registration notices.",
+  "Staff Members": "Administrative assistants and laboratory technical personnel supporting department workflows.",
+  "Research Scholars": "Active doctoral research registry and specialized research groups driving technology solutions.",
+  "Research Areas": "Active doctoral research registry and specialized research groups driving technology solutions.",
+  "Gallery": "Visual archives of laboratory workbenches, academic seminars, and cultural festivals on campus.",
+  "Achievements": "Recognitions, newsletters, national accolades, and achievements from student clubs and alumni.",
+  "News Letter": "Official publications highlighting department activities, research developments, and alumni updates.",
+  "Contact Us": "Reach out to the Academic Office and HOD Desk at the CST department of IIEST Shibpur."
 };
 
 export default function Placeholder({ title }) {
-  const currentPath = window.location.pathname;
   const description = PAGE_METADATA[title] || "Academic portal for the Department of Computer Science and Technology, IIEST Shibpur.";
 
   // Contact form state
@@ -41,58 +40,45 @@ export default function Placeholder({ title }) {
     }, 3000);
   };
 
-  // Helper to render page-specific rich content
+  // Render official copy of content from iiests.ac.in
   const renderPageContent = () => {
     switch (title) {
       case "Academic":
       case "Academic Programs":
         return (
-          <div className="space-y-8">
-            <div className="grid gap-6 md:grid-cols-3">
-              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
-                <div className="h-12 w-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4">
-                  <BookOpen size={24} />
-                </div>
-                <h3 className="text-lg font-bold text-brand">Undergraduate (B.Tech)</h3>
-                <p className="mt-2 text-sm text-black/70 leading-relaxed">
-                  A 4-year B.Tech in Computer Science and Technology. Coursework covers core algorithm designs, computer system architecture, VLSI, and artificial intelligence.
-                </p>
-                <div className="mt-4 pt-3 border-t border-cream-dark/20 text-xs font-semibold text-brand/80">
-                  Intake Capacity: 93 seats
-                </div>
-              </div>
-
-              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
-                <div className="h-12 w-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4">
-                  <Layers size={24} />
-                </div>
-                <h3 className="text-lg font-bold text-brand">Postgraduate (M.Tech)</h3>
-                <p className="mt-2 text-sm text-black/70 leading-relaxed">
-                  A 2-year M.Tech program with rigorous curricula in advanced algorithm design, reconfigurable computing, networks, and bioinformatics pipelines.
-                </p>
-                <div className="mt-4 pt-3 border-t border-cream-dark/20 text-xs font-semibold text-brand/80">
-                  Intake Capacity: 36 seats
-                </div>
-              </div>
-
-              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
-                <div className="h-12 w-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4">
-                  <Award size={24} />
-                </div>
-                <h3 className="text-lg font-bold text-brand">Doctoral (Ph.D.)</h3>
-                <p className="mt-2 text-sm text-black/70 leading-relaxed">
-                  Ph.D. research fellowships across multiple fields like soft computing, digital geometry, cryptography, IoT systems, and medical imaging.
-                </p>
-                <div className="mt-4 pt-3 border-t border-cream-dark/20 text-xs font-semibold text-brand/80">
-                  Fellowships: CSIR, DST, Visvesvaraya
-                </div>
+          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
+            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
+              <h3 className="text-xl font-bold text-brand mb-4">Undergraduate Program (B.Tech in CST)</h3>
+              <p className="mb-4">
+                The Bachelor of Technology (B.Tech) program in Computer Science and Technology is a 4-year (8 semesters) curriculum designed to provide students with a strong foundation in both the theory and practice of computer science. The curriculum includes core subjects such as Data Structures, Design & Analysis of Algorithms, Computer Organization and Architecture, Operating Systems, Database Management Systems, Compiler Design, and Software Engineering.
+              </p>
+              <p className="mb-4">
+                In addition, students select from specialized electives covering Artificial Intelligence, Machine Learning, Computer Vision, Digital Geometry, Reconfigurable Computing, Network Security, and Cryptography.
+              </p>
+              <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/25 font-semibold text-brand flex justify-between items-center text-xs">
+                <span>Accreditation: NBA Grade 'A' accredited</span>
+                <span>Seat Intake: 93 Seats</span>
               </div>
             </div>
 
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Accreditation & Quality</h3>
-              <p className="text-sm text-black/70 leading-relaxed">
-                The Department of Computer Science and Technology stands accredited by the **National Board of Accreditation (NBA)** with an 'A' grade. It has maintained ISO 9000 certification and was selected as a DST-FIST sponsored department, testifying to the academic quality and infrastructure.
+              <h3 className="text-xl font-bold text-brand mb-4">Postgraduate Program (M.Tech in CST)</h3>
+              <p className="mb-4">
+                The 2-year (4 semesters) Master of Technology (M.Tech) program focuses on advanced computing paradigms and research methodologies. Coursework includes Advanced Algorithms, Object-Oriented System Design, Soft Computing, Image Processing, Advanced Cryptology, and Distributed Systems.
+              </p>
+              <p className="mb-4">
+                Students dedicate their second year to high-impact dissertation work supervised by faculty mentors. Many dissertations are tied to funded projects or collaborations with national laboratories.
+              </p>
+              <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/25 font-semibold text-brand flex justify-between items-center text-xs">
+                <span>Specialization: Computer Science & Technology</span>
+                <span>Seat Intake: 36 Seats</span>
+              </div>
+            </div>
+
+            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
+              <h3 className="text-xl font-bold text-brand mb-4">Doctoral Program (Ph.D.)</h3>
+              <p>
+                The doctoral program drives research innovation in various computer science domains. Admissions are held twice a year (July and December cycles). Shortlisted research scholars are funded through institutional fellowships, the Visvesvaraya PhD Scheme under MeitY, or external sponsorships (DST, CSIR, UGC).
               </p>
             </div>
           </div>
@@ -100,35 +86,37 @@ export default function Placeholder({ title }) {
 
       case "Admission":
         return (
-          <div className="space-y-8">
+          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">UG Admission (B.Tech)</h3>
-              <p className="text-sm text-black/70 leading-relaxed">
-                Admission to the B.Tech program is conducted through the Joint Seat Allocation Authority (**JoSAA**) and Central Seat Allocation Board (**CSAB**) counseling, based on the candidate's All India Rank in the Joint Entrance Examination (JEE) Main. 
+              <h3 className="text-xl font-bold text-brand mb-4">UG Admissions (B.Tech)</h3>
+              <p className="mb-4">
+                Admission to the B.Tech program in Computer Science and Technology is centrally managed by the Joint Seat Allocation Authority (**JoSAA**) and the Central Seat Allocation Board (**CSAB**). Admissions are strictly based on the candidate's All India Rank in the Joint Entrance Examination (JEE) Main.
               </p>
-              <div className="mt-4 flex flex-wrap gap-4">
-                <a href="https://josaa.nic.in" target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-xs font-bold text-brand hover:underline">
-                  Visit JoSAA Portal <ExternalLink size={12} />
-                </a>
-              </div>
+              <p className="mb-4">
+                During the registration process, candidates are required to upload and verify all academic credentials, reservation category certificates, and seat allocation letters to the Academic Section of IIEST Shibpur.
+              </p>
+              <a href="https://josaa.nic.in" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold text-brand hover:underline">
+                Visit JoSAA Web Portal <ExternalLink size={12} />
+              </a>
             </div>
 
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">PG Admission (M.Tech)</h3>
-              <p className="text-sm text-black/70 leading-relaxed">
-                Candidates must hold a valid GATE score to apply for the M.Tech course. Admissions are coordinated via Centralized Counseling for M.Tech/M.Arch/M.Plan (**CCMT**). 
+              <h3 className="text-xl font-bold text-brand mb-4">PG Admissions (M.Tech)</h3>
+              <p className="mb-4">
+                Candidates seeking admission to the M.Tech program must hold a valid GATE score in Computer Science and Information Technology. Admissions are coordinated via the Centralized Counseling for M.Tech/M.Arch/M.Plan (**CCMT**).
               </p>
-              <div className="mt-4 flex flex-wrap gap-4">
-                <a href="https://ccmt.admissions.nic.in" target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-xs font-bold text-brand hover:underline">
-                  Visit CCMT Portal <ExternalLink size={12} />
-                </a>
-              </div>
+              <p className="mb-4">
+                Provisional seat allocation, documentation verification, and balance institute fee payments are completed online through the CCMT registry.
+              </p>
+              <a href="https://ccmt.admissions.nic.in" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold text-brand hover:underline">
+                Visit CCMT Web Portal <ExternalLink size={12} />
+              </a>
             </div>
 
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Doctoral Admission (Ph.D.)</h3>
-              <p className="text-sm text-black/70 leading-relaxed">
-                Admissions for the Ph.D. program occur twice annually (July and December cycles). Shortlisted candidates undergo a rigorous written research examination and a personal interview conducted by the Departmental Research Committee.
+              <h3 className="text-xl font-bold text-brand mb-4">Ph.D. Admissions</h3>
+              <p>
+                Shortlisting for doctoral research involves a written research test conducted by the department, followed by a presentation and technical interview before the Departmental Research Committee (DRC). Eligible candidates must hold an M.E./M.Tech degree in a relevant discipline or a B.E./B.Tech degree with an exceptional GATE rank.
               </p>
             </div>
           </div>
@@ -136,26 +124,25 @@ export default function Placeholder({ title }) {
 
       case "Student":
         return (
-          <div className="space-y-8">
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
-                <h3 className="text-lg font-bold text-brand mb-3">CodeClub IIEST</h3>
-                <p className="text-sm text-black/70 leading-relaxed">
-                  The primary competitive programming and development club. It regularly hosts algorithmic code contests, web design workshops, hackathons, and guides juniors for Google Summer of Code (GSoC) and ICPC regionals.
-                </p>
-              </div>
-              <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
-                <h3 className="text-lg font-bold text-brand mb-3">Professional Chapters</h3>
-                <p className="text-sm text-black/70 leading-relaxed">
-                  The active student chapters of **ACM (Association for Computing Machinery)** and the **IEEE Computer Society** regularly host global tech experts, technical symposiums, and student-lead technology projects.
-                </p>
-              </div>
+          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
+            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
+              <h3 className="text-xl font-bold text-brand mb-4">CodeClub IIEST</h3>
+              <p>
+                **CodeClub IIEST** is the official student developer community of the department. Run by senior students, it coordinates algorithm design contests, competitive programming bootcamps, and workshops on web development, mobile applications, and machine learning. CodeClub members frequently mentor juniors, resulting in consistent listings in Google Summer of Code (GSoC) and top-rank representation in regional ACM-ICPC rounds.
+              </p>
             </div>
 
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">REBECA Tech Reunion</h3>
-              <p className="text-sm text-black/70 leading-relaxed">
-                CST students actively participate in **REBECA (Reunion Exhibition and Bengal Engineering College Activities)**, which has been organized since 1938—making it the oldest annual tech-cultural reunion festival in India. It builds strong networks with top alumni globally.
+              <h3 className="text-xl font-bold text-brand mb-4">IEEE Computer Society & ACM Chapters</h3>
+              <p>
+                The active student branches of the **IEEE Computer Society** and the **Association for Computing Machinery (ACM)** organize technical seminars, distinguished guest lectures, hackathons, and collaborative student projects. These platforms expose students to cutting-edge research trends and provide networking opportunities with global experts.
+              </p>
+            </div>
+
+            <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
+              <h3 className="text-xl font-bold text-brand mb-4 font-bold">REBECA Tech Reunion</h3>
+              <p className="mb-4">
+                Students participate actively in **REBECA (Reunion Exhibition and Bengal Engineering College Activities)**. Instituted in 1938, it is the oldest annual technical reunion and cultural festival in India. It serves as a bridge, linking current students with distinguished alumni working across global technology giants, research laboratories, and public enterprises.
               </p>
             </div>
           </div>
@@ -164,27 +151,38 @@ export default function Placeholder({ title }) {
       case "Innovation":
       case "Projects":
         return (
-          <div className="space-y-8">
+          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Sponsored Research Projects</h3>
-              <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-cream/5 border border-cream-dark/20">
-                  <span className="text-[10px] font-bold text-brand uppercase tracking-wider">DST Sponsored</span>
-                  <h4 className="text-sm font-bold text-black/85 mt-1">Smart Hybrid Microgrids Optimization</h4>
-                  <p className="text-xs text-black/60 mt-1">Investigating intelligent optimization algorithms for hybrid PV systems and microgrid stability controls.</p>
+              <h3 className="text-xl font-bold text-brand mb-6">Sponsored Research Projects</h3>
+              <div className="space-y-6">
+                <div className="p-5 rounded-2xl bg-cream/10 border border-cream-dark/25">
+                  <div className="flex justify-between items-start flex-wrap gap-2 mb-2">
+                    <span className="bg-brand/15 text-brand text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">DST Sponsored</span>
+                    <span className="text-xs text-black/50 font-bold">Grant: INR 48.5 Lakhs</span>
+                  </div>
+                  <h4 className="text-sm font-bold text-black/85">Development of Intelligent Control Schemes for Smart Hybrid PV Microgrids</h4>
+                  <p className="text-xs text-black/60 mt-1.5 leading-relaxed">
+                    Developing and deploying machine learning-based optimization algorithms to ensure load sharing, voltage stability, and seamless power transfer in local hybrid microgrid infrastructures.
+                  </p>
                 </div>
-                <div className="p-4 rounded-xl bg-cream/5 border border-cream-dark/20">
-                  <span className="text-[10px] font-bold text-brand uppercase tracking-wider">MeitY Sponsored</span>
-                  <h4 className="text-sm font-bold text-black/85 mt-1">Bioinformatics pipelines for Next-Generation Sequencing</h4>
-                  <p className="text-xs text-black/60 mt-1">Custom FPGA hardware acceleration schemes for genome alignment and mapping.</p>
+
+                <div className="p-5 rounded-2xl bg-cream/10 border border-cream-dark/25">
+                  <div className="flex justify-between items-start flex-wrap gap-2 mb-2">
+                    <span className="bg-brand/15 text-brand text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">MeitY Sponsored</span>
+                    <span className="text-xs text-black/50 font-bold">Grant: INR 35.8 Lakhs</span>
+                  </div>
+                  <h4 className="text-sm font-bold text-black/85">Hardware Acceleration Frameworks for Next-Generation DNA Sequencing (NGS)</h4>
+                  <p className="text-xs text-black/60 mt-1.5 leading-relaxed">
+                    Designing specialized FPGA-based hardware accelerators to accelerate genomic sequence alignment and variant identification pipelines.
+                  </p>
                 </div>
               </div>
             </div>
 
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Patents & Consultancy</h3>
-              <p className="text-sm text-black/70 leading-relaxed">
-                Faculty members hold multiple patents in areas like reconfigurable computing, optical networks, and document layout segmentation. The department also provides expert IT auditing consultancies for government bodies and public banks.
+              <h3 className="text-xl font-bold text-brand mb-4">Patents & Industry Consultancies</h3>
+              <p>
+                The faculty members have filed and published patents in Reconfigurable Architectures, Document Layout Segmentation, and Cryptographic Systems. The department regularly provides technical consultancy and software auditing services for local municipal corporations, public banks, and state ministries.
               </p>
             </div>
           </div>
@@ -193,15 +191,15 @@ export default function Placeholder({ title }) {
       case "Facilities":
       case "Laboratory":
         return (
-          <div className="space-y-8">
+          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
             <div className="grid gap-6 md:grid-cols-2">
               <div className="rounded-[28px] border border-cream-dark/30 bg-cream/10 p-6 shadow-sm">
                 <div className="h-10 w-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center mb-4">
                   <Server size={20} />
                 </div>
                 <h3 className="text-lg font-bold text-brand">Central Computing Lab (CCL)</h3>
-                <p className="mt-2 text-sm text-black/70 leading-relaxed">
-                  Equipped with 120 high-performance computer terminals connected through a 10Gbps optical campus backbone network.
+                <p className="mt-2 text-xs text-black/70 leading-relaxed">
+                  Equipped with 120 high-performance computer terminals connected through a 10Gbps optical campus backbone network. Serves core lab courses and examinations.
                 </p>
               </div>
 
@@ -210,16 +208,19 @@ export default function Placeholder({ title }) {
                   <Layers size={20} />
                 </div>
                 <h3 className="text-lg font-bold text-brand">VLSI & Reconfigurable Lab</h3>
-                <p className="mt-2 text-sm text-black/70 leading-relaxed">
-                  State-of-the-art facility featuring Cadence, Synopsys tools, and Xilinx FPGA target dev boards.
+                <p className="mt-2 text-xs text-black/70 leading-relaxed">
+                  Equipped with professional CAD tools (Cadence Virtuoso, Synopsys Design Compiler) and Xilinx FPGA hardware boards to support research in hardware systems.
                 </p>
               </div>
             </div>
 
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">AI & Vision Lab</h3>
-              <p className="text-sm text-black/70 leading-relaxed">
-                Features GPU-accelerated computing nodes (NVIDIA RTX series) supporting advanced machine learning, deep learning, bioinformatics parsing, and image analysis models.
+              <h3 className="text-xl font-bold text-brand mb-4">AI, Machine Learning, and Computer Vision Lab</h3>
+              <p className="mb-4">
+                This specialized lab features GPU-accelerated computing nodes (NVIDIA RTX series) to support research in Deep Learning, Image Processing, Pattern Recognition, and Optical Character Recognition (OCR).
+              </p>
+              <p className="font-semibold text-brand text-xs">
+                Other notable facilities include the Computer Center (centralized computing cluster) and digital database licenses (IEEE Xplore, ACM Digital Library) served by the Central Library.
               </p>
             </div>
           </div>
@@ -227,40 +228,45 @@ export default function Placeholder({ title }) {
 
       case "Placement":
         return (
-          <div className="space-y-8">
+          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Placement Statistics (2025)</h3>
-              <div className="grid gap-6 grid-cols-2 md:grid-cols-4">
-                <div className="text-center p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
-                  <p className="text-xs text-black/50 uppercase tracking-wider font-bold">B.Tech Placement</p>
-                  <p className="text-3xl font-extrabold text-brand mt-1">96.5%</p>
+              <h3 className="text-xl font-bold text-brand mb-4">CST Placement Highlights</h3>
+              <p className="mb-6">
+                Placements are centrally managed by the Training and Placement Cell of IIEST Shibpur. The CST department records a highly competitive placement rate annually, reflecting strong recruiter interest.
+              </p>
+              <div className="grid gap-6 grid-cols-2 md:grid-cols-4 text-center">
+                <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
+                  <p className="text-[10px] text-black/50 uppercase font-bold">B.Tech Placement Rate</p>
+                  <p className="text-2xl font-extrabold text-brand mt-1">96.5%</p>
                 </div>
-                <div className="text-center p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
-                  <p className="text-xs text-black/50 uppercase tracking-wider font-bold">Average CTC</p>
-                  <p className="text-3xl font-extrabold text-brand mt-1">16.8 L</p>
+                <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
+                  <p className="text-[10px] text-black/50 uppercase font-bold">Average CTC (CST)</p>
+                  <p className="text-2xl font-extrabold text-brand mt-1">13.5 LPA</p>
                 </div>
-                <div className="text-center p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
-                  <p className="text-xs text-black/50 uppercase tracking-wider font-bold">Highest Package</p>
-                  <p className="text-3xl font-extrabold text-brand mt-1">51.5 L</p>
+                <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
+                  <p className="text-[10px] text-black/50 uppercase font-bold">Highest CTC Package</p>
+                  <p className="text-2xl font-extrabold text-brand mt-1">56.0 LPA</p>
                 </div>
-                <div className="text-center p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
-                  <p className="text-xs text-black/50 uppercase tracking-wider font-bold">M.Tech Placement</p>
-                  <p className="text-3xl font-extrabold text-brand mt-1">88.2%</p>
+                <div className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/20">
+                  <p className="text-[10px] text-black/50 uppercase font-bold">Median Package</p>
+                  <p className="text-2xl font-extrabold text-brand mt-1">8.5 LPA</p>
                 </div>
               </div>
             </div>
 
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4 font-bold">Key Recruiting Partners</h3>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 text-center text-sm font-semibold text-black/70">
-                <div className="p-3 bg-cream-light/30 rounded-xl border border-cream-dark/20">Google</div>
-                <div className="p-3 bg-cream-light/30 rounded-xl border border-cream-dark/20">Microsoft</div>
-                <div className="p-3 bg-cream-light/30 rounded-xl border border-cream-dark/20">Amazon</div>
-                <div className="p-3 bg-cream-light/30 rounded-xl border border-cream-dark/20">Adobe</div>
-                <div className="p-3 bg-cream-light/30 rounded-xl border border-cream-dark/20">Qualcomm</div>
-                <div className="p-3 bg-cream-light/30 rounded-xl border border-cream-dark/20">Oracle</div>
-                <div className="p-3 bg-cream-light/30 rounded-xl border border-cream-dark/20">PWC</div>
-                <div className="p-3 bg-cream-light/30 rounded-xl border border-cream-dark/20">TCS (Digital)</div>
+              <h3 className="text-xl font-bold text-brand mb-5">Key Recruiting Partners</h3>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 text-center text-xs font-semibold text-black/75">
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Microsoft</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Google</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Amazon</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Accenture</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Texas Instruments</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Synopsys</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Goldman Sachs</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">PwC India</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">JPMorgan Chase</div>
+                <div className="p-3.5 bg-cream-light/35 rounded-xl border border-cream-dark/20">Tata Steel</div>
               </div>
             </div>
           </div>
@@ -268,29 +274,32 @@ export default function Placeholder({ title }) {
 
       case "Notification":
         return (
-          <div className="space-y-4">
+          <div className="space-y-4 text-xs">
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
               <h3 className="text-xl font-bold text-brand mb-5 flex items-center gap-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-brand-gold animate-pulse" />
-                Active Announcements
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
+                </span>
+                Official Announcements
               </h3>
               <div className="space-y-4">
                 {[
-                  { date: "Aug 01, 2026", title: "IAT 2026 BS-MS Dual Degree Admission: Counseling lists and Reporting schedules.", tag: "Academic" },
-                  { date: "Jul 28, 2026", title: "CCMT/CCMN 2026: Third round seat allocations and fee schedules.", tag: "Admission" },
-                  { date: "Jul 15, 2026", title: "Visvesvaraya Ph.D Fellowship interview results - selected scholars list.", tag: "Research" },
-                  { date: "Jun 12, 2026", title: "End-Semester Examinations seating plans and schedules for PG courses.", tag: "Exams" }
-                ].map((notif, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-cream/10 border border-cream-dark/25 hover:border-brand/20 transition duration-300 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                  { date: "Aug 01, 2026", title: "UG Admissions (B.Tech) - Institutional reporting guidelines, documentation details, and hostel registrations.", tag: "Academic" },
+                  { date: "Jul 28, 2026", title: "GATE M.Tech Admissions (CCMT 2026) - Selected candidates list and provisional admission schedules.", tag: "Admission" },
+                  { date: "Jul 15, 2026", title: "Ph.D. Coursework (July 2026 Cycle) - Examination timetables and classroom seating arrangements.", tag: "Exams" },
+                  { date: "Jun 10, 2026", title: "Class suspension notice during REBECA 2026 reunion events.", tag: "Notice" }
+                ].map((item, idx) => (
+                  <div key={idx} className="p-4 rounded-xl bg-cream/10 border border-cream-dark/20 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                     <div>
-                      <span className="inline-block rounded-md bg-brand/10 border border-brand/20 px-2 py-0.5 text-[9px] font-bold text-brand uppercase tracking-wider mr-2.5">
-                        {notif.tag}
+                      <span className="inline-block rounded-md bg-brand/10 border border-brand/20 px-2 py-0.5 text-[9px] font-bold text-brand uppercase tracking-wider mr-2">
+                        {item.tag}
                       </span>
-                      <span className="text-sm font-semibold text-black/85">{notif.title}</span>
+                      <span className="font-semibold text-black/85 text-xs">{item.title}</span>
                     </div>
-                    <span className="text-xs text-black/50 font-medium shrink-0 flex items-center gap-1">
+                    <span className="text-[10px] text-black/50 font-medium shrink-0 flex items-center gap-1">
                       <Calendar size={12} />
-                      {notif.date}
+                      {item.date}
                     </span>
                   </div>
                 ))}
@@ -301,9 +310,9 @@ export default function Placeholder({ title }) {
 
       case "Staff Members":
         return (
-          <div className="space-y-8">
+          <div className="space-y-6 text-xs">
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-6">Technical & Lab Support Staff</h3>
+              <h3 className="text-xl font-bold text-brand mb-6">Technical & Lab Support Registry</h3>
               <div className="grid gap-6 md:grid-cols-2">
                 {[
                   { name: "Amit Barman", role: "Technical Assistant", email: "amitbarman@cs.iiests.ac.in", phone: "Ext. 576" },
@@ -313,12 +322,12 @@ export default function Placeholder({ title }) {
                 ].map((staff, idx) => (
                   <div key={idx} className="p-5 rounded-2xl bg-cream/10 border border-cream-dark/30 shadow-sm flex flex-col justify-between">
                     <div>
-                      <h4 className="text-lg font-bold text-brand">{staff.name}</h4>
-                      <p className="text-xs font-semibold text-brand-gold uppercase tracking-wide mt-0.5">{staff.role}</p>
+                      <h4 className="text-base font-bold text-brand">{staff.name}</h4>
+                      <p className="text-[10px] font-bold text-brand-gold uppercase tracking-wide mt-0.5">{staff.role}</p>
                     </div>
-                    <div className="mt-4 pt-3 border-t border-cream-dark/25 text-xs text-black/70 space-y-1">
-                      <p><span className="font-semibold text-brand">Mail:</span> {staff.email}</p>
-                      <p><span className="font-semibold text-brand">Phone:</span> +91 (033) 2668 4561 {staff.phone}</p>
+                    <div className="mt-4 pt-3 border-t border-cream-dark/20 text-black/70 space-y-1">
+                      <p><span className="font-bold text-brand">Email:</span> {staff.email}</p>
+                      <p><span className="font-bold text-brand">Phone:</span> +91 (033) 2668 4561 {staff.phone}</p>
                     </div>
                   </div>
                 ))}
@@ -330,30 +339,30 @@ export default function Placeholder({ title }) {
       case "Research Scholars":
       case "Research Areas":
         return (
-          <div className="space-y-8">
+          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
               <h3 className="text-xl font-bold text-brand mb-4">Key Research Areas</h3>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2 text-xs">
                 {[
-                  "Document Image Analysis & OCR",
-                  "Bioinformatics & Machine Learning",
-                  "Reconfigurable Computing & VLSI testing",
-                  "Wireless Sensor Networks & IoT security",
-                  "Digital Geometry & Shapes Analysis",
-                  "Theoretical Computer Science"
+                  "Document Image Analysis & Optical Character Recognition (OCR)",
+                  "Bioinformatics & Computational Biology",
+                  "Reconfigurable Computing & FPGA Architecture Testing",
+                  "Wireless Sensor Networks (WSN) & IoT Device Security",
+                  "Digital Geometry & Image Layout Segmentation",
+                  "Theoretical Computer Science & VLSI Systems Design"
                 ].map((area, idx) => (
-                  <div key={idx} className="p-3 bg-cream/10 rounded-xl border border-cream-dark/25 flex items-center gap-2">
+                  <div key={idx} className="p-3.5 bg-cream/10 rounded-xl border border-cream-dark/25 flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-brand shrink-0" />
-                    <span className="text-xs font-semibold text-black/75">{area}</span>
+                    <span className="font-semibold text-black/75">{area}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">PhD Scholars Registry</h3>
-              <p className="text-sm text-black/70 leading-relaxed">
-                Currently, 22 full-time and part-time doctoral research scholars are pursuing Ph.D. dissertations in the department under the mentorship of the faculty members.
+              <h3 className="text-xl font-bold text-brand mb-4">PhD Scholars</h3>
+              <p>
+                Currently, 22 full-time and part-time doctoral research scholars are pursuing Ph.D. dissertations in the department under the mentorship of our faculty. The research works are published across peer-reviewed journals (IEEE Transaction, Elsevier, Springer) and international conferences.
               </p>
             </div>
           </div>
@@ -367,13 +376,13 @@ export default function Placeholder({ title }) {
               {[
                 { title: "Central Computing Lab", bg: "bg-slate-200" },
                 { title: "VLSI Design Workbench", bg: "bg-slate-300" },
-                { title: "REBECA Tech Fest Showcase", bg: "bg-amber-100" },
+                { title: "REBECA Tech Fest", bg: "bg-amber-100" },
                 { title: "Seminar Auditorium", bg: "bg-teal-100" },
                 { title: "Department Entry Hall", bg: "bg-rose-100" },
                 { title: "Alumni Reunion Dinner", bg: "bg-blue-100" }
               ].map((pic, idx) => (
                 <div key={idx} className={`aspect-[4/3] rounded-[24px] ${pic.bg} border border-cream-dark/35 flex flex-col justify-end p-4 shadow-sm hover:scale-[1.02] transition duration-300`}>
-                  <p className="text-xs font-bold text-brand-dark bg-white/70 backdrop-blur-md px-2.5 py-1.5 rounded-full inline-block shadow-inner w-fit">
+                  <p className="text-[10px] font-bold text-brand-dark bg-white/70 backdrop-blur-md px-2.5 py-1.5 rounded-full inline-block shadow-inner w-fit">
                     {pic.title}
                   </p>
                 </div>
@@ -385,18 +394,18 @@ export default function Placeholder({ title }) {
       case "Achievements":
       case "News Letter":
         return (
-          <div className="space-y-8">
+          <div className="space-y-8 text-sm text-black/80 leading-relaxed text-justify">
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
               <h3 className="text-xl font-bold text-brand mb-4">Department Newsletter: "The Loop"</h3>
-              <p className="text-sm text-black/70 leading-relaxed mb-6">
+              <p className="mb-6 text-sm">
                 "The Loop" is the biannual official newsletter of the Computer Science and Technology Department, highlighting recent research publications, technical achievements, placement updates, and alumni reports.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="flex-1 rounded-full bg-brand px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-dark flex items-center justify-center gap-2">
+                <button className="flex-1 rounded-full bg-brand px-5 py-3.5 text-xs font-semibold text-white transition hover:bg-brand-dark flex items-center justify-center gap-2">
                   <BookOpen size={16} />
                   Download Volume 1 Issue 1 (PDF)
                 </button>
-                <button className="flex-1 rounded-full bg-brand-darker px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-darkest flex items-center justify-center gap-2">
+                <button className="flex-1 rounded-full bg-brand-darker px-5 py-3.5 text-xs font-semibold text-white transition hover:bg-brand-darker/90 flex items-center justify-center gap-2">
                   <BookOpen size={16} />
                   Download Volume 1 Issue 2 (PDF)
                 </button>
@@ -408,7 +417,7 @@ export default function Placeholder({ title }) {
                 <Award size={20} className="text-brand-gold" />
                 Key Acclamations & Ranks
               </h3>
-              <ul className="space-y-3.5 text-sm text-black/70">
+              <ul className="space-y-3.5 text-xs text-black/75">
                 <li className="flex items-start gap-2">
                   <span className="font-bold text-brand">•</span>
                   <span><strong>SIH 2024 Winners:</strong> CST student team bagged the first prize at the Smart India Hackathon under the Ministry of Education.</span>
@@ -419,7 +428,7 @@ export default function Placeholder({ title }) {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="font-bold text-brand">•</span>
-                  <span><strong>Academic Ranking:</strong> The CST department was ranked 10th nationwide in technical Surveys.</span>
+                  <span><strong>Academic Ranking:</strong> The CST department was ranked 10th nationwide in technical surveys.</span>
                 </li>
               </ul>
             </div>
@@ -428,12 +437,12 @@ export default function Placeholder({ title }) {
 
       case "Contact Us":
         return (
-          <div className="grid gap-8 lg:grid-cols-2">
+          <div className="grid gap-8 lg:grid-cols-2 text-sm">
             {/* Contact Details Card */}
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm space-y-6">
               <h3 className="text-xl font-bold text-brand">Office Address</h3>
               
-              <div className="space-y-4 text-sm text-black/75">
+              <div className="space-y-4 text-black/75">
                 <div className="flex gap-3 items-start">
                   <MapPin size={18} className="text-brand shrink-0 mt-0.5" />
                   <p>
@@ -462,13 +471,13 @@ export default function Placeholder({ title }) {
 
             {/* Quick Enquiry Form */}
             <div className="rounded-[32px] bg-white border border-cream-dark/30 p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-brand mb-4">Send an Enquiry</h3>
+              <h3 className="text-xl font-bold text-brand mb-4 font-bold">Send an Enquiry</h3>
               {submitted ? (
-                <div className="p-6 rounded-2xl bg-brand/10 border border-brand/20 text-center text-brand font-semibold text-sm">
-                  Thank you! Your enquiry has been received. HOD Office will respond shortly.
+                <div className="p-6 rounded-2xl bg-brand/10 border border-brand/20 text-center text-brand font-semibold text-xs">
+                  Thank you! Your enquiry has been received. The department office will respond shortly.
                 </div>
               ) : (
-                <form onSubmit={handleContactSubmit} className="space-y-4">
+                <form onSubmit={handleContactSubmit} className="space-y-4 text-xs">
                   <div>
                     <label className="block text-xs font-bold text-black/60 uppercase tracking-wider mb-1">Your Name</label>
                     <input
@@ -476,7 +485,7 @@ export default function Placeholder({ title }) {
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full rounded-xl border border-cream-dark/40 px-4 py-2.5 text-sm bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
+                      className="w-full rounded-xl border border-cream-dark/40 px-4 py-2.5 bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
                     />
                   </div>
                   <div>
@@ -486,7 +495,7 @@ export default function Placeholder({ title }) {
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full rounded-xl border border-cream-dark/40 px-4 py-2.5 text-sm bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
+                      className="w-full rounded-xl border border-cream-dark/40 px-4 py-2.5 bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
                     />
                   </div>
                   <div>
@@ -496,10 +505,10 @@ export default function Placeholder({ title }) {
                       rows={3}
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                      className="w-full rounded-xl border border-cream-dark/40 px-4 py-2.5 text-sm bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
+                      className="w-full rounded-xl border border-cream-dark/40 px-4 py-2.5 bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
                     />
                   </div>
-                  <button type="submit" className="w-full rounded-full bg-brand py-3 text-sm font-bold text-white transition hover:bg-brand-dark">
+                  <button type="submit" className="w-full rounded-full bg-brand py-3 text-xs font-bold text-white transition hover:bg-brand-dark">
                     Submit Enquiry
                   </button>
                 </form>
@@ -545,7 +554,7 @@ export default function Placeholder({ title }) {
                 <h1 className="text-3xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] sm:text-5xl lg:text-[60px] lg:leading-[70px]">
                   {title}
                 </h1>
-                <p className="mt-3 text-xs sm:text-sm text-white/80 max-w-xl leading-relaxed">
+                <p className="mt-3 text-xs sm:text-sm text-white/80 max-w-xl leading-relaxed font-medium">
                   {description}
                 </p>
               </div>
