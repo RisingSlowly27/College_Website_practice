@@ -28,9 +28,12 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="absolute right-0 top-1/3 hidden -translate-y-1/2 lg:flex z-20">
-              <div className="flex h-[190px] w-[143px] items-center justify-center rounded-l-[41px] bg-cream-dark">
-                <span className="-rotate-90 whitespace-nowrap text-2xl font-semibold text-brand">
+            <div 
+              onClick={() => window.dispatchEvent(new CustomEvent("toggle-updates"))}
+              className="absolute right-0 top-1/3 hidden -translate-y-1/2 lg:flex z-20 cursor-pointer transition-transform hover:-translate-x-1"
+            >
+              <div className="flex h-[190px] w-[143px] items-center justify-center rounded-l-[41px] bg-cream-dark shadow-md hover:bg-brand-gold transition-colors group">
+                <span className="-rotate-90 whitespace-nowrap text-2xl font-semibold text-brand group-hover:text-white transition-colors">
                   Updates
                 </span>
               </div>
