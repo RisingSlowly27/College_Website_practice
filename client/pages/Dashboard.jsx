@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus, Edit3, Trash2, Globe, LogOut, UserCheck, User, Camera, Mail, Phone, BookOpen, UserMinus, PlusCircle, CheckCircle, XCircle, Book, FileText, ArrowLeft } from "lucide-react";
+import { Plus, Edit3, Trash2, Globe, LogOut, UserCheck, User, Users, Camera, Mail, Phone, BookOpen, UserMinus, PlusCircle, CheckCircle, XCircle, Book, FileText, ArrowLeft } from "lucide-react";
 import Layout from "@/components/site/Layout";
 
 export default function Dashboard() {
