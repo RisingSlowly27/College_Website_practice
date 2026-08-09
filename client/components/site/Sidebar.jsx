@@ -8,17 +8,17 @@ export default function Sidebar() {
         <div className="mb-4 inline-block rounded-full bg-brand px-8 py-3">
           <h2 className="text-2xl font-medium text-white">Menu</h2>
         </div>
-        <ul className="space-y-1.5">
+        <ul className="space-y-1">
           {departmentNav.map((item) => (
             <li key={item.href}>
               <NavLink
                 to={item.href}
                 end
                 className={({ isActive }) =>
-                  `block text-sm font-semibold leading-tight rounded-2xl px-4 py-3 transition-all ${
+                  `block text-sm transition-all py-1.5 ${
                     isActive 
-                      ? "bg-brand text-white shadow-sm font-bold" 
-                      : "text-brand/85 hover:text-brand hover:bg-brand/5"
+                      ? "font-extrabold text-brand border-l-4 border-brand pl-3" 
+                      : "font-semibold text-brand/80 hover:text-brand hover:pl-2"
                   }`
                 }
               >

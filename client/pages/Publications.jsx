@@ -206,16 +206,16 @@ const ALL_PROFESSORS = Object.values(PROFESSORS_DATA).flat();
 export default function Publications() {
   const [searchParams] = useSearchParams();
 
-  // Navigation Stage: FALSE = already opened by default on Stage 2 Explorer Grid
-  const [showSelector, setShowSelector] = useState(false);
+  // Navigation Stage: TRUE = show selector if unselected or if no URL search params
+  const [showSelector, setShowSelector] = useState(true);
 
   // Selection form filter states
-  const [selectedDept, setSelectedDept] = useState("all");
-  const [selectedProf, setSelectedProf] = useState("all");
+  const [selectedDept, setSelectedDept] = useState("");
+  const [selectedProf, setSelectedProf] = useState("");
 
   // Active explorer states
-  const [scopeDept, setScopeDept] = useState("all");
-  const [scopeProf, setScopeProf] = useState("all");
+  const [scopeDept, setScopeDept] = useState("");
+  const [scopeProf, setScopeProf] = useState("");
 
   // Real-time filters (Center / Right Pane)
   const [searchQuery, setSearchQuery] = useState("");
@@ -246,30 +246,38 @@ export default function Publications() {
 
   // Sync state with URL search params when they change
   useEffect(() => {
-    const dept = searchParams.get("dept") || "all";
-    const prof = searchParams.get("prof") || "all";
-    setSelectedDept(dept);
-    setSelectedProf(prof);
-    setScopeDept(dept);
-    setScopeProf(prof);
+    const dept = searchParams.get("dept");
+    const prof = searchParams.get("prof");
+    if (dept && prof) {
+      setSelectedDept(dept);
+      setSelectedProf(prof);
+      setScopeDept(dept);
+      setScopeProf(prof);
+      setShowSelector(false);
+    } else {
+      setSelectedDept("");
+      setSelectedProf("");
+      setScopeDept("");
+      setScopeProf("");
+      setShowSelector(true);
+    }
     setSearchQuery("");
     setSelectedType("all");
     setExpandedPubIds({});
-    setShowSelector(false);
   }, [searchParams]);
 
   // 1. Dynamic dropdown professor filter
-  const selectDeptProfessors = selectedDept === "all" ? [] : PROFESSORS_DATA[selectedDept] || [];
+  const selectDeptProfessors = (!selectedDept || selectedDept === "all") ? [] : PROFESSORS_DATA[selectedDept] || [];
 
   // Reset selected professor if department switches and the selected professor does not belong to the selected department
   useEffect(() => {
-    if (selectedDept === "all") {
-      setSelectedProf("all");
+    if (!selectedDept || selectedDept === "all") {
+      setSelectedProf(selectedDept === "all" ? "all" : "");
     } else {
       const profs = PROFESSORS_DATA[selectedDept] || [];
       const belongs = profs.some(p => p.id.toString() === selectedProf.toString());
-      if (!belongs && selectedProf !== "all") {
-        setSelectedProf("all");
+      if (!belongs && selectedProf !== "all" && selectedProf !== "") {
+        setSelectedProf("");
       }
     }
   }, [selectedDept]);
@@ -277,8 +285,9 @@ export default function Publications() {
   // Form submit handler
   const handleExploreSubmit = (e) => {
     e.preventDefault();
+    if (!selectedDept) return;
     setScopeDept(selectedDept);
-    setScopeProf(selectedProf);
+    setScopeProf(selectedProf || "all");
     setSearchQuery("");
     setSelectedType("all");
     setExpandedPubIds({});
@@ -421,6 +430,7 @@ export default function Publications() {
                         className="w-full rounded-xl border border-white/10 bg-white/20 px-4 py-2 text-xs text-white outline-none cursor-pointer focus:bg-white focus:text-black"
                         required
                       >
+                        <option className="text-black" value="" disabled>Select Department...</option>
                         <option className="text-black" value="all">All Departments</option>
                         <option className="text-black" value="Computer Science and Technology">Computer Science & Technology (CST)</option>
                         <option className="text-black" value="Information Technology">Information Technology (IT)</option>
@@ -435,9 +445,10 @@ export default function Publications() {
                         value={selectedProf}
                         onChange={(e) => setSelectedProf(e.target.value)}
                         className="w-full rounded-xl border border-white/10 bg-white/20 px-4 py-2 text-xs text-white outline-none cursor-pointer focus:bg-white focus:text-black disabled:opacity-50"
-                        disabled={selectedDept === "all"}
+                        disabled={!selectedDept || selectedDept === "all"}
                         required
                       >
+                        <option className="text-black" value="" disabled>Select Faculty Researcher...</option>
                         <option className="text-black" value="all">All Professors</option>
                         {selectDeptProfessors.map(prof => (
                           <option key={prof.id} value={prof.id} className="text-black">{prof.name}</option>
@@ -454,14 +465,14 @@ export default function Publications() {
                   </form>
                 </div>
               ) : (
-                 /* STAGE 2 Scope Details inside the banner image (floating panel styling!) */
-                 <div className="flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-6 bg-black/45 backdrop-blur-md p-8 sm:p-10 rounded-[32px] border border-white/10 lg:ml-8 text-white">
+                 /* STAGE 2 Scope Details inside the banner image (direct text overlay) */
+                 <div className="flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-6 lg:pl-12 text-white">
                    <div>
                      <span className="text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Current Explorer Scope</span>
                      <h1 className="text-3xl font-extrabold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sm:text-5xl lg:text-[54px] lg:leading-[64px] mt-1.5">
                        {scopeDept === "all" ? COLLEGE_DETAILS.title : scopeProf === "all" ? scopeDept : ALL_PROFESSORS.find(p => p.id.toString() === scopeProf.toString())?.name}
                      </h1>
-                     <p className="text-xs sm:text-sm text-white/95 mt-3 font-semibold leading-relaxed max-w-2xl">
+                     <p className="text-xs sm:text-sm text-white/90 mt-3 font-semibold leading-relaxed max-w-2xl">
                        {scopeDept === "all" ? COLLEGE_DETAILS.subtitle : scopeProf === "all" ? `Showing all research publications from the Department of ${scopeDept}.` : `Showing publications for faculty researcher from Department of ${scopeDept}.`}
                      </p>
                    </div>
