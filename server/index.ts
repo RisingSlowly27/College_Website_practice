@@ -6,8 +6,8 @@ import path from "path";
 import { handleDemo } from "./routes/demo";
 
 // Paths to database files
-const USERS_FILE_PATH = path.join(__dirname, "users.json");
-const PUBS_FILE_PATH = path.join(__dirname, "../client/lib/publications-data.json");
+const USERS_FILE_PATH = path.join(process.cwd(), "server", "users.json");
+const PUBS_FILE_PATH = path.join(process.cwd(), "client", "lib", "publications-data.json");
 
 export function createServer() {
   const app = express();
