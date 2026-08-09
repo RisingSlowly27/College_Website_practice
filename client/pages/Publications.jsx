@@ -423,7 +423,7 @@ export default function Publications() {
                   
                   <form onSubmit={handleExploreSubmit} className="flex flex-col gap-5 text-left w-full mt-6">
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold">Department</label>
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-brand drop-shadow-[0_1.5px_4px_rgba(255,255,255,0.9)]">Department</label>
                       <select
                         value={selectedDept}
                         onChange={(e) => setSelectedDept(e.target.value)}
@@ -440,7 +440,7 @@ export default function Publications() {
                     </div>
 
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold">Faculty Researcher</label>
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-brand drop-shadow-[0_1.5px_4px_rgba(255,255,255,0.9)]">Faculty Researcher</label>
                       <select
                         value={selectedProf}
                         onChange={(e) => setSelectedProf(e.target.value)}
