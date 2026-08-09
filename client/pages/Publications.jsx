@@ -415,57 +415,55 @@ export default function Publications() {
               {/* Right Side: Stage 1 Form or Stage 2 Scope details */}
               {showSelector ? (
                 /* STAGE 1 Selector Form inside the banner image (glassmorphic style!) */
-                 <div className="flex-1 w-full max-w-none lg:ml-8 flex flex-col justify-center items-start text-left text-white bg-black/45 backdrop-blur-md py-12 sm:py-16 px-8 sm:px-12 rounded-[32px] border border-white/10">
-                   <h2 className="text-3xl font-extrabold text-white">Academic Publications Explorer</h2>
-                   <p className="mt-2 text-xs sm:text-sm text-white/80 max-w-2xl font-medium leading-relaxed">
-                     Select a Department and Faculty Researcher to explore their publications.
-                   </p>
-                   
-                   <form onSubmit={handleExploreSubmit} className="grid grid-cols-1 md:grid-cols-12 gap-5 w-full mt-10 text-left">
-                     <div className="flex flex-col gap-1.5 md:col-span-5">
-                       <label className="text-[10px] font-extrabold uppercase tracking-wider text-white">Department</label>
-                       <select
-                         value={selectedDept}
-                         onChange={(e) => setSelectedDept(e.target.value)}
-                         className="w-full rounded-xl border border-white/10 bg-white/20 px-4 py-3 text-xs text-white outline-none cursor-pointer focus:bg-white focus:text-black font-semibold"
-                         required
-                       >
-                         <option className="text-black" value="" disabled>Select Department...</option>
-                         <option className="text-black" value="all">All Departments</option>
-                         <option className="text-black" value="Computer Science and Technology">Computer Science & Technology (CST)</option>
-                         <option className="text-black" value="Information Technology">Information Technology (IT)</option>
-                         <option className="text-black" value="Electrical Engineering">Electrical Engineering (EE)</option>
-                         <option className="text-black" value="Civil Engineering">Civil Engineering (CE)</option>
-                       </select>
-                     </div>
+                <div className="flex-1 w-full lg:ml-8 flex flex-col justify-center bg-black/40 backdrop-blur-md p-8 sm:p-12 rounded-[36px] border border-white/10 min-h-[420px] text-white">
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-white drop-shadow-sm">Academic Publications Explorer</h2>
+                  <p className="mt-2 text-xs sm:text-sm text-white/80">
+                    Select a Department and Faculty Researcher to explore their publications.
+                  </p>
+                  
+                  <form onSubmit={handleExploreSubmit} className="flex flex-col gap-5 text-left w-full mt-6">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold">Department</label>
+                      <select
+                        value={selectedDept}
+                        onChange={(e) => setSelectedDept(e.target.value)}
+                        className="w-full rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md px-5 py-3 text-sm text-white outline-none cursor-pointer focus:bg-white focus:text-black transition-all"
+                        required
+                      >
+                        <option className="text-black" value="" disabled>Select Department...</option>
+                        <option className="text-black" value="all">All Departments</option>
+                        <option className="text-black" value="Computer Science and Technology">Computer Science & Technology (CST)</option>
+                        <option className="text-black" value="Information Technology">Information Technology (IT)</option>
+                        <option className="text-black" value="Electrical Engineering">Electrical Engineering (EE)</option>
+                        <option className="text-black" value="Civil Engineering">Civil Engineering (CE)</option>
+                      </select>
+                    </div>
 
-                     <div className="flex flex-col gap-1.5 md:col-span-5">
-                       <label className="text-[10px] font-extrabold uppercase tracking-wider text-white">Faculty Researcher</label>
-                       <select
-                         value={selectedProf}
-                         onChange={(e) => setSelectedProf(e.target.value)}
-                         className="w-full rounded-xl border border-white/10 bg-white/20 px-4 py-3 text-xs text-white outline-none cursor-pointer focus:bg-white focus:text-black disabled:opacity-50 font-semibold"
-                         disabled={!selectedDept || selectedDept === "all"}
-                         required
-                       >
-                         <option className="text-black" value="" disabled>Select Faculty Researcher...</option>
-                         <option className="text-black" value="all">All Professors</option>
-                         {selectDeptProfessors.map(prof => (
-                           <option key={prof.id} value={prof.id} className="text-black">{prof.name}</option>
-                         ))}
-                       </select>
-                     </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-brand-gold">Faculty Researcher</label>
+                      <select
+                        value={selectedProf}
+                        onChange={(e) => setSelectedProf(e.target.value)}
+                        className="w-full rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md px-5 py-3 text-sm text-white outline-none cursor-pointer focus:bg-white focus:text-black disabled:opacity-55 transition-all"
+                        disabled={!selectedDept || selectedDept === "all"}
+                        required
+                      >
+                        <option className="text-black" value="" disabled>Select Faculty Researcher...</option>
+                        <option className="text-black" value="all">All Professors</option>
+                        {selectDeptProfessors.map(prof => (
+                          <option key={prof.id} value={prof.id} className="text-black">{prof.name}</option>
+                        ))}
+                      </select>
+                    </div>
 
-                     <div className="flex flex-col justify-end md:col-span-2">
-                       <button
-                         type="submit"
-                         className="w-full rounded-xl bg-brand hover:bg-brand-dark py-3 text-xs font-bold text-white transition shadow-sm h-[42px] flex items-center justify-center"
-                       >
-                         Explore
-                       </button>
-                     </div>
-                   </form>
-                 </div>
+                    <button
+                      type="submit"
+                      className="w-full mt-3 rounded-2xl bg-brand py-3.5 text-sm font-bold text-white transition hover:bg-brand-dark shadow-md"
+                    >
+                      Explore Publications
+                    </button>
+                  </form>
+                </div>
               ) : (
                  /* STAGE 2 Scope Details inside the banner image (direct text overlay) */
                  <div className="flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-6 lg:pl-12 text-white">

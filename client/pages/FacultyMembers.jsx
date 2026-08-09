@@ -170,45 +170,48 @@ export default function FacultyMembers() {
         </div>
       </div>
 
-      {/* Search & Filters Bar Outside of Banner */}
-      <div className="mx-auto max-w-[1720px] mb-8 p-6 rounded-[24px] bg-cream-dark/40 border border-cream-dark/65 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="relative w-full md:max-w-sm">
-          <input
-            type="text"
-            placeholder="Search Faculty Name or Area..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-full border border-cream-dark/40 bg-cream/5 px-5 py-2.5 text-xs text-black placeholder-black/50 outline-none shadow-sm focus:border-brand transition-all font-semibold"
-          />
-        </div>
-
-        <div className="flex flex-wrap items-center gap-4 w-full md:w-auto">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-black/60">Dept:</span>
-            <select
-              value={deptFilter}
-              onChange={(e) => setDeptFilter(e.target.value)}
-              className="rounded-full border border-cream-dark/40 bg-white px-5 py-2.5 text-xs text-black font-semibold outline-none cursor-pointer shadow-sm focus:border-brand transition-all"
-            >
-              <option className="text-black" value="All">All Departments</option>
-              <option className="text-black" value="Computer Science and Technology">CST</option>
-              <option className="text-black" value="Electrical Engineering">Electrical (EE)</option>
-              <option className="text-black" value="Civil Engineering">Civil (CE)</option>
-            </select>
+      {/* Standalone Search & Filters Bar with Reddish Background (bg-brand) */}
+      <div className="mx-auto max-w-[1720px] px-0 mb-8 animate-fadeIn">
+        <div className="bg-brand p-5 sm:p-6 rounded-[28px] shadow-[0_4px_20px_rgba(90,11,29,0.15)] flex flex-col md:flex-row items-center justify-between gap-5 text-white">
+          <div className="w-full md:max-w-md">
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-brand-gold mb-1.5 pl-1">Search Researcher</span>
+            <input
+              type="text"
+              placeholder="Type faculty name or research area..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-2xl border border-white/10 bg-white/10 backdrop-blur-md px-5 py-3 text-sm text-white placeholder-white/60 outline-none focus:bg-white focus:text-black focus:placeholder-black/40 transition-all shadow-inner"
+            />
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-black/60">Designation:</span>
-            <select
-              value={designationFilter}
-              onChange={(e) => setDesignationFilter(e.target.value)}
-              className="rounded-full border border-cream-dark/40 bg-white px-5 py-2.5 text-xs text-black font-semibold outline-none cursor-pointer shadow-sm focus:border-brand transition-all"
-            >
-              <option className="text-black" value="All">All Designations</option>
-              <option className="text-black" value="Professor">Professors</option>
-              <option className="text-black" value="Associate Professor">Associate Professors</option>
-              <option className="text-black" value="Assistant Professor">Assistant Professors</option>
-            </select>
+          <div className="flex flex-wrap items-center gap-4 w-full md:w-auto justify-end">
+            <div className="flex flex-col gap-1 w-full sm:w-[220px]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-brand-gold pl-1">Department</span>
+              <select
+                value={deptFilter}
+                onChange={(e) => setDeptFilter(e.target.value)}
+                className="w-full rounded-2xl border border-white/10 bg-white/10 backdrop-blur-md px-5 py-3 text-sm text-white font-semibold outline-none cursor-pointer focus:bg-white focus:text-black transition-all"
+              >
+                <option className="text-black" value="All">All Departments</option>
+                <option className="text-black" value="Computer Science and Technology">CST</option>
+                <option className="text-black" value="Electrical Engineering">Electrical (EE)</option>
+                <option className="text-black" value="Civil Engineering">Civil (CE)</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col gap-1 w-full sm:w-[220px]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-brand-gold pl-1">Designation</span>
+              <select
+                value={designationFilter}
+                onChange={(e) => setDesignationFilter(e.target.value)}
+                className="w-full rounded-2xl border border-white/10 bg-white/10 backdrop-blur-md px-5 py-3 text-sm text-white font-semibold outline-none cursor-pointer focus:bg-white focus:text-black transition-all"
+              >
+                <option className="text-black" value="All">All Designations</option>
+                <option className="text-black" value="Professor">Professors</option>
+                <option className="text-black" value="Associate Professor">Associate Professors</option>
+                <option className="text-black" value="Assistant Professor">Assistant Professors</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
