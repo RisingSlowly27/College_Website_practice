@@ -282,6 +282,19 @@ export default function Publications() {
     }
   }, [selectedDept]);
 
+  // Scroll to explorer results when selector is closed (Stage 2 active)
+  useEffect(() => {
+    if (!showSelector) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById("explorer-results");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 80);
+      return () => clearTimeout(timer);
+    }
+  }, [showSelector]);
+
   // Form submit handler
   const handleExploreSubmit = (e) => {
     e.preventDefault();
@@ -491,7 +504,7 @@ export default function Publications() {
 
       {/* Main Explorer Grid: Full Width below top section - NO px padding */}
       {!showSelector && (
-        <div className="mx-auto max-w-[1720px] py-8 lg:py-12 px-0 animate-fadeIn">
+        <div id="explorer-results" className="mx-auto max-w-[1720px] py-8 lg:py-12 px-0 animate-fadeIn">
           <div className="grid grid-cols-1 xl:grid-cols-4 gap-8 items-start">
             
             {/* 2.1 Left Pane (Profile/Dept/College Card) */}
