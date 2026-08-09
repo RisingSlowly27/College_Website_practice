@@ -161,12 +161,12 @@ export default function FacultyMembers() {
                 <h1 className="text-3xl font-bold leading-tight text-brand drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)] sm:text-5xl lg:text-[64px] lg:leading-[74px]">
                   Faculty Members
                 </h1>
-                <p className="mt-3 text-xs sm:text-sm text-white/90 max-w-xl leading-relaxed font-medium">
+                <p className="mt-3 text-xs sm:text-sm text-brand/85 drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)] max-w-xl leading-relaxed font-semibold">
                   Our distinguished members driving research, academic excellence, and innovation in computer science.
                 </p>
                 
                 {/* Search & Filters overlaid in Hero */}
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mt-6 pt-5 border-t border-white/20">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mt-6 pt-5 border-t border-brand/20">
                   <div className="relative flex-1 max-w-xs">
                     <input
                       type="text"
@@ -179,7 +179,7 @@ export default function FacultyMembers() {
 
                   <div className="flex flex-wrap items-center gap-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-white/95">Dept:</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-brand drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]">Dept:</span>
                       <select
                         value={deptFilter}
                         onChange={(e) => setDeptFilter(e.target.value)}
@@ -193,7 +193,7 @@ export default function FacultyMembers() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-white/95">Designation:</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-brand drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]">Designation:</span>
                       <select
                         value={designationFilter}
                         onChange={(e) => setDesignationFilter(e.target.value)}

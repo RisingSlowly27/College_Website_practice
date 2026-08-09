@@ -683,7 +683,7 @@ export default function Placeholder({ title }) {
                 <h1 className="text-3xl font-bold leading-tight text-brand drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)] sm:text-5xl lg:text-[64px] lg:leading-[74px]">
                   {title}
                 </h1>
-                <p className="mt-3 text-xs sm:text-sm text-white/90 max-w-2xl leading-relaxed font-medium">
+                <p className="mt-3 text-xs sm:text-sm text-brand/85 drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)] max-w-2xl leading-relaxed font-semibold">
                   {description}
                 </p>
               </div>

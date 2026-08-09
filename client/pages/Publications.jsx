@@ -468,11 +468,11 @@ export default function Publications() {
                  /* STAGE 2 Scope Details inside the banner image (direct text overlay) */
                  <div className="flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-6 lg:pl-12 text-white">
                    <div>
-                     <span className="text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Current Explorer Scope</span>
+                     <span className="text-[10px] font-extrabold text-brand drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)] uppercase tracking-wider">Current Explorer Scope</span>
                      <h1 className="text-3xl font-extrabold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sm:text-5xl lg:text-[54px] lg:leading-[64px] mt-1.5">
                        {scopeDept === "all" ? COLLEGE_DETAILS.title : scopeProf === "all" ? scopeDept : ALL_PROFESSORS.find(p => p.id.toString() === scopeProf.toString())?.name}
                      </h1>
-                     <p className="text-xs sm:text-sm text-white/90 mt-3 font-semibold leading-relaxed max-w-2xl">
+                     <p className="text-xs sm:text-sm text-brand/85 drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)] mt-3 font-semibold leading-relaxed max-w-2xl">
                        {scopeDept === "all" ? COLLEGE_DETAILS.subtitle : scopeProf === "all" ? `Showing all research publications from the Department of ${scopeDept}.` : `Showing publications for faculty researcher from Department of ${scopeDept}.`}
                      </p>
                    </div>
