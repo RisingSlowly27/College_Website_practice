@@ -656,27 +656,92 @@ export default function Publications() {
                         <div className="bg-cream/10 border border-brand/20 rounded-2xl p-5 mt-4 text-sm text-black/85 animate-slideDown shadow-inner">
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3.5">
                             <div className="flex flex-col">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">DOI Link</span>
-                              <a href={pub.url} target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-blue-600 hover:underline truncate" title={pub.url}>
-                                {pub.url || "N/A"}
-                              </a>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">DOI Link / URL</span>
+                              {pub.doi ? (
+                                <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-blue-600 hover:underline truncate" title={pub.doi}>
+                                  {pub.doi}
+                                </a>
+                              ) : (
+                                <a href={pub.url} target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-blue-600 hover:underline truncate" title={pub.url}>
+                                  {pub.url || "N/A"}
+                                </a>
+                              )}
                             </div>
                             <div className="flex flex-col">
                               <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Publication Type</span>
-                              <span className="font-semibold text-black">{pub.type}</span>
+                              <span className="font-semibold text-black">{pub.type_name || pub.type}</span>
                             </div>
-                            <div className="flex flex-col">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Volume / Issue</span>
-                              <span className="font-semibold text-black">12 / 4 (Default)</span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">SCI/Scopus Indexed</span>
-                              <span className="font-semibold text-black">Yes</span>
-                            </div>
+
+                            {/* Journal details */}
+                            {(pub.paper_type === "journal" || pub.type === "Journal Paper") && (
+                              <>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Volume (Issue)</span>
+                                  <span className="font-semibold text-black">{pub.volume_issue || "N/A"}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">SCI/Scopus Indexed</span>
+                                  <span className="font-semibold text-black">{pub.indexed || "N/A"}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Paid Journal</span>
+                                  <span className="font-semibold text-black">{pub.paid_journal || "N/A"}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Authorship Role</span>
+                                  <span className="font-semibold text-black">{pub.authorship || "N/A"}</span>
+                                </div>
+                              </>
+                            )}
+
+                            {/* Book Chapter details */}
+                            {(pub.paper_type === "book" || pub.type === "Book Chapter") && (
+                              <>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Publisher</span>
+                                  <span className="font-semibold text-black">{pub.publisher_name || "N/A"}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">ISBN / ISSN</span>
+                                  <span className="font-semibold text-black">{pub.isbn_issn || "N/A"}</span>
+                                </div>
+                                {pub.chapter_title && (
+                                  <div className="flex flex-col col-span-1 md:col-span-2">
+                                    <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Chapter Title</span>
+                                    <span className="font-semibold text-black">{pub.chapter_title}</span>
+                                  </div>
+                                )}
+                              </>
+                            )}
+
+                            {/* Conference details */}
+                            {(pub.paper_type === "conference" || pub.type === "Conference Paper") && (
+                              <>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Conference Venue</span>
+                                  <span className="font-semibold text-black">{pub.conference_name || "N/A"}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Indexed In</span>
+                                  <span className="font-semibold text-black">{pub.indexed_in || "N/A"}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Date of Conference</span>
+                                  <span className="font-semibold text-black">{pub.conference_date || "N/A"}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-0.5">Authorship Role</span>
+                                  <span className="font-semibold text-black">{pub.authorship || "N/A"}</span>
+                                </div>
+                              </>
+                            )}
+
                             <div className="flex flex-col col-span-1 md:col-span-2 pt-2.5 border-t border-cream-dark/10">
                               <span className="text-[10px] font-bold uppercase tracking-wider text-brand mb-1">Full Citation</span>
                               <span className="text-xs sm:text-sm text-justify leading-relaxed text-black/90">
-                                {pub.authors} ({pub.year}). "{pub.title}". <span className="font-semibold italic text-brand-dark">{pub.journal}</span>.
+                                {pub.authors} ({pub.year}). "{pub.title}". <span className="font-semibold italic text-brand-dark">{pub.journal}</span>
+                                {pub.volume_issue && pub.volume_issue !== "0(0)" && `, Vol. ${pub.volume_issue}`}
+                                {pub.page_no && pub.page_no !== "0" && `, pp. ${pub.page_no}`}.
                               </span>
                             </div>
                           </div>

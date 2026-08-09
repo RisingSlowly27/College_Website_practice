@@ -125,19 +125,14 @@ export function createServer() {
 
   // API: Publications - Add
   app.post("/api/publications", (req, res) => {
-    const { title, type, authors, year, journal, url, author_id } = req.body;
     const publications = readPublications();
 
     const newId = publications.length > 0 ? Math.max(...publications.map((p: any) => p.id)) + 1 : 1;
     const newPub = {
+      ...req.body,
       id: newId,
-      author_id: parseInt(author_id) || 34, // Default to Apurba Sarkar if not set
-      title,
-      type,
-      authors,
-      year: parseInt(year) || new Date().getFullYear(),
-      journal: journal || "N/A",
-      url: url || "https://www.iiests.ac.in/"
+      author_id: req.body.author_id ? parseInt(req.body.author_id) : 34,
+      year: req.body.year ? parseInt(req.body.year) : new Date().getFullYear()
     };
 
     publications.push(newPub);
@@ -149,7 +144,6 @@ export function createServer() {
   // API: Publications - Update
   app.put("/api/publications/:id", (req, res) => {
     const pubId = parseInt(req.params.id);
-    const { title, type, authors, year, journal, url, author_id } = req.body;
     const publications = readPublications();
 
     const pubIndex = publications.findIndex((p: any) => p.id === pubId);
@@ -159,13 +153,10 @@ export function createServer() {
 
     publications[pubIndex] = {
       ...publications[pubIndex],
-      title: title || publications[pubIndex].title,
-      type: type || publications[pubIndex].type,
-      authors: authors || publications[pubIndex].authors,
-      year: parseInt(year) || publications[pubIndex].year,
-      journal: journal || publications[pubIndex].journal,
-      url: url || publications[pubIndex].url,
-      author_id: author_id ? parseInt(author_id) : publications[pubIndex].author_id
+      ...req.body,
+      id: pubId, // Ensure id is preserved
+      author_id: req.body.author_id ? parseInt(req.body.author_id) : publications[pubIndex].author_id,
+      year: req.body.year ? parseInt(req.body.year) : publications[pubIndex].year
     };
 
     writePublications(publications);

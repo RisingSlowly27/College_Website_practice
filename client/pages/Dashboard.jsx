@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus, Edit3, Trash2, Globe, LogOut, UserCheck, User, Camera, Mail, Phone, BookOpen, UserMinus, PlusCircle, CheckCircle, XCircle } from "lucide-react";
+import { Plus, Edit3, Trash2, Globe, LogOut, UserCheck, User, Camera, Mail, Phone, BookOpen, UserMinus, PlusCircle, CheckCircle, XCircle, Book, FileText, ArrowLeft } from "lucide-react";
 import Layout from "@/components/site/Layout";
 
 export default function Dashboard() {
@@ -14,7 +14,43 @@ export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add"); // "add" or "edit"
   const [currentPubId, setCurrentPubId] = useState(null);
-  const [pubForm, setPubForm] = useState({ title: "", type: "Journal Paper", authors: "", year: "", journal: "", url: "", author_id: "" });
+  const [step, setStep] = useState(1);
+  const [selectedType, setSelectedType] = useState("");
+  const [pubForm, setPubForm] = useState({
+    paper_type: "",
+    title: "",
+    type: "Journal Paper",
+    authors: "",
+    year: "",
+    journal: "",
+    url: "",
+    author_id: "",
+
+    // Journal fields
+    journal_name: "",
+    doi: "",
+    paid_journal: "",
+    indexed: "",
+    authorship: "",
+    co_authors_count: "0",
+    volume_issue: "0(0)",
+    page_no: "0",
+    pub_date: "",
+
+    // Book Chapter fields
+    book_title: "",
+    chapter_title: "",
+    publisher_name: "",
+    isbn_issn: "",
+
+    // Conference fields
+    conference_name: "",
+    indexed_in: "",
+    conference_date: "",
+
+    // Other fields
+    type_name: ""
+  });
 
   const [profileForm, setProfileForm] = useState({ name: "", designation: "", department: "", phone: "", research: "" });
   const [profileMessage, setProfileMessage] = useState("");
@@ -98,14 +134,42 @@ export default function Dashboard() {
   // Modal open helpers
   const openAddModal = () => {
     setModalMode("add");
+    setStep(1);
+    setSelectedType("");
     setPubForm({
+      paper_type: "",
       title: "",
       type: "Journal Paper",
       authors: user.name, // Auto-populate current user's name
       year: new Date().getFullYear().toString(),
       journal: "",
       url: "https://www.iiests.ac.in/",
-      author_id: user.id ? user.id.toString() : "34"
+      author_id: user.id ? user.id.toString() : "34",
+
+      // Journal fields
+      journal_name: "",
+      doi: "",
+      paid_journal: "",
+      indexed: "",
+      authorship: "",
+      co_authors_count: "0",
+      volume_issue: "0(0)",
+      page_no: "0",
+      pub_date: "",
+
+      // Book Chapter fields
+      book_title: "",
+      chapter_title: "",
+      publisher_name: "",
+      isbn_issn: "",
+
+      // Conference fields
+      conference_name: "",
+      indexed_in: "",
+      conference_date: "",
+
+      // Other fields
+      type_name: ""
     });
     setShowModal(true);
   };
@@ -113,14 +177,52 @@ export default function Dashboard() {
   const openEditModal = (pub) => {
     setModalMode("edit");
     setCurrentPubId(pub.id);
+
+    // Infer paper type
+    let inferredType = pub.paper_type || "other";
+    if (!pub.paper_type) {
+      if (pub.type === "Journal Paper") inferredType = "journal";
+      else if (pub.type === "Book Chapter") inferredType = "book";
+      else if (pub.type === "Conference Paper") inferredType = "conference";
+    }
+
+    setSelectedType(inferredType);
+    setStep(2);
+
     setPubForm({
-      title: pub.title,
-      type: pub.type,
-      authors: pub.authors,
-      year: pub.year.toString(),
-      journal: pub.journal,
-      url: pub.url,
-      author_id: pub.author_id.toString()
+      paper_type: inferredType,
+      title: pub.title || "",
+      type: pub.type || "Journal Paper",
+      authors: pub.authors || "",
+      year: (pub.year || "").toString(),
+      journal: pub.journal || "",
+      url: pub.url || "",
+      author_id: (pub.author_id || "").toString(),
+
+      // Journal fields
+      journal_name: pub.journal_name || (inferredType === "journal" ? pub.journal : ""),
+      doi: pub.doi || "",
+      paid_journal: pub.paid_journal || "",
+      indexed: pub.indexed || "",
+      authorship: pub.authorship || "",
+      co_authors_count: (pub.co_authors_count ?? "0").toString(),
+      volume_issue: pub.volume_issue || "0(0)",
+      page_no: (pub.page_no ?? "0").toString(),
+      pub_date: pub.pub_date || "",
+
+      // Book Chapter fields
+      book_title: pub.book_title || (inferredType === "book" ? pub.journal : ""),
+      chapter_title: pub.chapter_title || (inferredType === "book" ? pub.title : ""),
+      publisher_name: pub.publisher_name || "",
+      isbn_issn: pub.isbn_issn || "",
+
+      // Conference fields
+      conference_name: pub.conference_name || (inferredType === "conference" ? pub.journal : ""),
+      indexed_in: pub.indexed_in || "",
+      conference_date: pub.conference_date || "",
+
+      // Other fields
+      type_name: pub.type_name || (inferredType === "other" ? pub.type : "")
     });
     setShowModal(true);
   };
@@ -128,6 +230,42 @@ export default function Dashboard() {
   // Add or Edit Publication save handler
   const handlePubSave = async (e) => {
     e.preventDefault();
+
+    // Prepare standard fields based on paper_type selection to support explorer listing
+    let titleVal = pubForm.title;
+    let typeVal = pubForm.type;
+    let journalVal = pubForm.journal;
+
+    if (selectedType === "journal") {
+      titleVal = pubForm.title;
+      journalVal = pubForm.journal_name;
+      typeVal = "Journal Paper";
+    } else if (selectedType === "book") {
+      titleVal = pubForm.chapter_title;
+      journalVal = pubForm.book_title;
+      typeVal = "Book Chapter";
+    } else if (selectedType === "conference") {
+      titleVal = pubForm.title;
+      journalVal = pubForm.conference_name;
+      typeVal = "Conference Paper";
+    } else if (selectedType === "other") {
+      titleVal = pubForm.title;
+      journalVal = pubForm.journal;
+      typeVal = pubForm.type_name || "others";
+    }
+
+    const payload = {
+      ...pubForm,
+      paper_type: selectedType,
+      title: titleVal,
+      type: typeVal,
+      journal: journalVal,
+      year: parseInt(pubForm.year) || new Date().getFullYear(),
+      authors: pubForm.authors,
+      url: pubForm.url,
+      author_id: parseInt(pubForm.author_id)
+    };
+
     try {
       const url = modalMode === "add" ? "/api/publications" : `/api/publications/${currentPubId}`;
       const method = modalMode === "add" ? "POST" : "PUT";
@@ -135,7 +273,7 @@ export default function Dashboard() {
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(pubForm)
+        body: JSON.stringify(payload)
       });
 
       if (res.ok) {
@@ -467,120 +605,555 @@ export default function Dashboard() {
       {/* Add/Edit Publication Modal Overlay */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4 backdrop-blur-[2px]">
-          <div className="w-full max-w-[550px] bg-white border border-cream-dark/30 rounded-[36px] shadow-2xl p-8 relative overflow-hidden">
+          <div className="w-full max-w-[620px] bg-white border border-cream-dark/30 rounded-[36px] shadow-2xl p-8 relative overflow-hidden max-h-[90vh] overflow-y-auto">
             {/* Accent gold top border */}
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand to-brand-gold" />
             
-            <h3 className="text-xl font-bold text-brand mb-6 border-b border-cream-dark/20 pb-3">
-              {modalMode === "add" ? "Add Research Publication" : "Edit Publication Details"}
-            </h3>
+            <div className="flex justify-between items-center mb-6 border-b border-cream-dark/20 pb-3">
+              <h3 className="text-xl font-bold text-brand">
+                {modalMode === "add"
+                  ? step === 1
+                    ? "Add New Publication"
+                    : `Add New ${selectedType === "journal" ? "Journal Paper" : selectedType === "book" ? "Book Chapter" : selectedType === "conference" ? "Conference Paper" : "Publication"}`
+                  : `Edit ${selectedType === "journal" ? "Journal Paper" : selectedType === "book" ? "Book Chapter" : selectedType === "conference" ? "Conference Paper" : "Publication"}`}
+              </h3>
+              <button 
+                onClick={() => setShowModal(false)}
+                className="text-black/40 hover:text-black/80 font-bold text-lg"
+              >
+                &times;
+              </button>
+            </div>
 
-            <form onSubmit={handlePubSave} className="space-y-4 text-xs">
-              <div>
-                <label className="block text-xs font-bold text-black/60 uppercase tracking-wider mb-1.5">Publication Title</label>
-                <input
-                  required
-                  type="text"
-                  value={pubForm.title}
-                  onChange={(e) => setPubForm(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 text-xs bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
-                />
-              </div>
+            {step === 1 ? (
+              /* Step 1: Type Selection Screen */
+              <div className="space-y-6">
+                <div className="text-center mb-6">
+                  <h4 className="text-sm font-bold text-brand">Select the Type of Research Paper you want to publish</h4>
+                  <p className="text-xs text-black/50 mt-1">Choose a category to view the specific publication fields</p>
+                </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label className="block text-xs font-bold text-black/60 uppercase tracking-wider mb-1.5">Publication Type</label>
-                  <select
-                    value={pubForm.type}
-                    onChange={(e) => setPubForm(prev => ({ ...prev, type: e.target.value }))}
-                    className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 text-xs bg-cream/10 outline-none focus:bg-white cursor-pointer focus:border-brand transition"
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div
+                    onClick={() => { setSelectedType("journal"); setStep(2); }}
+                    className="p-5 border border-cream-dark/40 rounded-2xl hover:border-brand/40 bg-cream/5 hover:bg-cream/15 transition cursor-pointer flex flex-col items-center text-center group"
                   >
-                    <option value="Journal Paper">Journal Paper</option>
-                    <option value="Conference Paper">Conference Paper</option>
-                    <option value="Book Chapter">Book Chapter</option>
-                    <option value="Patent">Patent</option>
-                    <option value="others">Others</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-black/60 uppercase tracking-wider mb-1.5">Year of Publication</label>
-                  <input
-                    required
-                    type="number"
-                    value={pubForm.year}
-                    onChange={(e) => setPubForm(prev => ({ ...prev, year: e.target.value }))}
-                    className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 text-xs bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
-                  />
-                </div>
-              </div>
+                    <BookOpen className="text-brand group-hover:scale-110 transition-transform mb-2.5" size={24} />
+                    <h5 className="font-bold text-brand text-sm">Journal Paper</h5>
+                    <p className="text-[10px] text-black/50 mt-1">Science Citation Index or Scopus indexed journal articles</p>
+                  </div>
 
-              <div>
-                <label className="block text-xs font-bold text-black/60 uppercase tracking-wider mb-1.5">Authors List</label>
-                <input
-                  required
-                  type="text"
-                  value={pubForm.authors}
-                  onChange={(e) => setPubForm(prev => ({ ...prev, authors: e.target.value }))}
-                  placeholder="e.g. A. Sarkar, M. Hira"
-                  className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 text-xs bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
-                />
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label className="block text-xs font-bold text-black/60 uppercase tracking-wider mb-1.5">Journal / Venue Name</label>
-                  <input
-                    required
-                    type="text"
-                    value={pubForm.journal}
-                    onChange={(e) => setPubForm(prev => ({ ...prev, journal: e.target.value }))}
-                    className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 text-xs bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-black/60 uppercase tracking-wider mb-1.5">Publication URL</label>
-                  <input
-                    required
-                    type="url"
-                    value={pubForm.url}
-                    onChange={(e) => setPubForm(prev => ({ ...prev, url: e.target.value }))}
-                    className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 text-xs bg-cream/10 outline-none focus:bg-white focus:border-brand transition"
-                  />
-                </div>
-              </div>
-
-              {isAdmin && (
-                <div>
-                  <label className="block text-xs font-bold text-black/60 uppercase tracking-wider mb-1.5">Assign to Author ID</label>
-                  <select
-                    value={pubForm.author_id}
-                    onChange={(e) => setPubForm(prev => ({ ...prev, author_id: e.target.value }))}
-                    className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 text-xs bg-cream/10 outline-none focus:bg-white cursor-pointer focus:border-brand transition"
+                  <div
+                    onClick={() => { setSelectedType("book"); setStep(2); }}
+                    className="p-5 border border-cream-dark/40 rounded-2xl hover:border-brand/40 bg-cream/5 hover:bg-cream/15 transition cursor-pointer flex flex-col items-center text-center group"
                   >
-                    <option value="34">Prof. Apurba Sarkar (ID: 34)</option>
-                    <option value="36">Prof. Manas Hira (ID: 36)</option>
-                    <option value="38">Prof. Ashish Kumar Layek (ID: 38)</option>
-                    <option value="99">Prof. Surajeet Ghosh (ID: 99)</option>
-                  </select>
-                </div>
-              )}
+                    <Book className="text-brand group-hover:scale-110 transition-transform mb-2.5" size={24} />
+                    <h5 className="font-bold text-brand text-sm">Book Chapter</h5>
+                    <p className="text-[10px] text-black/50 mt-1">Chapters in books published by reputed publishers</p>
+                  </div>
 
-              <div className="flex justify-end gap-3 mt-6 border-t border-cream-dark/20 pt-4">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="rounded-full border border-brand px-5 py-2.5 font-bold text-brand hover:bg-brand/10 transition"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="rounded-full bg-brand px-5 py-2.5 font-bold text-white hover:bg-brand-dark transition"
-                >
-                  Save Publication
-                </button>
+                  <div
+                    onClick={() => { setSelectedType("conference"); setStep(2); }}
+                    className="p-5 border border-cream-dark/40 rounded-2xl hover:border-brand/40 bg-cream/5 hover:bg-cream/15 transition cursor-pointer flex flex-col items-center text-center group"
+                  >
+                    <Users className="text-brand group-hover:scale-110 transition-transform mb-2.5" size={24} />
+                    <h5 className="font-bold text-brand text-sm">Conference Paper</h5>
+                    <p className="text-[10px] text-black/50 mt-1">Papers in internationally renowned conference proceedings</p>
+                  </div>
+
+                  <div
+                    onClick={() => { setSelectedType("other"); setStep(2); }}
+                    className="p-5 border border-cream-dark/40 rounded-2xl hover:border-brand/40 bg-cream/5 hover:bg-cream/15 transition cursor-pointer flex flex-col items-center text-center group"
+                  >
+                    <FileText className="text-brand group-hover:scale-110 transition-transform mb-2.5" size={24} />
+                    <h5 className="font-bold text-brand text-sm">Other (General)</h5>
+                    <p className="text-[10px] text-black/50 mt-1">Patents, thesis, or general academic publications</p>
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-4 border-t border-cream-dark/20">
+                  <button
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                    className="rounded-full border border-brand px-6 py-2 text-xs font-bold text-brand hover:bg-brand/10 transition"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
-            </form>
+            ) : (
+              /* Step 2: Dynamic Form Fields Wrapper */
+              <form onSubmit={handlePubSave} className="space-y-4 text-xs">
+                
+                {/* 1. Journal Form Fields */}
+                {selectedType === "journal" && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Title of the Paper</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.title}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, title: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Journal Name</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.journal_name}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, journal_name: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">DOI</label>
+                        <input
+                          type="text"
+                          value={pubForm.doi}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, doi: e.target.value }))}
+                          placeholder="e.g. 10.1016/j.cosrev.2023..."
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Paid Journal</label>
+                        <select
+                          value={pubForm.paid_journal}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, paid_journal: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white cursor-pointer focus:border-brand transition"
+                        >
+                          <option value="">Select</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">SCOPUS/SCI Indexed</label>
+                        <select
+                          value={pubForm.indexed}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, indexed: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white cursor-pointer focus:border-brand transition"
+                        >
+                          <option value="">Select</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Authorship</label>
+                        <select
+                          value={pubForm.authorship}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, authorship: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white cursor-pointer focus:border-brand transition"
+                        >
+                          <option value="">Select</option>
+                          <option value="First Author">First Author</option>
+                          <option value="Co-Author">Co-Author</option>
+                          <option value="Corresponding Author">Corresponding Author</option>
+                          <option value="Sole Author">Sole Author</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Name of all authors</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.authors}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, authors: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1 text-[10px]">Total co-authors (excl. 1st Author/Supervisor)</label>
+                        <input
+                          type="number"
+                          value={pubForm.co_authors_count}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, co_authors_count: e.target.value }))}
+                          min="0"
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Volume (Issue number)</label>
+                        <input
+                          type="text"
+                          value={pubForm.volume_issue}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, volume_issue: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Page No</label>
+                        <input
+                          type="text"
+                          value={pubForm.page_no}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, page_no: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Publication/Acceptance Date</label>
+                        <input
+                          type="date"
+                          value={pubForm.pub_date}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, pub_date: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Year of Publication</label>
+                        <input
+                          required
+                          type="number"
+                          value={pubForm.year}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, year: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        {/* spacer */}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Web URL</label>
+                      <input
+                        required
+                        type="url"
+                        value={pubForm.url}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, url: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. Book Chapter Form Fields */}
+                {selectedType === "book" && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Title of Book</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.book_title}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, book_title: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Title of Chapter</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.chapter_title}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, chapter_title: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Publisher Name</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.publisher_name}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, publisher_name: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Name of all the author(s)</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.authors}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, authors: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Year of Publication</label>
+                        <input
+                          required
+                          type="number"
+                          value={pubForm.year}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, year: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">ISSN/ISBN No</label>
+                        <input
+                          type="text"
+                          value={pubForm.isbn_issn}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, isbn_issn: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">DOI Link/Web URL</label>
+                      <input
+                        required
+                        type="url"
+                        value={pubForm.url}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, url: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. Conference Form Fields */}
+                {selectedType === "conference" && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Title of the Paper</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.title}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, title: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Name of Conference</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.conference_name}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, conference_name: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Page No.</label>
+                        <input
+                          type="text"
+                          value={pubForm.page_no}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, page_no: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Indexed in</label>
+                        <select
+                          value={pubForm.indexed_in}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, indexed_in: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white cursor-pointer focus:border-brand transition"
+                        >
+                          <option value="">Select</option>
+                          <option value="Science Citation Index">Science Citation Index</option>
+                          <option value="Scopus">Scopus</option>
+                          <option value="Web of Science">Web of Science</option>
+                          <option value="None">None</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Date of Conference</label>
+                        <input
+                          type="date"
+                          value={pubForm.conference_date}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, conference_date: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Authorship</label>
+                        <select
+                          value={pubForm.authorship}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, authorship: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white cursor-pointer focus:border-brand transition"
+                        >
+                          <option value="">Select</option>
+                          <option value="First Author">First Author</option>
+                          <option value="Co-Author">Co-Author</option>
+                          <option value="Corresponding Author">Corresponding Author</option>
+                          <option value="Sole Author">Sole Author</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Name of all authors</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.authors}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, authors: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Count of Co-Author(s)</label>
+                        <input
+                          type="number"
+                          value={pubForm.co_authors_count}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, co_authors_count: e.target.value }))}
+                          min="0"
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Year of Publication</label>
+                        <input
+                          required
+                          type="number"
+                          value={pubForm.year}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, year: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Web URL</label>
+                      <input
+                        required
+                        type="url"
+                        value={pubForm.url}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, url: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 4. Other (General) Form Fields */}
+                {selectedType === "other" && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Title of Publication</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.title}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, title: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Authors List</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.authors}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, authors: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Year of Publication</label>
+                        <input
+                          required
+                          type="number"
+                          value={pubForm.year}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, year: e.target.value }))}
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Publication Type</label>
+                        <input
+                          required
+                          type="text"
+                          value={pubForm.type_name}
+                          onChange={(e) => setPubForm(prev => ({ ...prev, type_name: e.target.value }))}
+                          placeholder="e.g. Patent, Thesis, Technical Report"
+                          className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Journal / Conference / Publisher Name</label>
+                      <input
+                        required
+                        type="text"
+                        value={pubForm.journal}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, journal: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Publication Link</label>
+                      <input
+                        required
+                        type="url"
+                        value={pubForm.url}
+                        onChange={(e) => setPubForm(prev => ({ ...prev, url: e.target.value }))}
+                        className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white focus:border-brand transition"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Admin Select to assign author */}
+                {isAdmin && (
+                  <div className="pt-2 border-t border-cream-dark/10">
+                    <label className="block font-bold text-black/60 uppercase tracking-wider mb-1">Assign to Author ID</label>
+                    <select
+                      value={pubForm.author_id}
+                      onChange={(e) => setPubForm(prev => ({ ...prev, author_id: e.target.value }))}
+                      className="w-full rounded-xl border border-cream-dark/40 px-3.5 py-2 bg-cream/5 outline-none focus:bg-white cursor-pointer focus:border-brand transition"
+                    >
+                      <option value="34">Prof. Apurba Sarkar (ID: 34)</option>
+                      <option value="36">Prof. Manas Hira (ID: 36)</option>
+                      <option value="38">Prof. Ashish Kumar Layek (ID: 38)</option>
+                      <option value="99">Prof. Surajeet Ghosh (ID: 99)</option>
+                    </select>
+                  </div>
+                )}
+
+                {/* Step 2 Form Footer Actions */}
+                <div className="flex justify-between items-center mt-6 border-t border-cream-dark/20 pt-4">
+                  {modalMode === "add" ? (
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-brand px-5 py-2 font-bold text-brand hover:bg-brand/10 transition"
+                    >
+                      <ArrowLeft size={14} /> Change Type
+                    </button>
+                  ) : (
+                    <div />
+                  )}
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="rounded-full border border-brand px-5 py-2 font-bold text-brand hover:bg-brand/10 transition"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="rounded-full bg-brand px-5 py-2 font-bold text-white hover:bg-brand-dark transition animate-fade-in"
+                    >
+                      Save Publication
+                    </button>
+                  </div>
+                </div>
+
+              </form>
+            )}
+
           </div>
         </div>
       )}
