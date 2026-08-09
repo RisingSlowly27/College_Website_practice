@@ -121,6 +121,7 @@ export default function FacultyMembers() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [designationFilter, setDesignationFilter] = useState("All");
+  const [deptFilter, setDeptFilter] = useState("All");
 
   const filteredFaculty = facultyList.filter((faculty) => {
     const matchesSearch = faculty.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -129,7 +130,10 @@ export default function FacultyMembers() {
     const matchesDesignation = designationFilter === "All" || 
       faculty.designation.toLowerCase().includes(designationFilter.toLowerCase());
 
-    return matchesSearch && matchesDesignation;
+    const matchesDept = deptFilter === "All" ||
+      faculty.department.toLowerCase().includes(deptFilter.toLowerCase());
+
+    return matchesSearch && matchesDesignation && matchesDept;
   });
 
   return (
@@ -173,18 +177,34 @@ export default function FacultyMembers() {
                     />
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/95">Filter:</span>
-                    <select
-                      value={designationFilter}
-                      onChange={(e) => setDesignationFilter(e.target.value)}
-                      className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-xs text-black font-semibold outline-none cursor-pointer shadow-sm focus:border-brand transition-all"
-                    >
-                      <option className="text-black" value="All">All Designations</option>
-                      <option className="text-black" value="Professor">Professors</option>
-                      <option className="text-black" value="Associate Professor">Associate Professors</option>
-                      <option className="text-black" value="Assistant Professor">Assistant Professors</option>
-                    </select>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-white/95">Dept:</span>
+                      <select
+                        value={deptFilter}
+                        onChange={(e) => setDeptFilter(e.target.value)}
+                        className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-xs text-black font-semibold outline-none cursor-pointer shadow-sm focus:border-brand transition-all"
+                      >
+                        <option className="text-black" value="All">All Departments</option>
+                        <option className="text-black" value="Computer Science and Technology">CST</option>
+                        <option className="text-black" value="Electrical Engineering">Electrical (EE)</option>
+                        <option className="text-black" value="Civil Engineering">Civil (CE)</option>
+                      </select>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-white/95">Designation:</span>
+                      <select
+                        value={designationFilter}
+                        onChange={(e) => setDesignationFilter(e.target.value)}
+                        className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-xs text-black font-semibold outline-none cursor-pointer shadow-sm focus:border-brand transition-all"
+                      >
+                        <option className="text-black" value="All">All Designations</option>
+                        <option className="text-black" value="Professor">Professors</option>
+                        <option className="text-black" value="Associate Professor">Associate Professors</option>
+                        <option className="text-black" value="Assistant Professor">Assistant Professors</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>

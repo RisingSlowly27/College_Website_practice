@@ -17,12 +17,9 @@ export const departmentNav = [
   { label: "Faculty Members", href: "/faculty-members" },
   { label: "Staff Members", href: "/staff-members" },
   { label: "Research Scholars", href: "/research-scholars" },
-  { label: "Projects", href: "/projects" },
-  { label: "Research Areas", href: "/research-areas" },
   { label: "Publication", href: "/publication" },
   { label: "Gallery", href: "/gallery" },
   { label: "Laboratory", href: "/laboratory" },
   { label: "Contact Us", href: "/contact-us" },
-  { label: "Achievements", href: "/achievements" },
   { label: "News Letter", href: "/news-letter" },
 ];
