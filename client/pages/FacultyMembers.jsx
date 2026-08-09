@@ -158,8 +158,8 @@ export default function FacultyMembers() {
 
               {/* Right Side: Faculty Members Page Title and Description */}
               <div className="flex-1 flex flex-col justify-center lg:pl-12 text-white">
-                <h1 className="text-4xl font-extrabold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sm:text-6xl lg:text-[64px] lg:leading-[74px]">
-                  Faculty <span className="text-brand-gold">Members</span>
+                <h1 className="text-3xl font-bold leading-tight text-brand drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)] sm:text-5xl lg:text-[64px] lg:leading-[74px]">
+                  Faculty Members
                 </h1>
                 <p className="mt-3 text-xs sm:text-sm text-white/90 max-w-xl leading-relaxed font-medium">
                   Our distinguished members driving research, academic excellence, and innovation in computer science.

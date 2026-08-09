@@ -680,7 +680,7 @@ export default function Placeholder({ title }) {
 
               {/* Right Side: Page Title and Description */}
               <div className={`flex-1 flex flex-col justify-center text-white text-left ${hideSidebar ? "max-w-4xl mx-auto w-full" : "lg:pl-12"}`}>
-                <h1 className="text-4xl font-extrabold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sm:text-6xl lg:text-[64px] lg:leading-[74px]">
+                <h1 className="text-3xl font-bold leading-tight text-brand drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)] sm:text-5xl lg:text-[64px] lg:leading-[74px]">
                   {title}
                 </h1>
                 <p className="mt-3 text-xs sm:text-sm text-white/90 max-w-2xl leading-relaxed font-medium">
