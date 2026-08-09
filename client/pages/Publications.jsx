@@ -454,24 +454,24 @@ export default function Publications() {
                   </form>
                 </div>
               ) : (
-                /* STAGE 2 Scope Details inside the banner image (floating panel styling!) */
-                <div className="flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-4 text-white lg:pl-12">
-                  <div>
-                    <span className="text-[10px] font-bold text-brand-gold uppercase tracking-wider">Current Explorer Scope</span>
-                    <h1 className="text-3xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] sm:text-4xl lg:text-[42px] lg:leading-[52px]">
-                      {scopeDept === "all" ? COLLEGE_DETAILS.title : scopeProf === "all" ? scopeDept : ALL_PROFESSORS.find(p => p.id.toString() === scopeProf.toString())?.name}
-                    </h1>
-                    <p className="text-xs text-white/85 mt-1.5 font-medium">
-                      {scopeDept === "all" ? COLLEGE_DETAILS.subtitle : scopeProf === "all" ? `Showing all research publications from the Department of ${scopeDept}.` : `Showing publications for faculty researcher from Department of ${scopeDept}.`}
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleModifySelection}
-                    className="rounded-xl border border-white bg-white/10 backdrop-blur-md px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-white hover:text-brand shrink-0 shadow-sm"
-                  >
-                    Change Selection
-                  </button>
-                </div>
+                 /* STAGE 2 Scope Details inside the banner image (floating panel styling!) */
+                 <div className="flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-6 bg-black/45 backdrop-blur-md p-8 sm:p-10 rounded-[32px] border border-white/10 lg:ml-8 text-white">
+                   <div>
+                     <span className="text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Current Explorer Scope</span>
+                     <h1 className="text-3xl font-extrabold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sm:text-5xl lg:text-[54px] lg:leading-[64px] mt-1.5">
+                       {scopeDept === "all" ? COLLEGE_DETAILS.title : scopeProf === "all" ? scopeDept : ALL_PROFESSORS.find(p => p.id.toString() === scopeProf.toString())?.name}
+                     </h1>
+                     <p className="text-xs sm:text-sm text-white/95 mt-3 font-semibold leading-relaxed max-w-2xl">
+                       {scopeDept === "all" ? COLLEGE_DETAILS.subtitle : scopeProf === "all" ? `Showing all research publications from the Department of ${scopeDept}.` : `Showing publications for faculty researcher from Department of ${scopeDept}.`}
+                     </p>
+                   </div>
+                   <button
+                     onClick={handleModifySelection}
+                     className="rounded-xl border border-white bg-white/10 backdrop-blur-md px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-white hover:text-brand shrink-0 shadow-sm self-start sm:self-center"
+                   >
+                     Change Selection
+                   </button>
+                 </div>
               )}
             </div>
           </div>

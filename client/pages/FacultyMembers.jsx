@@ -152,33 +152,33 @@ export default function FacultyMembers() {
                 <Sidebar />
               </div>
 
-              {/* Right Side: Faculty Members Page Title and Description */}
-              <div className="flex-1 flex flex-col justify-center lg:pl-12 text-white">
-                <h1 className="text-3xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] sm:text-5xl lg:text-[60px] lg:leading-[70px]">
+              {/* Right Side: Faculty Members Page Title and Description (Large glassmorphic box!) */}
+              <div className="flex-1 flex flex-col justify-center bg-black/40 backdrop-blur-md p-8 sm:p-10 rounded-[32px] border border-white/10 lg:ml-8 text-white">
+                <h1 className="text-4xl font-extrabold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] sm:text-6xl lg:text-[64px] lg:leading-[74px]">
                   Faculty <span className="text-brand-gold">Members</span>
                 </h1>
-                <p className="mt-3 text-xs text-white/80 max-w-xl leading-relaxed">
+                <p className="mt-3 text-xs sm:text-sm text-white/95 max-w-xl leading-relaxed font-medium">
                   Our distinguished members driving research, academic excellence, and innovation in computer science.
                 </p>
                 
                 {/* Search & Filters overlaid in Hero */}
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mt-6 pt-4 border-t border-white/20">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mt-6 pt-5 border-t border-white/20">
                   <div className="relative flex-1 max-w-xs">
                     <input
                       type="text"
                       placeholder="Search Faculty Name or Area..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full rounded-full border border-white/10 bg-white/20 backdrop-blur-md px-5 py-2 text-xs text-white placeholder-white/60 outline-none focus:bg-white focus:text-black focus:placeholder-black/40"
+                      className="w-full rounded-full border border-white/10 bg-white/20 backdrop-blur-md px-5 py-2.5 text-xs text-white placeholder-white/60 outline-none focus:bg-white focus:text-black focus:placeholder-black/40"
                     />
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/90">Filter:</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/95">Filter:</span>
                     <select
                       value={designationFilter}
                       onChange={(e) => setDesignationFilter(e.target.value)}
-                      className="rounded-full border border-white/10 bg-white/20 backdrop-blur-md px-4 py-2 text-xs text-white font-medium outline-none cursor-pointer focus:bg-white focus:text-black"
+                      className="rounded-full border border-white/10 bg-white/20 backdrop-blur-md px-4 py-2.5 text-xs text-white font-medium outline-none cursor-pointer focus:bg-white focus:text-black"
                     >
                       <option className="text-black" value="All">All Designations</option>
                       <option className="text-black" value="Professor">Professors</option>

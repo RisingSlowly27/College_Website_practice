@@ -110,52 +110,52 @@ export default function Layout({ children }) {
 
       {/* Slide-out Updates Drawer */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 w-full max-w-[420px] sm:max-w-[460px] bg-cream shadow-2xl border-l border-brand/20 transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-y-0 right-0 z-50 w-full max-w-[550px] sm:max-w-[620px] bg-cream shadow-2xl border-l border-brand/20 transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between border-b border-brand-gold/30 bg-brand p-5 text-white shadow-md">
-          <h2 className="text-xl font-bold flex items-center gap-2">
-            <span className="relative flex h-3 w-3">
+        <div className="flex items-center justify-between border-b border-brand-gold/30 bg-brand p-6 text-white shadow-md">
+          <h2 className="text-2xl font-bold flex items-center gap-2.5">
+            <span className="relative flex h-3.5 w-3.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-gold"></span>
+              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-brand-gold"></span>
             </span>
             Latest News & Notices
           </h2>
           <button
             onClick={() => setIsOpen(false)}
-            className="rounded-full p-1.5 hover:bg-white/10 transition-colors"
+            className="rounded-full p-2 hover:bg-white/10 transition-colors"
             aria-label="Close panel"
           >
-            <X size={20} />
+            <X size={24} />
           </button>
         </div>
 
         {/* Drawer Body - Scrollable */}
-        <div className="h-[calc(100%-68px)] overflow-y-auto p-5 space-y-4 bg-cream-light/35 scrollbar-thin">
+        <div className="h-[calc(100%-80px)] overflow-y-auto p-6 space-y-5 bg-cream-light/35 scrollbar-thin">
           {LATEST_UPDATES.map((update) => (
             <div
               key={update.id}
-              className="bg-white p-5 rounded-[20px] shadow-sm border border-cream-dark/30 hover:shadow-md hover:border-brand/20 transition duration-300 flex flex-col justify-between"
+              className="bg-white p-6 rounded-[24px] shadow-sm border border-cream-dark/30 hover:shadow-md hover:border-brand/20 transition duration-300 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-2.5">
-                  <span className="inline-block rounded-full bg-brand/10 border border-brand/20 px-2.5 py-0.5 text-[10px] font-bold text-brand uppercase tracking-wider">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-block rounded-full bg-brand/10 border border-brand/20 px-3 py-1 text-[11px] font-bold text-brand uppercase tracking-wider">
                     {update.category}
                   </span>
-                  <span className="flex items-center gap-1 text-[11px] text-black/50 font-medium">
-                    <Calendar size={12} />
+                  <span className="flex items-center gap-1 text-xs text-black/50 font-semibold">
+                    <Calendar size={14} />
                     {update.date}
                   </span>
                 </div>
-                <h3 className="text-sm font-semibold text-black/85 leading-relaxed">
+                <h3 className="text-base font-bold text-black/85 leading-relaxed">
                   {update.title}
                 </h3>
               </div>
-              <div className="mt-4 pt-3 border-t border-cream-dark/20 flex items-center justify-between">
+              <div className="mt-5 pt-4 border-t border-cream-dark/20 flex items-center justify-between">
                 {update.isNew && (
-                  <span className="rounded bg-brand-gold px-1.5 py-0.5 text-[9px] font-extrabold uppercase text-white animate-pulse">
+                  <span className="rounded px-2 py-0.5 text-[10px] font-extrabold uppercase bg-brand-gold text-white animate-pulse">
                     New
                   </span>
                 )}
@@ -163,10 +163,10 @@ export default function Layout({ children }) {
                   href={update.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-brand hover:underline ml-auto"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-brand hover:underline ml-auto"
                 >
                   View Details
-                  <ExternalLink size={12} />
+                  <ExternalLink size={14} />
                 </a>
               </div>
             </div>
