@@ -42,7 +42,7 @@
   {
     "id": 162,
     "author_id": 36,
-    "title": "Image Generation and Recognition \u2013 A Grammatical Approach on Digital Grids",
+    "title": "Image Generation and Recognition – A Grammatical Approach on Digital Grids",
     "type": "Journal Paper",
     "authors": "M. Hira",
     "year": 2019,
@@ -268,5 +268,33 @@
     "year": 2005,
     "journal": "Journal of Electrical Engineering",
     "url": "https://www.iiests.ac.in/"
+  },
+  {
+    "paper_type": "other",
+    "title": "TEst 2",
+    "type": "Testing",
+    "authors": "Prof. Apurba Sarkar",
+    "year": 2026,
+    "journal": "ndkwcnwlcnedlkcnekl",
+    "url": "https://digitalnitros.unmute.fun",
+    "author_id": 34,
+    "journal_name": "",
+    "doi": "",
+    "paid_journal": "",
+    "indexed": "",
+    "authorship": "",
+    "co_authors_count": "0",
+    "volume_issue": "0(0)",
+    "page_no": "0",
+    "pub_date": "",
+    "book_title": "",
+    "chapter_title": "",
+    "publisher_name": "",
+    "isbn_issn": "",
+    "conference_name": "",
+    "indexed_in": "",
+    "conference_date": "",
+    "type_name": "Testing",
+    "id": 185
   }
 ]

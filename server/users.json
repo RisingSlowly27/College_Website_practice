@@ -57,5 +57,77 @@
     "phone": "000000-000",
     "research": "Fake News Detection, Chemical Equation Segmentation, Cyber Security",
     "image": "/assets/faculty/ashishlayek_cst.webp"
+  },
+  {
+    "email": "ade@ee.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Abhinandan De",
+    "role": "faculty",
+    "id": 48,
+    "designation": "Professor",
+    "department": "Electrical Engineering",
+    "phone": "+91-33-2668-4561",
+    "research": "Power Systems Dynamics, Smart Grid Optimization, High Voltage Engineering, Machine Learning & AI",
+    "image": "/assets/faculty/abhinandan_de.webp"
+  },
+  {
+    "email": "ab@ee.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Amal Barman",
+    "role": "faculty",
+    "id": 50,
+    "designation": "Associate Professor",
+    "department": "Electrical Engineering",
+    "phone": "+91-33-2668-4561 Ext. 571",
+    "research": "High Performance Computing, Open Source Software, Computer Applications in Power Systems, Internet of Things",
+    "image": "/assets/faculty/amal_barman.webp"
+  },
+  {
+    "email": "asg@ee.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Aparajita Sengupta",
+    "role": "faculty",
+    "id": 46,
+    "designation": "Professor",
+    "department": "Electrical Engineering",
+    "phone": "+91-33-2668-4561 Ext. 558",
+    "research": "Nonlinear Estimation, Robust and Nonlinear Control, Control LMIs, Power Systems Control",
+    "image": "/assets/faculty/aparajita_sengupta.webp"
+  },
+  {
+    "email": "debabrata@civil.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Debabrata Mazumder",
+    "role": "faculty",
+    "id": 60,
+    "designation": "Professor",
+    "department": "Civil Engineering",
+    "phone": "+91 - 33 - 2668 4561 Ext. 654",
+    "research": "Environmental Engineering, Wastewater Treatment, Biofilms, Waste Management",
+    "image": "/assets/faculty/Debabrata_Mazumder.webp"
+  },
+  {
+    "email": "gurudas@civil.iiests.ac.in",
+    "password": "password",
+    "name": "Dr. Gurudas Kar",
+    "role": "faculty",
+    "id": 62,
+    "designation": "Assistant Professor",
+    "department": "Civil Engineering",
+    "phone": "+91 - 33 - 2668 4561",
+    "research": "Computational Mechanics, Crystalline Solids, Finite Element Modelling, Metallurgy",
+    "image": "/assets/faculty/Gurudas Kar.webp"
+  },
+  {
+    "email": "asok@civil.iiests.ac.in",
+    "password": "password",
+    "name": "Prof. Asok Adak",
+    "role": "faculty",
+    "id": 64,
+    "designation": "Professor",
+    "department": "Civil Engineering",
+    "phone": "+91 - 33 - 2668 4561 Ext. 713",
+    "research": "Environmental Engineering, Adsorption, Water and Wastewater Treatment, Contaminant Remediation, Solid Waste Management",
+    "image": "/assets/faculty/asok_adak.webp"
   }
 ]

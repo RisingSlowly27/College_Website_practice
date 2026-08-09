@@ -32,6 +32,15 @@ const DEPT_DETAILS = {
     research: "Smart Hybrid Microgrids, Control Systems, Power System Dynamics, Power Grid Optimization, Induction Motor Design.",
     color: "hsl(39, 66%, 26%)",
     initials: "EE"
+  },
+  "Civil Engineering": {
+    title: "Civil Engineering",
+    hod: "Prof. Debabrata Mazumder",
+    email: "hod.civil@iiests.ac.in",
+    phone: "+91 - 33 - 2668 4561 Ext. 654",
+    research: "Environmental Engineering, Wastewater Treatment, Biofilms, Computational Mechanics, Contaminant Remediation, Structural Health Monitoring.",
+    color: "hsl(140, 50%, 25%)",
+    initials: "CE"
   }
 };
 
@@ -121,37 +130,72 @@ const PROFESSORS_DATA = {
   ],
   "Electrical Engineering": [
     {
-      id: 46,
-      name: "Prof. Konika Das Bhattacharya",
-      designation: "Professor",
-      email: "konika@ee.iiests.ac.in",
-      phone: "+91-33-2668-4561",
-      research: "Smart Hybrid Microgrids, Solar PV Voltage Stability, Ramp-Rate Control",
-      color: "hsl(10, 70%, 35%)",
-      initials: "KD",
-      image: "/assets/faculty/faculty_2.jpg"
-    },
-    {
       id: 48,
-      name: "Prof. Abhijit De",
-      designation: "Associate Professor",
-      email: "abhijit@ee.iiests.ac.in",
+      name: "Prof. Abhinandan De",
+      designation: "Professor",
+      email: "ade@ee.iiests.ac.in",
       phone: "+91-33-2668-4561",
-      research: "Power System Dynamics, Smart Grid Optimization, Grid Security State Predictor",
+      research: "Power Systems Dynamics, Smart Grid Optimization, High Voltage Engineering, Machine Learning & AI",
       color: "hsl(210, 60%, 35%)",
       initials: "AD",
-      image: "/assets/faculty/faculty_1.jpg"
+      image: "/assets/faculty/abhinandan_de.webp"
     },
     {
       id: 50,
-      name: "Prof. Amit Barman",
+      name: "Prof. Amal Barman",
       designation: "Associate Professor",
-      email: "amitbarman@ee.iiests.ac.in",
-      phone: "+91-33-2668-4561",
-      research: "Induction Motor Design Optimization, Power Flow Capacity Estimation",
+      email: "ab@ee.iiests.ac.in",
+      phone: "+91-33-2668-4561 Ext. 571",
+      research: "High Performance Computing, Open Source Software, Computer Applications in Power Systems, Internet of Things",
       color: "hsl(160, 50%, 30%)",
-      initials: "AM",
-      image: "/assets/faculty/faculty_3.jpg"
+      initials: "AB",
+      image: "/assets/faculty/amal_barman.webp"
+    },
+    {
+      id: 46,
+      name: "Prof. Aparajita Sengupta",
+      designation: "Professor",
+      email: "asg@ee.iiests.ac.in",
+      phone: "+91-33-2668-4561 Ext. 558",
+      research: "Nonlinear Estimation, Robust and Nonlinear Control, Control LMIs, Power Systems Control",
+      color: "hsl(10, 70%, 35%)",
+      initials: "AS",
+      image: "/assets/faculty/aparajita_sengupta.webp"
+    }
+  ],
+  "Civil Engineering": [
+    {
+      id: 60,
+      name: "Prof. Debabrata Mazumder",
+      designation: "Professor",
+      email: "debabrata@civil.iiests.ac.in",
+      phone: "+91 - 33 - 2668 4561 Ext. 654",
+      research: "Environmental Engineering, Wastewater Treatment, Biofilms, Waste Management",
+      color: "hsl(140, 70%, 30%)",
+      initials: "DM",
+      image: "/assets/faculty/Debabrata_Mazumder.webp"
+    },
+    {
+      id: 62,
+      name: "Dr. Gurudas Kar",
+      designation: "Assistant Professor",
+      email: "gurudas@civil.iiests.ac.in",
+      phone: "+91 - 33 - 2668 4561",
+      research: "Computational Mechanics, Crystalline Solids, Finite Element Modelling, Metallurgy",
+      color: "hsl(220, 70%, 30%)",
+      initials: "GK",
+      image: "/assets/faculty/Gurudas Kar.webp"
+    },
+    {
+      id: 64,
+      name: "Prof. Asok Adak",
+      designation: "Professor",
+      email: "asok@civil.iiests.ac.in",
+      phone: "+91 - 33 - 2668 4561 Ext. 713",
+      research: "Environmental Engineering, Adsorption, Water and Wastewater Treatment, Contaminant Remediation, Solid Waste Management",
+      color: "hsl(280, 70%, 30%)",
+      initials: "AA",
+      image: "/assets/faculty/asok_adak.webp"
     }
   ]
 };
@@ -381,6 +425,7 @@ export default function Publications() {
                         <option className="text-black" value="Computer Science and Technology">Computer Science & Technology (CST)</option>
                         <option className="text-black" value="Information Technology">Information Technology (IT)</option>
                         <option className="text-black" value="Electrical Engineering">Electrical Engineering (EE)</option>
+                        <option className="text-black" value="Civil Engineering">Civil Engineering (CE)</option>
                       </select>
                     </div>
 

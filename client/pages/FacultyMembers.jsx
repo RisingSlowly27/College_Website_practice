@@ -15,7 +15,7 @@ const facultyList = [
   },
   {
     name: "Manas Hira",
-    designation: "Associate Professor",
+    designation: "Professor",
     department: "Computer Science and Technology",
     email: "manas@cs.iiests.ac.in",
     ext: "+91 - 33 - 2668 4561 Ext. 575",
@@ -39,6 +39,60 @@ const facultyList = [
     ext: "000000-000",
     specialization: "Cyber Security, Cryptography, Blockchain",
     image: "/assets/faculty/ashishlayek_cst.webp"
+  },
+  {
+    name: "Abhinandan De",
+    designation: "Professor",
+    department: "Electrical Engineering",
+    email: "ade@ee.iiests.ac.in",
+    ext: "+91-33-2668-4561",
+    specialization: "Power Systems Dynamics, Smart Grid Optimization, High Voltage Engineering, Machine Learning & AI",
+    image: "/assets/faculty/abhinandan_de.webp"
+  },
+  {
+    name: "Amal Barman",
+    designation: "Associate Professor",
+    department: "Electrical Engineering",
+    email: "ab@ee.iiests.ac.in",
+    ext: "+91-33-2668-4561 Ext. 571",
+    specialization: "High Performance Computing, Open Source Software, Computer Applications in Power Systems, Internet of Things",
+    image: "/assets/faculty/amal_barman.webp"
+  },
+  {
+    name: "Aparajita Sengupta",
+    designation: "Professor",
+    department: "Electrical Engineering",
+    email: "asg@ee.iiests.ac.in",
+    ext: "+91-33-2668-4561 Ext. 558",
+    specialization: "Nonlinear Estimation, Robust and Nonlinear Control, Control LMIs, Power Systems Control",
+    image: "/assets/faculty/aparajita_sengupta.webp"
+  },
+  {
+    name: "Debabrata Mazumder",
+    designation: "Professor",
+    department: "Civil Engineering",
+    email: "debabrata@civil.iiests.ac.in",
+    ext: "+91 - 33 - 2668 4561 Ext. 654",
+    specialization: "Environmental Engineering, Wastewater Treatment, Biofilms, Waste Management",
+    image: "/assets/faculty/Debabrata_Mazumder.webp"
+  },
+  {
+    name: "Gurudas Kar",
+    designation: "Assistant Professor",
+    department: "Civil Engineering",
+    email: "gurudas@civil.iiests.ac.in",
+    ext: "+91 - 33 - 2668 4561",
+    specialization: "Computational Mechanics, Crystalline Solids, Finite Element Modelling, Metallurgy",
+    image: "/assets/faculty/Gurudas Kar.webp"
+  },
+  {
+    name: "Asok Adak",
+    designation: "Professor",
+    department: "Civil Engineering",
+    email: "asok@civil.iiests.ac.in",
+    ext: "+91 - 33 - 2668 4561 Ext. 713",
+    specialization: "Environmental Engineering, Adsorption, Water and Wastewater Treatment, Contaminant Remediation, Solid Waste Management",
+    image: "/assets/faculty/asok_adak.webp"
   }
 ];
 
@@ -46,6 +100,13 @@ const FACULTY_ID_MAP = {
   "Apurba Sarkar": 34,
   "Manas Hira": 36,
   "Ashish Kumar Layek": 38,
+  "Surajeet Ghosh": 99,
+  "Abhinandan De": 48,
+  "Amal Barman": 50,
+  "Aparajita Sengupta": 46,
+  "Debabrata Mazumder": 60,
+  "Gurudas Kar": 62,
+  "Asok Adak": 64
 };
 
 const getPublicationUrl = (faculty) => {

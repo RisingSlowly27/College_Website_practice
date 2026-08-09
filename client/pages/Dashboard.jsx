@@ -1117,6 +1117,12 @@ export default function Dashboard() {
                       <option value="36">Prof. Manas Hira (ID: 36)</option>
                       <option value="38">Prof. Ashish Kumar Layek (ID: 38)</option>
                       <option value="99">Prof. Surajeet Ghosh (ID: 99)</option>
+                      <option value="48">Prof. Abhinandan De (ID: 48)</option>
+                      <option value="50">Prof. Amal Barman (ID: 50)</option>
+                      <option value="46">Prof. Aparajita Sengupta (ID: 46)</option>
+                      <option value="60">Prof. Debabrata Mazumder (ID: 60)</option>
+                      <option value="62">Dr. Gurudas Kar (ID: 62)</option>
+                      <option value="64">Prof. Asok Adak (ID: 64)</option>
                     </select>
                   </div>
                 )}
