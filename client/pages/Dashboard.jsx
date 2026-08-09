@@ -10,6 +10,10 @@ export default function Dashboard() {
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Export states
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [exportType, setExportType] = useState("all");
+
   // Forms state
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add"); // "add" or "edit"
@@ -94,6 +98,63 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // CSV Export handler
+  const handleExportCSV = (typeToExport) => {
+    const filteredPapers = typeToExport === "all"
+      ? userPublications
+      : userPublications.filter(p => p.type === typeToExport);
+
+    if (filteredPapers.length === 0) {
+      alert(`You have no publications of type "${typeToExport}" to export.`);
+      return;
+    }
+
+    const headers = [
+      "ID", "Author ID", "Type", "Title", "Authors", "Year", "Journal/Source", "URL",
+      "Journal Name", "DOI", "Is Paid Journal", "Indexed", "Authorship Role", "Co-Authors Count",
+      "Volume/Issue", "Page No", "Publication Date", "Book Title", "Chapter Title",
+      "Publisher Name", "ISBN/ISSN", "Conference Name", "Indexed In", "Conference Date", "Other Type Name"
+    ];
+
+    const keys = [
+      "id", "author_id", "type", "title", "authors", "year", "journal", "url",
+      "journal_name", "doi", "paid_journal", "indexed", "authorship", "co_authors_count",
+      "volume_issue", "page_no", "pub_date", "book_title", "chapter_title",
+      "publisher_name", "isbn_issn", "conference_name", "indexed_in", "conference_date", "type_name"
+    ];
+
+    const escapeCSV = (val) => {
+      if (val === null || val === undefined) return '""';
+      let stringVal = val.toString();
+      stringVal = stringVal.replace(/"/g, '""');
+      return `"${stringVal}"`;
+    };
+
+    const csvRows = [];
+    csvRows.push(headers.join(","));
+
+    filteredPapers.forEach(paper => {
+      const rowValues = keys.map(key => escapeCSV(paper[key]));
+      csvRows.push(rowValues.join(","));
+    });
+
+    const csvString = csvRows.join("\n");
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    const sanitizedName = user.name.replace(/\s+/g, "_");
+    const sanitizedType = typeToExport.replace(/\s+/g, "_");
+    link.setAttribute("download", `IIEST_${sanitizedName}_${sanitizedType}_publications.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    setShowExportModal(false);
   };
 
   // Logout handler
@@ -410,12 +471,23 @@ export default function Dashboard() {
                       {isAdmin ? "Admin overview showing all publications" : "Add, update, or remove your academic papers"}
                     </p>
                   </div>
+                  <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    onClick={() => {
+                      setExportType("all");
+                      setShowExportModal(true);
+                    }}
+                    className="inline-flex items-center gap-2 rounded-full border border-brand px-5 py-3 text-xs font-bold text-brand transition hover:bg-brand/5 shadow-sm"
+                  >
+                    <BookOpen size={16} /> Export Papers
+                  </button>
                   <button
                     onClick={openAddModal}
                     className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 text-xs font-bold text-white transition hover:bg-brand-dark shadow-sm"
                   >
                     <Plus size={16} /> Add Publication
                   </button>
+                </div>
                 </div>
 
                 {loading ? (
@@ -1160,6 +1232,62 @@ export default function Dashboard() {
               </form>
             )}
 
+          </div>
+        </div>
+      )}
+
+      {/* Export CSV Modal Overlay */}
+      {showExportModal && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4 backdrop-blur-[2px] animate-fadeIn">
+          <div className="w-full max-w-[480px] bg-white border border-cream-dark/30 rounded-[32px] shadow-2xl p-7 relative overflow-hidden">
+            {/* Accent gold top border */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand to-brand-gold" />
+            
+            <div className="flex justify-between items-center mb-5 border-b border-cream-dark/20 pb-3">
+              <h3 className="text-lg font-bold text-brand">Export Publications</h3>
+              <button
+                onClick={() => setShowExportModal(false)}
+                className="text-black/40 hover:text-black transition"
+              >
+                <XCircle size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-xs text-black/60 leading-relaxed font-medium">
+                Choose the type of publication to export for <strong>{user?.name}</strong>. All associated details and metadata will be compiled into a standard Microsoft Excel-compatible CSV file.
+              </p>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-brand">Publication Type</label>
+                <select
+                  value={exportType}
+                  onChange={(e) => setExportType(e.target.value)}
+                  className="w-full rounded-xl border border-brand/20 bg-white px-4 py-2.5 text-xs text-black font-semibold outline-none cursor-pointer focus:border-brand focus:ring-1 focus:ring-brand shadow-sm"
+                >
+                  <option className="text-black" value="all">All Types</option>
+                  <option className="text-black" value="Journal Paper">Journal Papers</option>
+                  <option className="text-black" value="Book Chapter">Book Chapters</option>
+                  <option className="text-black" value="Conference Paper">Conference Papers</option>
+                  <option className="text-black" value="Other">Others</option>
+                </select>
+              </div>
+
+              <div className="flex items-center gap-3 pt-4 border-t border-cream-dark/20">
+                <button
+                  onClick={() => setShowExportModal(false)}
+                  className="flex-1 rounded-xl border border-cream-dark/40 py-2.5 text-xs font-semibold text-black hover:bg-cream-light/30 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleExportCSV(exportType)}
+                  className="flex-1 rounded-xl bg-brand py-2.5 text-xs font-bold text-white transition hover:bg-brand-dark shadow-md"
+                >
+                  Export Now
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
