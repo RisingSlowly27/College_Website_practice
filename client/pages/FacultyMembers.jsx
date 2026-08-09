@@ -170,46 +170,32 @@ export default function FacultyMembers() {
         </div>
       </div>
 
-      {/* Standalone Search & Filters Bar with Reddish Background (bg-brand) */}
+      {/* Standalone Search & Filters Bar with Soft Reddish/Brand Background */}
       <div className="mx-auto max-w-[1720px] px-0 mb-8 animate-fadeIn">
-        <div className="bg-brand p-5 sm:p-6 rounded-[28px] shadow-[0_4px_25px_rgba(90,11,29,0.18)] flex flex-col md:flex-row items-center justify-between gap-5 text-white">
+        <div className="bg-brand/5 border border-brand/15 p-5 sm:p-6 rounded-[28px] shadow-sm flex flex-col md:flex-row items-center justify-between gap-5">
           <div className="w-full md:max-w-md">
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-brand-gold mb-2 pl-1">Search Researcher</label>
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-brand mb-2 pl-1">Search Faculty</label>
             <input
               type="text"
               placeholder="Search by faculty name or research area..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border border-cream-dark/20 bg-white px-5 py-3 text-sm text-black placeholder-neutral-500 outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all shadow-sm"
+              className="w-full rounded-2xl border border-brand/20 bg-white px-5 py-3 text-sm text-black placeholder-neutral-500 outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all shadow-sm"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-4 w-full md:w-auto justify-end">
-            <div className="flex flex-col gap-2 w-full sm:w-[220px]">
-              <label className="text-[11px] font-bold uppercase tracking-wider text-brand-gold pl-1">Department</label>
+            <div className="flex flex-col gap-2 w-full sm:w-[260px]">
+              <label className="text-[11px] font-bold uppercase tracking-wider text-brand pl-1">Department</label>
               <select
                 value={deptFilter}
                 onChange={(e) => setDeptFilter(e.target.value)}
-                className="w-full rounded-2xl border border-cream-dark/20 bg-white px-5 py-3 text-sm text-black font-semibold outline-none cursor-pointer focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all shadow-sm"
+                className="w-full rounded-2xl border border-brand/20 bg-white px-5 py-3 text-sm text-black font-semibold outline-none cursor-pointer focus:border-brand focus:ring-1 focus:ring-brand transition-all shadow-sm"
               >
                 <option className="text-black" value="All">All Departments</option>
                 <option className="text-black" value="Computer Science and Technology">Computer Science & Tech (CST)</option>
                 <option className="text-black" value="Electrical Engineering">Electrical Engineering (EE)</option>
                 <option className="text-black" value="Civil Engineering">Civil Engineering (CE)</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col gap-2 w-full sm:w-[220px]">
-              <label className="text-[11px] font-bold uppercase tracking-wider text-brand-gold pl-1">Designation</label>
-              <select
-                value={designationFilter}
-                onChange={(e) => setDesignationFilter(e.target.value)}
-                className="w-full rounded-2xl border border-cream-dark/20 bg-white px-5 py-3 text-sm text-black font-semibold outline-none cursor-pointer focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all shadow-sm"
-              >
-                <option className="text-black" value="All">All Designations</option>
-                <option className="text-black" value="Professor">Professors</option>
-                <option className="text-black" value="Associate Professor">Associate Professors</option>
-                <option className="text-black" value="Assistant Professor">Assistant Professors</option>
               </select>
             </div>
           </div>
