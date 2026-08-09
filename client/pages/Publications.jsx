@@ -415,17 +415,15 @@ export default function Publications() {
               {/* Right Side: Stage 1 Form or Stage 2 Scope details */}
               {showSelector ? (
                 /* STAGE 1 Selector Form inside the banner image (glassmorphic style!) */
-                 <div className="flex-1 w-full max-w-none lg:ml-8 flex flex-col justify-between items-start text-left text-white bg-black/45 backdrop-blur-md p-8 sm:p-10 rounded-[32px] border border-white/10 self-stretch">
-                   <div>
-                     <h2 className="text-3xl font-extrabold text-white">Academic Publications Explorer</h2>
-                     <p className="mt-1.5 text-xs sm:text-sm text-white/80 max-w-2xl font-medium leading-relaxed">
-                       Select a Department and Faculty Researcher to explore their publications.
-                     </p>
-                   </div>
+                 <div className="flex-1 w-full max-w-none lg:ml-8 flex flex-col justify-center items-start text-left text-white bg-black/45 backdrop-blur-md py-12 sm:py-16 px-8 sm:px-12 rounded-[32px] border border-white/10">
+                   <h2 className="text-3xl font-extrabold text-white">Academic Publications Explorer</h2>
+                   <p className="mt-2 text-xs sm:text-sm text-white/80 max-w-2xl font-medium leading-relaxed">
+                     Select a Department and Faculty Researcher to explore their publications.
+                   </p>
                    
-                   <form onSubmit={handleExploreSubmit} className="flex flex-col gap-5 w-full mt-6 text-left">
-                     <div className="flex flex-col gap-2">
-                       <label className="text-[11px] font-extrabold uppercase tracking-wider text-brand-gold">Department</label>
+                   <form onSubmit={handleExploreSubmit} className="grid grid-cols-1 md:grid-cols-12 gap-5 w-full mt-10 text-left">
+                     <div className="flex flex-col gap-1.5 md:col-span-5">
+                       <label className="text-[10px] font-extrabold uppercase tracking-wider text-white">Department</label>
                        <select
                          value={selectedDept}
                          onChange={(e) => setSelectedDept(e.target.value)}
@@ -441,8 +439,8 @@ export default function Publications() {
                        </select>
                      </div>
 
-                     <div className="flex flex-col gap-2">
-                       <label className="text-[11px] font-extrabold uppercase tracking-wider text-brand-gold">Faculty Researcher</label>
+                     <div className="flex flex-col gap-1.5 md:col-span-5">
+                       <label className="text-[10px] font-extrabold uppercase tracking-wider text-white">Faculty Researcher</label>
                        <select
                          value={selectedProf}
                          onChange={(e) => setSelectedProf(e.target.value)}
@@ -458,12 +456,14 @@ export default function Publications() {
                        </select>
                      </div>
 
-                     <button
-                       type="submit"
-                       className="w-full mt-2 rounded-xl bg-brand hover:bg-brand-dark py-3.5 text-xs font-bold text-white transition shadow-sm"
-                     >
-                       Explore Publications
-                     </button>
+                     <div className="flex flex-col justify-end md:col-span-2">
+                       <button
+                         type="submit"
+                         className="w-full rounded-xl bg-brand hover:bg-brand-dark py-3 text-xs font-bold text-white transition shadow-sm h-[42px] flex items-center justify-center"
+                       >
+                         Explore
+                       </button>
+                     </div>
                    </form>
                  </div>
               ) : (

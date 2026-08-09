@@ -171,20 +171,20 @@ export default function FacultyMembers() {
       </div>
 
       {/* Search & Filters Bar Outside of Banner */}
-      <div className="mx-auto max-w-[1720px] mb-8 p-6 rounded-[24px] bg-cream-dark border border-cream-dark/30 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="mx-auto max-w-[1720px] mb-8 p-6 rounded-[24px] bg-cream-dark/40 border border-cream-dark/65 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="relative w-full md:max-w-sm">
           <input
             type="text"
             placeholder="Search Faculty Name or Area..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-full border border-cream-dark/40 bg-white px-5 py-2.5 text-xs text-black placeholder-black/50 outline-none shadow-sm focus:border-brand transition-all font-semibold"
+            className="w-full rounded-full border border-cream-dark/40 bg-cream/5 px-5 py-2.5 text-xs text-black placeholder-black/50 outline-none shadow-sm focus:border-brand transition-all font-semibold"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-4 w-full md:w-auto">
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-brand">Dept:</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-black/60">Dept:</span>
             <select
               value={deptFilter}
               onChange={(e) => setDeptFilter(e.target.value)}
@@ -198,7 +198,7 @@ export default function FacultyMembers() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-brand">Designation:</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-black/60">Designation:</span>
             <select
               value={designationFilter}
               onChange={(e) => setDesignationFilter(e.target.value)}
