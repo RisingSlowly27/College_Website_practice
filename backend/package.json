@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch server/index.ts",
+    "dev": "tsx watch server/start.ts",
     "build": "echo 'No build step needed for TSX backend!'",
-    "start": "tsx server/index.ts"
+    "start": "tsx server/start.ts"
   },
   "dependencies": {
     "cors": "^2.8.6",

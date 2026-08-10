@@ -8,7 +8,7 @@ import publicationsData from "@/lib/publications-data.json";
 const DEPT_DETAILS = {
   "Computer Science and Technology": {
     title: "Computer Science and Technology",
-    hod: "Prof. Sekhar Mandal",
+    hod: "Prof. Surajeet Ghosh",
     email: "hod.cs@iiests.ac.in",
     phone: "+91 - 33 - 2668 4561 Ext. 576",
     research: "Document Image Analysis, Computer Vision, Pattern Recognition, Software Engineering, Reconfigurable VLSI, Cryptography, Blockchain.",
