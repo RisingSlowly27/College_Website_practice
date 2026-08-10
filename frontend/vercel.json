@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "spa",
   "cleanUrls": true,
   "rewrites": [
     {
