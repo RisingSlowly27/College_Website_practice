@@ -33,7 +33,7 @@ export default function Login() {
 
       // Trigger event to update header and globally notify
       window.dispatchEvent(new CustomEvent("auth-change"));
-      
+
       // Navigate to Dashboard
       navigate("/dashboard");
     } catch (err) {
@@ -86,7 +86,7 @@ export default function Login() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="e.g. apurba@cs.iiests.ac.in"
+                  placeholder="Enter your email"
                   className="w-full rounded-2xl border border-cream-dark/40 bg-cream/10 pl-11 pr-4 py-3 text-sm outline-none focus:bg-white focus:border-brand transition duration-300"
                 />
               </div>
